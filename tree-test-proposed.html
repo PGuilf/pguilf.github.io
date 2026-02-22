@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tree Test P2U (Proposed)</title>
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f3f4f6;
+      padding: 40px;
+    }
+
+    .tree-wrapper {
+      max-width: 520px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 1px 6px rgba(15, 23, 42, 0.12);
+      padding: 16px 12px 20px;
+    }
+
+    .tree-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .tree { list-style: none; padding-left: 0; margin: 0; }
+    .tree-item { margin: 3px 0; }
+
+    .tree-node {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      border-radius: 4px;
+      border: 1px solid #d4d6e0;
+      background: #f6f7fb;
+      padding: 6px 10px;
+      font-size: 14px;
+      cursor: pointer;
+      user-select: none;
+      text-align: left;
+    }
+
+    .tree-node.leaf { background: #ffffff; }
+    .tree-node:hover { border-color: #0055ff; }
+
+    .tree-toggle {
+      width: 18px;
+      margin-right: 6px;
+      font-size: 10px;
+      color: #6b7280;
+    }
+
+    .tree-label { flex: 1; }
+
+    .tree-children {
+      list-style: none;
+      margin: 3px 0 0 18px;
+      padding-left: 10px;
+      border-left: 1px dashed #e5e7eb;
+    }
+
+    .tree-children.collapsed { display: none; }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 40px;
+      transform: translateX(-50%);
+      background: #111827;
+      color: #f9fafb;
+      padding: 9px 16px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.35);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 1000;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toast.visible { opacity: 1; }
+  </style>
+</head>
+
+<body>
+  <div class="tree-wrapper">
+    <div class="tree-title">Tree Test P2U (Proposed)</div>
+    <ul class="tree" id="tree"></ul>
+  </div>
+
+  <div class="toast" id="toast" aria-live="polite"></div>
+
+  <script>
+    let toastTimeout;
+
+    // =============================
+    // DATA LOADED FROM CSV
+    // =============================
+    const rawCsv = [
+  ["P2U Help and Support", "", "", "", ""],
+  ["", "About Pharmacy2U", "", "", ""],
+  ["", "", "✍️Contacting Pharmacy2U", "", ""],
+  ["", "", "✍️Pharmacy2U Complaints Process", "", ""],
+  ["", "", "✍️ How are you regulated and monitored?", "", ""],
+  ["", "", "✍️ Does using Pharmacy2U cost the NHS more than using a traditional pharmacy?", "", ""],
+  ["", "NHS Services", "", "", ""],
+  ["", "", "Medicines Advice", "", ""],
+  ["", "", "", "✍️ Learn About Your Medication", ""],
+  ["", "", "Contraception Service", "", ""],
+  ["", "", "", "✍️Pharmacy2U NHS Contraception Service", ""],
+  ["", "NHS Prescriptions", "", "", ""],
+  ["", "", "Signing up to Pharmacy2U", "", ""],
+  ["", "", "", "How does Pharmacy2U work?", ""],
+  ["", "", "", "", "✍️ Signing up to Pharmacy2U"],
+  ["", "", "", "", "✍️ Why do I need to order at my surgery?"],
+  ["", "", "", "Managing other people on my account", ""],
+  ["", "", "", "", "✍️ Setting up an account"],
+  ["", "", "", "", "✍️ How do I remove a patient from my Family linked account"],
+  ["", "", "", "", "✍️ How do I add another patient to my account?"],
+  ["", "", "My Account", "", ""],
+  ["", "", "", "✍️ Having problems logging in?", ""],
+  ["", "", "", "✍️ Update my personal details", ""],
+  ["", "", "", "✍️ I need to set or update my reminder for ordering", ""],
+  ["", "", "", "✍️ Update my surgery details", ""],
+  ["", "", "", "✍️ I want to close my account", ""],
+  ["", "", "", "✍️ I want to opt out of marketing preferences", ""],
+  ["", "", "", "✍️ I need to update my address", ""],
+  ["", "", "Payments", "", ""],
+  ["", "", "", "I pay for my medication", ""],
+  ["", "", "", "", "I need to update my payment details"],
+  ["", "", "", "", "My order is held: Order in progress - payment"],
+  ["", "", "", "", "Contraception"],
+  ["", "", "", "I need help with a refund", ""],
+  ["", "", "", "", "My order has been cancelled, when will I be refunded?"],
+  ["", "", "", "", "How long does a refund take?"],
+  ["", "", "", "", "I have been charged more than once"],
+  ["", "", "", "Exemptions & Pre-payment Certificates", ""],
+  ["", "", "", "", "✍️ I have a valid exemption"],
+  ["", "", "", "", "✍️ My exemption has expired"],
+  ["", "", "", "", "✍️ I have an NHS Pre-payment Certificate"],
+  ["", "", "Deliveries", "", ""],
+  ["", "", "", "Managing my delivery address", ""],
+  ["", "", "", "", "✍️ I need to update my address"],
+  ["", "", "", "Tracking my order", ""],
+  ["", "", "", "", "✍️ Tracking my order"],
+  ["", "", "", "", "✍️ What do I do if my order is delayed?"],
+  ["", "", "", "", "✍️ Where is my order?"],
+  ["", "", "", "Report a delivery issue", ""],
+  ["", "", "", "", "✍️ I have not received all of my items"],
+  ["", "", "", "", "✍️ I have received my items but they are damaged"],
+  ["", "", "", "", "✍️ I need to report a delivery issue"],
+  ["", "", "Orders", "", ""],
+  ["", "", "", "Placing an order", ""],
+  ["", "", "", "", "✍️ How do I order my medication?"],
+  ["", "", "", "", "✍️ I need to order a one-off item"],
+  ["", "", "", "", "✍️ When should I place my order?"],
+  ["", "", "", "Cancelling an order", ""],
+  ["", "", "", "", "✍️ I want to cancel my order"],
+  ["", "", "Online Doctor", "", ""],
+  ["", "", "", "Placing An Order", ""],
+  ["", "", "", "", "Is there a fee for my consultation?"],
+  ["", "", "", "", "How long does the service take from start to finish?"],
+  ["", "", "", "", "How will the clinician contact me if they need more information?"],
+  ["", "", "", "", "Where will I see the clinician’s response to my consultation?"],
+  ["", "", "", "", "How will my treatment arrive?"],
+  ["", "", "My Account", "", ""],
+  ["", "", "", "Divert  to ‘My Account NHS’", ""],
+  ["", "", "Payments", "", ""],
+  ["", "", "", "Can I create an account over the Phone", ""],
+  ["", "", "", "Is there a fee for my consultation", ""],
+  ["", "", "", "What payment options do you offer?", ""],
+  ["", "", "", "When will you take payment?", ""],
+  ["", "", "", "How do I apply a promotional code to my purchase?", ""],
+  ["", "", "Delivery", "", ""],
+  ["", "", "", "Can I create an account over the Phone", ""],
+  ["", "", "", "Do you offer delivery outside of the UK?", ""],
+  ["", "", "", "What delivery options are available?", ""],
+  ["", "", "", "Will I need to sign for my treatment when it’s delivered?", ""],
+  ["", "", "", "How will my treatment arrive?", ""],
+  ["", "Pet Health", "", "", ""],
+  ["", "", "All About P2U  Pet Health", "", ""],
+  ["", "", "", "How are you regulated and monitored?", ""],
+  ["", "", "Placing An Order", "", ""],
+  ["", "", "Delivery", "", ""],
+  ["", "Online Safety", "", "", ""],
+  ["", "", "Pharmacy2U Scams & Fraudulent Information", "", ""],
+  ["", "", "The Pharmacy2U Privacy Policy", "", ""],
+  ["", "Consumer Health", "", "", ""],
+  ["", "", "Placing An Order", "", ""],
+  ["", "", "", "What if my promotional code doesn’t work online?", ""],
+  ["", "", "My Account", "", ""],
+  ["", "", "", "Diverty to ‘My Account  NHS’", ""],
+  ["", "", "Refunds & Returns", "", ""],
+  ["", "", "", "How long will my refund take?", ""],
+  ["", "", "", "How do I return my order?", ""],
+  ["", "", "", "How do I cancel my order?", ""],
+  ["", "", "Delivery", "", ""],
+  ["", "", "", "Can I change my delivery address?", ""],
+  ["", "", "", "What delivery options do I have?", ""],
+  ["", "", "", "How can I track my order?", ""],
+  ["", "", "", "How much does delivery cost?", ""],
+  ["", "", "", "Do you deliver on a weekend?", ""],
+  ["", "", "Managing My Order", "", ""],
+  ["", "", "", "Where is my order?", ""],
+  ["", "", "", "I have received the wrong item in my order", ""],
+  ["", "", "", "Item missing from my order", ""],
+  ["", "", "", "My order is damaged", ""],
+  ["", "", "", "How can I check the status of my order?", ""],
+  ["", "Health Services", "", "", ""],
+  ["", "", "Blood Pressure Service", "", ""],
+  ["", "", "", "How do I find my nearest pharmacy?", ""],
+  ["", "", "", "What is the Pharmacy2U Blood Pressure service?", ""],
+  ["", "", "", "How much does the blood pressure service cost?", ""],
+  ["", "", "Weight Management Service", "", ""],
+  ["", "", "", "The Weight Management Service", ""]
+];
+
+    function slugify(str) {
+      return str.toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+    }
+
+    function buildTreeData(rows) {
+      const roots = [];
+      const stack = [];
+
+      rows.forEach(cols => {
+        let depth = -1;
+        let label = "";
+
+        for (let i = 0; i < cols.length; i++) {
+          if (cols[i]?.trim()) {
+            depth = i;
+            label = cols[i].trim();
+            break;
+          }
+        }
+
+        if (depth === -1) return;
+
+        const node = {
+          label,
+          id: slugify(label) || "node-" + Math.random().toString(36).slice(2),
+          children: []
+        };
+
+        if (depth === 0) {
+          roots.push(node);
+        } else {
+          stack[depth - 1]?.children.push(node);
+        }
+
+        stack[depth] = node;
+        stack.length = depth + 1;
+      });
+
+      return roots;
+    }
+
+    function renderTree(nodes, container) {
+      nodes.forEach(node => {
+        const li = document.createElement("li");
+        li.className = "tree-item";
+
+        const btn = document.createElement("button");
+        btn.className = "tree-node";
+
+        const toggle = document.createElement("span");
+        toggle.className = "tree-toggle";
+
+        if (node.children.length) {
+          btn.dataset.nodeId = node.id;
+          toggle.textContent = "▾";
+        } else {
+          btn.classList.add("leaf");
+        }
+
+        const label = document.createElement("span");
+        label.className = "tree-label";
+        label.textContent = node.label;
+
+        btn.append(toggle, label);
+        li.appendChild(btn);
+
+        if (node.children.length) {
+          const ul = document.createElement("ul");
+          ul.className = "tree-children";
+          ul.dataset.parentId = node.id;
+          renderTree(node.children, ul);
+          li.appendChild(ul);
+        }
+
+        container.appendChild(li);
+      });
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.innerHTML = `✅ <span>${message}</span>`;
+      toast.classList.add("visible");
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove("visible");
+      }, 1500);
+    }
+
+    document.addEventListener("click", e => {
+      const btn = e.target.closest(".tree-node");
+      if (!btn) return;
+
+      const nodeId = btn.dataset.nodeId;
+
+      if (nodeId) {
+        const children = document.querySelector(
+          `.tree-children[data-parent-id="${nodeId}"]`
+        );
+
+        if (children) {
+          const collapsed = children.classList.toggle("collapsed");
+          btn.querySelector(".tree-toggle").textContent = collapsed ? "▸" : "▾";
+          return;
+        }
+      }
+
+      const label = btn.querySelector(".tree-label").textContent.trim();
+      showToast("Selected: " + label);
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const treeRoot = document.getElementById("tree");
+      const treeData = buildTreeData(rawCsv);
+      renderTree(treeData, treeRoot);
+
+      document.querySelectorAll(".tree-children")
+        .forEach(ul => ul.classList.add("collapsed"));
+    });
+  </script>
+</body>
+</html>
