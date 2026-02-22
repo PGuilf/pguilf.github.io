@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C2YMSH68Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-C2YMSH68Z1');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rethinking interaction and motion handoff with Figma Make and Claude AI</title>
+  <link rel="stylesheet" href="styles.css?v=29">
+   <link rel="icon" href="images/favicon/favicon.png" type="image/svg+xml">
+</head>
+<body style="background: radial-gradient(circle at center, rgb(255, 255, 250) 0%, rgb(255, 245, 240) 100%); color: black;">
+
+  <div id="project-content"> 
+    <header style="background-color: rgba(255, 246, 240, 0);">
+      <div class="header-content">
+        <h4 class="project-title">Rethinking interaction and motion handoff with Figma Make and Claude AI</h4> 
+        <h2 class="right-title">
+          <a href="journal.html">Back to Journal</a> 
+        </h2>
+      </div>
+    </header>
+
+    <main class="project-page">
+
+          <div class="three-image-stack-section fade-slide-up">
+
+  <div class="item">
+    <video autoplay muted loop playsinline style="width: 100%;">
+      <source src="images/figmamake/component3m.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+     <figcaption style="font-size: 11px; text-align: left; padding-top: 2px;">Sedex Toast: reimagined using Figma Make/Claude</figcaption>
+  </div>
+
+
+
+
+  <div class="item">
+    <video autoplay muted loop playsinline style="width: 100%;">
+      <source src="images/figmamake/component2m.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+     <figcaption style="font-size: 11px; text-align: left; padding-top: 2px;">Sedex Dashboard Progress: made using Figma Make/Claude</figcaption>
+  </div>
+
+  <div class="item">
+    <video autoplay muted loop playsinline style="width: 100%;">
+      <source src="images/figmamake/componentm.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+     <figcaption style="font-size: 11px; text-align: left; padding-top: 2px;">Sedex Insight: made using Figma Make/Claude</figcaption>
+  </div>
+
+</div>
+
+      
+
+        <div class="project-info">
+          <p class="project-descriptionl2"> When I've previously worked on a design system, interaction design for individual components was often tricky. I’d either build complex behaviour directly into Figma using prototyping tools (which bloated the files) or rely on After Effects references. Neither approach worked especially well. Both added friction, led to back-and-forth with developers, and lacked accuracy.</p>
+
+          <div class="text-container">
+            <p class="project-descriptions">
+              <strong>Streamlining interaction design:</strong>
+              With Figma Make (and Claude built in), I’ve been rethinking how motion fits into design systems. It’s made me realise how much easier things could have been using tools like this, especially when documenting interactive behaviour.
+            </p>
+          </div>
+
+          <div class="text-container">
+            <p class="project-descriptions">
+              <strong>From flows to real transitions</strong>
+              You can feed in basic prototype logic — hover states, modals, transitions — and see it play out in a more realistic way. It gets around Figma’s limitations and stays closer to how things behave in the browser.
+            </p>
+          </div>
+
+<div class="project-container">
+
+        <div style="display: flex; justify-content: center; align-items: center;">
+          <div style="width: 60%;">
+            <video autoplay muted loop style="width: 100%;">
+              <source src="images/figmamake/figmamake.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <figcaption style="font-size: 11px; text-align: left; padding-top: 2px;">Process: Figma Make, Claude and Chat gpt</figcaption>
+          </div>
+        </div>
+        </br>
+          <div class="text-container">
+            <p class="project-descriptions">
+              <strong>Rethinking motion</strong>
+              It’s pushed me to revisit old animations with fresh eyes. Figma Make gives more space to explore transitions and gestures, particularly across desktop and mobile.
+            </p>
+          </div>
+
+          <div class="text-container">
+            <p class="project-descriptions">
+              <strong>The code’s surprisingly useful</strong>
+             Figma Make doesn’t give you React components out of the box, but with Claude, you can prompt it to generate JSX with Tailwind classes, layout structure and — importantly — animation props.
+
+I’ve been pasting that into ChatGPT to tidy up the output, reframe it for React or Storybook, and prep it for handoff. It’s not perfect and I still check things with a developer, but having something structured with logic baked in is a major improvement over static mocks or motion references.
+            </p>
+          </div>
+
+
+            <div class="text-container">
+            <p class="project-descriptions">
+              <strong>Fine-tuning with Dev Mode</strong>
+             Alongside this, I’ve been using Figma’s Dev Mode to fine-tune tokens, spacing, and typography from the main file before handoff. It helps ensure alignment between design and code.
+            </p>
+          </div>
+
+    
+
+
+          <div class="text-container">
+            <p class="project-descriptions">
+              <strong>Conclusion:  </strong>
+              There’s still work for developers to do, but having a visual and functional reference — with actual motion logic — feels like real progress. And it’s a great way to explore and prompt your way to something closer to production.
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer></footer>
+
+    <script>
+      window.addEventListener('load', function () {
+        document.body.classList.add('loaded');
+      });
+    </script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const elements = document.querySelectorAll('.fade-slide-up');
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if(entry.isIntersecting) {
+              entry.target.classList.add('active');
+              observer.unobserve(entry.target); // Animate once
+            }
+          });
+        }, { threshold: 0.1 });
+
+        elements.forEach(el => observer.observe(el));
+      });
+    </script>
+
+    <script>
+      // Fade in on page load
+      window.addEventListener('load', () => {
+        document.body.classList.add('loaded');
+      });
+
+      // Fade out before navigating
+      document.addEventListener('DOMContentLoaded', () => {
+        const links = document.querySelectorAll('a');
+
+        links.forEach(link => {
+          const href = link.getAttribute('href');
+          const isInternal = link.hostname === window.location.hostname;
+          const isAnchor = href && href.startsWith('#');
+          const isMailto = href && href.startsWith('mailto:');
+
+          if (isInternal && !link.target && !isAnchor && !isMailto) {
+            link.addEventListener('click', function (e) {
+              e.preventDefault();
+
+              // Defer class removal to next frame for proper repaint
+              requestAnimationFrame(() => {
+                document.body.classList.remove('loaded');
+
+                // Wait for the transition to complete before navigating
+                setTimeout(() => {
+                  window.location.href = href;
+                }, 600); // Match your CSS transition time
+              });
+            });
+          }
+        });
+      });
+    </script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C2YMSH68Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-C2YMSH68Z1');
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrick Guilfoyle</title>
+    <link rel="stylesheet" href="styles.css?v=42">
+    <link rel="icon" href="images/favicon/favicon.png" type="image/svg+xml">
+</head>
+<body style="background: radial-gradient(circle at center, rgb(255, 255, 250) 0%, rgb(255, 245, 240) 100%); color: black;">
+    <header style="background-color: rgba(255, 246, 240, 0);">
+        <div class="header-content">
+            <h1 class="left-title" style="color: #B8860B;">✨Journal</span></h1>
+            <h2 class="right-title">
+              
+                <span style="margin-left: 0px;"></span>
+               <a href="index.html" style="color: #333333; display: inline-flex; align-items: center; gap: 0.4em;">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" style="width: 1em; height: 1em;">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+  </svg>
+  Back to home
+</a>
+            </h2>
+        </div>
+        <p class="homepagesubtext" >AI + UX: Experiments & My Process</p>
+
+   
+
+      
+    </header>
+
+    <main class="grid-container ">
+
+
+
+        <div class="grid-item ux fade-slide-up">
+            <a href="figmamake.html">
+                <img src="images/figmamake/figmamake.jpg" alt="Project 1" class="fade-slide-up">
+                <div class="project-info fade-slide-up">
+                    <h2>Rethinking interaction and motion handoff with Figma Make and Claude AI</h2>
+                    <p class="project-descriptions">
+                        When I've previously worked on a design system, interaction design for individual components was often tricky. I’d either build complex...
+                    </p>
+                </div>
+            </a>
+        
+        </div>
+
+          <div class="grid-item ux fade-slide-up">
+            <a href="aiprompts.html">
+                <img src="images/ai/ai.jpg" alt="Project 1" class="fade-slide-up">
+                <div class="project-info fade-slide-up">
+                    <h2>Vibe coding my portfolio site</h2>
+                    <p class="project-descriptions">
+                        Every year I find myself rebuilding my portfolio. I've tried just about tried everything: hired developers, wrestled with WordPress...
+                    </p>
+                </div>
+            </a>
+        
+        </div>
+
+ <div class="grid-item ux fade-slide-up">
+            <a href="intick.html">
+                <img src="images/intick/intick.jpg" alt="Project 1" class="fade-slide-up">
+                <div class="project-info fade-slide-up">
+                    <h2>Case Study Coming Soon. Intick: Futures Trading, Reimagined</h2>
+                    <p class="project-descriptions">
+                        Intick — Futures Trading, Reimagined. Intick is an innovative 0-to-1 futures trading platform...
+                    </p>
+                </div>
+            </a>
+        
+        </div>
+ 
+
+        
+    </main>
+
+
+
+    
+
+    <footer>
+    </footer>
+
+    <script src="scripts.js"></script>
+    <script>
+  window.addEventListener('load', function () {
+    document.body.classList.add('loaded');
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const elements = document.querySelectorAll('.fade-slide-up');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target); // Animate once
+        }
+      });
+    }, { threshold: 0.1 });
+
+    elements.forEach(el => observer.observe(el));
+  });
+</script>
+
+
+</body>
+</html>

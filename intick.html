@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C2YMSH68Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-C2YMSH68Z1');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intick — Futures Trading, Reimagined</title>
+  <link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body style="background: radial-gradient(circle at center, rgb(255, 255, 250) 0%, rgb(255, 245, 240) 100%); color: black;">
+
+ 
+
+  <div id="project-content" > 
+    <header style="background-color: rgba(255, 246, 240, 0);">
+      <div class="header-content">
+         <h4 class="project-title">Intick — Futures Trading, Reimagined</h4> 
+        <h2 class="right-title">
+          <a href="journal.html">Back to Journal</a> 
+        </h2>
+      </div>
+    </header>
+
+    <main class="project-page">
+      <div class="project-container">
+        <img src="images/intick/intick.jpg" alt="Project Title" class="project-image">
+        <div class="project-info">
+         
+          <p class="project-descriptionl2">
+           Intick is an innovative 0-to-1 futures trading platform designed to bring simplicity and speed to complex financial markets. Built from scratch, it focuses on making futures trading intuitive.<br>
+
+This project challenged me to rethink how traders interact with fast-moving markets, balancing powerful features with a clean, accessible interface. The result is a platform that empowers users to act confidently and quickly, helping them stay ahead in a dynamic environment.  </p>  </div>
+      
+
+        <div class="project-container">
+  <div style="background-color: #CCCCCC; display: flex; justify-content: center; align-items: center;">
+    <div style="width: 100%;">
+      <video autoplay muted loop playsinline style="width: 100%;">
+        <source src="images/sedexsaq/desktop2.mov" type="video/mp4">
+        <img src="images/sedexds/open.png" alt="Project Title" class="project-image">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+
+  
+    </main>
+
+
+    <footer>
+    </footer>
+
+    <script>
+    
+    </script>
+  </div>
+   <script>
+  window.addEventListener('load', function () {
+    document.body.classList.add('loaded');
+  });
+</script>
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const elements = document.querySelectorAll('.fade-slide-up');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target); // Animate once
+        }
+      });
+    }, { threshold: 0.1 });
+
+    elements.forEach(el => observer.observe(el));
+  });
+</script>
+
+
+<script>
+  // Fade in on page load
+  window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+  });
+
+  // Fade out before navigating
+  document.addEventListener('DOMContentLoaded', () => {
+    const links = document.querySelectorAll('a');
+
+    links.forEach(link => {
+      const href = link.getAttribute('href');
+      const isInternal = link.hostname === window.location.hostname;
+      const isAnchor = href && href.startsWith('#');
+      const isMailto = href && href.startsWith('mailto:');
+
+      if (isInternal && !link.target && !isAnchor && !isMailto) {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+
+          // Defer class removal to next frame for proper repaint
+          requestAnimationFrame(() => {
+            document.body.classList.remove('loaded');
+
+            // Wait for the transition to complete before navigating
+            setTimeout(() => {
+              window.location.href = href;
+            }, 600); // Match your CSS transition time
+          });
+        });
+      }
+    });
+  });
+</script>
+</body>
+</html>

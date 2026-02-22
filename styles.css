@@ -1,0 +1,1211 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gelasio:ital,wght@0,400..700;1,400..700&display=swap');
+
+
+/* TEXT*/
+/* Make the main header a strong white h2 */
+h2 a {
+  color: #666666;
+  text-decoration: none; /* removes underline */
+  transition: color 0.25s ease;
+}
+
+h2 a:hover {
+  color: #333333;
+  text-decoration: none; /* ensures no underline on hover */
+}
+
+header h2 {
+  font-weight: 400;
+  color: #666666; /* Strong white color */
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.05rem;
+}
+
+
+
+header h4 {
+  font-weight: 700;
+  font-size: 12px;
+  font-family: Roboto Mono, monospace;
+  color: #333333; /* Strong white color */
+}
+
+
+/* Make other headers and body copy a lesser white */
+h3,
+p,
+a,
+button {
+  color: #333333; /* Lesser white color */
+}
+
+/* for the tiles  */
+.left-title {
+  font-size: 40px;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+  color: #333333;
+  margin-bottom: 0px;
+}
+
+/* Make font size smaller on screens less than or equal to 768px wide */
+@media (max-width: 768px) {
+  .left-title {
+    font-size: 25px;
+    line-height: 1.2;
+  }
+}
+
+.project-title {
+  font-size: 24px;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+  color: #333333; /* Light text color */
+  margin-bottom: 0px;
+  margin-top: 0px;
+  /* Adjust as needed */
+}
+
+/* Right title */
+.right-title {
+  font-size: 14px;
+  font-weight: 500;
+  text-align: right;
+  color: #333333; /* Light text color */
+}
+
+.right-title a {
+  text-decoration: none;
+  color: #333333;
+}
+
+.right-title a:hover {
+  text-decoration: underline;
+  color: #666666;
+}
+
+/* Targeting the SVG directly if it's the only one in the link, or use a more specific selector */
+.right-title a svg {
+    width: 16px; /* Set your desired width */
+    height: 16px; /* Set your desired height */
+    /* You might also want to adjust other properties like vertical-align or margins */
+    vertical-align: middle; /* Useful for aligning with text if any */
+}
+
+/* If you kept .size-6 and want to override it */
+.size-6 {
+    width: 16px !important; /* Use !important if necessary to override utility classes */
+    height: 16px !important;
+}
+
+
+.right-title {
+  display: flex;
+  gap: 16px; /* or whatever spacing you prefer */
+  align-items: center;
+}
+
+/* Make font size smaller on screens less than or equal to 768px wide */
+@media (max-width: 768px) {
+  .right-title {
+    font-size: 14px;
+    line-height: 1.2;
+  }
+}
+
+.project-description1 {
+  font-size: 14px;
+  font-weight: 14px;
+  font-family: Inter;
+  line-height: 1.5;
+  color: #333333; /* Light text color */
+  text-decoration: none; /* Remove underline from descriptions */
+  margin-bottom: 2px;
+  margin-top: 3px;
+}
+
+.project-descriptionl {
+  font-size: 19px;
+  font-family: "Gelasio", serif;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.03em;
+  color: #333333; /* Light text color */
+  text-decoration: none; /* Remove underline from descriptions */
+}
+
+.project-descriptionl2 {
+  font-size: 19px;
+   font-family: "Gelasio", serif;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.03em;
+  color: #333333; /* Light text color */
+  text-decoration: none; /* Remove underline from descriptions */
+}
+
+
+
+
+.homepagesubtext {
+  font-size: 16px;
+  font-family: Inter;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.03em;
+  color: #666666; /* Light text color */
+  text-decoration: none; /* Remove underline from descriptions */
+  margin-top: 0;
+}
+
+.project-description {
+  font-size: 14px;
+  font-weight: 14px;
+  font-family: Inter;
+  line-height: 1.5;
+  color: #333333; /* Light text color */
+  text-decoration: none; /* Remove underline from descriptions */
+  margin-bottom: 2px;
+  margin-top: 3px;
+}
+
+
+
+
+/* Reset all body styles */
+body {
+  margin: 0 20px;
+  padding: 0;
+  line-height: 1.6;
+  background-color: #FCFCFB;
+  color: #333333;
+  font-family: 'Inter', sans-serif;
+  
+  opacity: 0;
+  transform: scale(0.985) translateY(20px);
+  filter: blur(2px);
+  
+  transition: 
+    opacity 1s cubic-bezier(0.4, 0, 0.2, 0.9),  /* slower fade */
+    transform 0.6s ease, 
+    filter 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.loaded {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  filter: blur(0);
+}
+
+
+.keyline {
+  width: 100%;
+  height: 1px;
+  background-color: #cccccc;
+  margin: 0px 0; /* Add some margin for spacing */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Remove default font styles from links and buttons */
+a,
+button {
+  font: inherit; /* Inherit font from parent elements */
+}
+
+/* Header styling */
+header {
+  padding: 10px 20px 0px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  /* Added styles for sticky header */
+  position: sticky;
+  top: 0;
+  background-color: rgba(252, 252, 251, 0.8); /* White with 80% opacity */
+  backdrop-filter: blur(5px); /* Subtle blur for content behind header */
+  z-index: 1000; /* Ensures header stays on top */
+}
+
+
+/* Flexbox for header-content */
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  /* Distribute space between title and clock */
+  align-items: center;
+  /* Vertically center-align items */
+  margin-bottom: 3px;
+}
+
+/* Animation for the rotating part of the title */
+@keyframes flipInFromTop {
+  0% {
+    transform: perspective(400px) rotateX(90deg);
+    opacity: 0;
+  }
+  40% {
+    transform: perspective(400px) rotateX(-10deg);
+  }
+  70% {
+    transform: perspective(400px) rotateX(10deg);
+  }
+  100% {
+    transform: perspective(400px) rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+#rotatingTitle {
+  display: inline-block;
+  animation: flipInFromTop 0.5s ease-in-out;
+  transition: filter 0.1s ease-in-out;
+}
+
+
+/* Filter Tags Section */
+.filter-tags {
+  margin-top: 2px;
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+  padding-bottom: 10px;
+  padding-top: 2%;
+  /* Right align the filters */
+}
+
+.filter-tag {
+  padding: 2px 6px;
+  background-color: transparent; /* Make background transparent */
+  color: #333333; /* Set text color to white */
+  border: 1px solid #333333; /* Add white border */
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.filter-tag.active {
+  background-color: #333333; /* Set active background to white */
+  color: #F9F9F6; /* Set active text color to black */
+  border: none; /* Remove border for active state */
+}
+
+.filter-tag:hover {
+
+  transition: background-color 0.3s ease;
+  background-color: rgba(0, 0, 0, 0.1); /* Make background transparent */
+  color: #333333;
+  border: 1px solid #666666; /* Add white border */
+  backdrop-filter: blur(12px); /* frosted glass blur */
+  -webkit-backdrop-filter: blur(12px); /* Safari support */
+  
+  transition: background 0.6s ease, border 0.6s ease;
+
+  
+}
+
+
+/* Grid container for the projects */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  row-gap: 25px;
+  padding: 10px 20px 10px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Grid items (projects) */
+.grid-item {
+  text-align: left;
+
+  /* Initial state: start lower and invisible */
+  opacity: 0;
+  transform: translateY(100px); /* Increase from 20px to 60px for bigger movement */
+    transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* When visible: fully shown and in place */
+.grid-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Project images */
+.grid-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Styles for project information (title and description) */
+.project-info {
+  text-align: left;
+  margin-top: 5px;
+}
+
+.project-info h2 {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #333333; /* Light text color */
+}
+
+/* Project titles */
+.grid-item h2 {
+  font-size: 24px;
+  font-family: Montserrat;
+  font-weight: 700;
+  color: #333333; /* Light text color */
+  text-decoration: none; /* Remove underline from titles */
+   line-height: 1.4; 
+  letter-spacing: 0.03em; 
+}
+
+.grid-item h2:hover {
+  text-decoration: none;
+    color: #666666;
+}
+
+h3 {
+  margin-bottom: 0;
+  font-size: 19px;
+  margin-block-start: 0;
+  font-weight: 500;
+  font-family: "Gelasio", serif; /* Applied Georgia font here */
+}
+
+.grid-item h3 {
+  font-size: 16px;
+  font-family: "Gelasio", serif; /* Applied Georgia font here */
+  font-weight: 300;
+  text-decoration: none; /* Remove underline from titles */
+  margin-block-start: 1em;
+  margin-block-end: 100em;
+}
+
+.grid-item h3:hover {
+  text-decoration: underline;
+}
+
+
+
+
+
+/* Project description text */
+.project-descriptions {
+  font-size: 14px;
+  font-weight: 14px;
+  font-family: Inter;
+  line-height: 1.5;
+  color: #666666; /* Light text color */
+  text-decoration: none; /* Remove underline from descriptions */
+  margin-bottom: 2px;
+  margin-top: 3px;
+}
+
+@media (min-width: 769px) { /* Applies to screens larger than 768px */
+    .project-descriptions {
+        max-width: 700px; /* Adjust this value as needed to control line length */
+        margin-left: auto; /* Centres the block */
+        margin-right: auto; /* Centres the block */
+    }
+}
+
+@media (min-width: 769px) { /* Applies to screens larger than 768px */
+    .project-descriptionl2 {
+        max-width: 700px; /* Adjust this value as needed to control line length */
+        margin-left: auto; /* Centres the block */
+        margin-right: auto; /* Centres the block */
+    }
+}
+
+
+
+
+/* Add a label with styling */
+.project-page .header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.project-page .left-title {
+  font-family: Roboto Mono, monospace;
+  font-size: 11px;
+  color: #333333; /* Light text color */
+  margin-right: 10px; /* Add some space between title and "Back to Home" */
+}
+
+
+/* Read More link */
+.read-more {
+  color: #333333;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.read-more:hover {
+  text-decoration: none;
+}
+
+/* Tags under each project */
+.project-tags {
+  margin-top: 15px;
+  text-align: left; /* Align tags to the left */
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px 4px;
+  color: #333333; /* Dark text color */
+  border-radius: 10px;
+  margin-right: 5px;
+  font-size: 11px; /* Set font size to 11px */
+  font-family: 'Roboto Mono', monospace; /* Use Roboto Mono font */
+  border: 0.1px solid #b2b2b2; /* Stroke color matches text color */
+}
+
+.tag svg {
+  margin-right: 5px; /* Add margin to space the icon from the text */
+}
+
+figcaption {
+  margin-bottom: 15px;
+}
+
+/* Tags under each project */
+.tool-tags {
+  margin-top: 15px;
+  text-align: left;
+}
+
+.tool-tag {
+  display: flex;
+  align-items: left;
+  padding: 4px 8px;
+  background-color: #F9F9F6;
+  color: #333333;
+  border-radius: 10px;
+  margin-right: 5px;
+  font-size: 11px;
+  font-family: 'Roboto Mono', monospace;
+  border: 0.1px solid #333333;
+}
+
+.tool-tag svg {
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+}
+
+/* Style for links */
+a {
+  color: #333333; /* Light text color for links */
+  text-decoration: none; /* Remove underline from all links */
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+/* Style for buttons */
+button {
+  background-color: transparent;
+  border: 2px solid #333333;
+  color: #333333;
+}
+
+/* Add this to target the project page specifically */
+.project-page {
+  padding: 0px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center; /* Center the content within the project page */
+}
+
+/* Add these styles for the new content */
+.project-container {
+  text-align: center; /* Center content within the container */
+  margin-bottom: 40px; /* Add spacing between containers */
+}
+
+/* Adjust image styles for general project containers (e.g., full-width images) */
+.project-container .project-image {
+  width: 100%; /* Make the image responsive */
+  max-width: 100%; /* Adjust max-width as needed */
+  margin-bottom: 0px; /* Add spacing below the image */
+  margin-top: 10px;
+  border-radius: 8px; /* Ensure images in project-container have border-radius */
+}
+
+/* Style for two-column bullet points */
+ul {
+  list-style: none;
+  padding: 0;
+  column-count: 2;
+  column-gap: 20px;
+  list-style-type: none;
+  width: 100%; /* Set width of the unordered list */
+}
+
+/* Style for individual bullet points */
+li {
+  margin-bottom: 8px;
+}
+
+/* Style for titles */
+li strong {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Adjust project-info styles */
+.project-info {
+  text-align: left; /* Align text to the left */
+  max-width: 95%;
+}
+
+/* Base Project Section for Half Image, Half Text */
+.project-section-half {
+  display: flex;
+  flex-direction: column; /* Stack image and text vertically by default */
+  align-items: center;
+  max-width: 1200px;
+  margin: 10px auto;
+  padding: 0 0px;
+}
+
+.project-section-half .image-half,
+.project-section-half .text-half {
+  flex: 1; /* Each takes up equal space */
+  width: 100%; /* Full width on smaller screens */
+  text-align: left;
+}
+
+.project-section-half .image-half img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px; /* Apply border-radius to images in these sections */
+  margin-bottom: 3px; /* Spacing between image and text on small screens */
+}
+
+.project-section-half .text-half {
+  text-align: left;
+  padding: 0 20px;
+}
+
+.project-section-half .text-half h2 {
+  font-size: 19px;
+  color: #333333;
+  margin-bottom: 15px;
+}
+
+.project-section-half .text-half p {
+  font-size: 14px;
+  color: #666666;
+  line-height: 1.7;
+    font-family: Inter;
+}
+
+
+
+
+
+
+
+
+/* Media query for larger screens (side-by-side layout) */
+@media (min-width: 768px) {
+  .project-section-half {
+    flex-direction: row; /* Side-by-side on larger screens */
+    align-items: center; /* Vertically center items when side-by-side */
+    gap: 40px; /* Adds space between the image and text */
+  }
+  
+  .project-section-half .image-half {
+    margin-bottom: 0; /* Remove bottom margin on larger screens */
+  }
+
+  .project-section-half .text-half {
+    /* New styles to vertically center content */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* End of new styles */
+    padding-left: 20px; /* Default spacing for image on left, text on right */
+    padding-right: 0; /* Reset right padding */
+  }
+
+
+
+
+  /* Option 1: Image on Right, Text on Left (Default behavior, but explicit for clarity) */
+  .project-section-left-text .image-half {
+    order: 2; /* Image after text */
+    margin-left: 20px; /* Spacing between text and image */
+    margin-right: 0; /* Reset right margin */
+  }
+
+  .project-section-left-text .text-half {
+    order: 1; /* Text before image */
+    padding-right: 20px; /* Spacing for text when image is on right */
+    padding-left: 0; /* Reset left padding */
+  }
+
+  /* Option 2: Image on Left, Text on Right */
+  .project-section-right-text {
+    flex-direction: row; /* Ensure row direction */
+  }
+  .project-section-right-text .image-half {
+    order: 1; /* Image before text */
+    margin-right: 20px; /* Spacing between image and text */
+    margin-left: 0; /* Reset left margin */
+  }
+  .project-section-right-text .text-half {
+    order: 2; /* Text after image */
+    padding-left: 20px; /* Spacing for text when image is on left */
+    padding-right: 0; /* Reset right padding */
+  }
+}
+
+/* --- NEW: Quote/Large Text Section (Updated) --- */
+.project-quote-block {
+  max-width: 100ch; /* Limit line length to approximately 80 characters */
+  margin: 30px auto; /* Center the block horizontally with vertical spacing */
+  padding: 0 20px; /* Consistent padding */
+  text-align: left; /* Align the text to the left */
+}
+
+.project-quote-block p {
+  font-family: inter; /* Use a more impactful font */
+  font-size: 28px; /* Larger font size */
+  font-weight: 500; /* Slightly heavier than regular body text */
+  line-height: 1.4; /* Improve readability for larger text */
+  color: #333333; /* Match your primary text color */
+  font-style: normal; /* Removed italic for general large text, keep if it's strictly a quote */
+  /* Removed ::before and ::after for quotation marks */
+}
+
+@media (max-width: 767px) {
+  .project-quote-block {
+    max-width: 100%; /* Allow full width on small screens */
+    margin-left: auto; /* Ensure centering */
+    margin-right: auto; /* Ensure centering */
+  }
+  .project-quote-block p {
+    font-size: 22px; /* Smaller font size on mobile */
+  }
+}
+/* --- END NEW --- */
+
+.carousel {
+  position: relative;
+  width: 100%;
+}
+
+.carousel .carousel-inner {
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel .carousel-inner img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.carousel .carousel-control {
+  position: absolute;
+  top: 50%; /* Adjusted to be vertically centered */
+  transform: translateY(-50%); /* Centering trick */
+  width: 5%;
+  opacity: 0.8;
+  cursor: pointer;
+  color: #333333;
+  display: flex; /* Use flexbox for centering icon */
+  align-items: center; /* Center icon vertically */
+  justify-content: center; /* Center icon horizontally */
+  height: 100%; /* Occupy full height for easier click */
+}
+
+.carousel .carousel-control.left {
+  left: 10px;
+}
+
+.carousel .carousel-control.right {
+  right: 10px;
+  left: auto; /* Ensure it's not also taking left:10px */
+}
+
+.carousel:hover .carousel-control {
+  opacity: 1;
+}
+
+.carousel .carousel-control i {
+  font-size: 30px;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+.carousel .carousel-control:hover i {
+  color: #000;
+}
+
+@media screen and (max-width: 767px) {
+  .grid-container {
+    grid-template-columns: 1fr; /* Display one column */
+  }
+}
+
+/* --- NEW: Three Images Side-by-Side Section (Optimized for screenshot layout) --- */
+.three-image-stack-section {
+  display: flex;
+  flex-direction: row; /* Force side-by-side on desktop */
+  flex-wrap: nowrap; /* Prevent wrapping on desktop */
+  justify-content: center; /* Center the entire set of columns */
+  gap: 40px; /* Space between each column */
+  max-width: 100%; /* Limit overall width of the section */
+  margin: 0px auto; /* Center the section horizontally with vertical spacing */
+  padding: 0 0px; /* Add some padding on the sides for smaller desktop screens */
+  align-items: flex-start; /* Align the top of each column item */
+  text-align: left;
+}
+
+.three-image-stack-section .item {
+  display: flex; /* Make each item a flex container */
+  flex-direction: column; /* Stack image and text vertically within each item */
+  align-items: left; /* Center content (image, text) within each item */
+  flex: 1 1 calc(33.333% - 20px); /* Distribute space for 3 items, accounting for gap */
+  min-width: 280px; /* Ensure a minimum width before wrapping (adjust as needed) */
+  max-width: calc(33.333% - 20px); /* Explicit max width for 3 columns */
+  text-align: left; /* Center the text underneath the image */
+}
+
+.three-image-stack-section .item img {
+  width: 100%; /* Image fills its item's width */
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px; /* Spacing between image and title */
+  display: block; /* Remove any extra space below images */
+}
+
+.three-image-stack-section .item h3 { /* Assuming "Faster resolutions..." is an h3 */
+ font-family: "Gelasio", serif; /* Applied Georgia font here */ 
+  font-size: 18px; /* Adjust font size as per your design */
+  font-weight: 300;
+  color: #333333;
+  margin-top: 0;
+  margin-bottom: 10px; /* Space between title and paragraph */
+  line-height: 1.3;
+  text-align: left;
+
+}
+
+.three-image-stack-section .item p {
+  font-family: 'Inter', sans-serif; /* Example font, adjust if needed */
+  font-size: 14px; /* Adjust font size as per your design */
+  color: #666666; /* Lighter text color for description */
+  line-height: 1.5;
+  margin-top: 0; /* Ensure no extra top margin from default p styles */
+}
+
+
+.three-image-stack-section .item h3 {
+  text-align: left !important;
+}
+
+/* Media query for mobile screens (stacking behavior) */
+@media (max-width: 767px) {
+  .three-image-stack-section {
+    flex-direction: column; /* Stack items vertically on mobile */
+    flex-wrap: wrap; /* Allow wrapping to ensure columns take full width if needed */
+    gap: 40px; /* More vertical space between stacked items */
+    padding: 0 15px; /* Adjust padding for mobile view */
+  }
+
+  .three-image-stack-section .item {
+    flex: 1 1 100%; /* Each item takes full width on mobile */
+    max-width: 100%; /* Ensure full width */
+    min-width: auto; /* Reset min-width for mobile */
+  }
+
+  .three-image-stack-section .item img {
+    max-width: 80%; /* Optional: Make image slightly smaller on mobile, center it */
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px; /* Adjust spacing */
+  }
+
+  .three-image-stack-section .item h3 {
+    font-size: 16px; /* Smaller title on mobile */
+  }
+
+  .three-image-stack-section .item p {
+    font-size: 13px; /* Smaller paragraph on mobile */
+  }
+}
+
+
+
+/* Initial state: hidden and moved down- this is for things fading in */
+.fade-slide-up {
+  opacity: 0;
+  transform: translateY(65px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+/* Active state: visible and in place */
+.fade-slide-up.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+
+.highlight {
+  background-color: #f0f0f0;
+  padding: 0 0.2em;
+  border-radius: 4px;
+  color: #000000;
+}
+
+
+
+/* ... (rollover images homepage) ... */
+/* ... (Your existing CSS above this point) ... */
+
+/* Grid items (projects) */
+.grid-item {
+  text-align: left;
+
+  /* Initial state: start lower and invisible */
+  opacity: 0;
+  transform: translateY(100px); /* Increase from 20px to 60px for bigger movement */
+  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* When visible: fully shown and in place */
+.grid-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Ensure the parent link is positioned relative for the pseudo-element to work correctly */
+/* This is an adjustment to your existing .grid-item a selector */
+.grid-item a {
+    position: relative; /* CRUCIAL: Makes this the positioning context for ::before */
+    display: block;     /* Ensures the link fills its container and wraps content */
+    overflow: hidden;   /* Hides any overflow, good for image zoom effect */
+    text-decoration: none; /* Keep original link styling */
+    color: #333333; /* Keep original link styling */
+}
+
+
+/* Project images */
+.grid-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block; /* Important for preventing extra space below the image */
+  /* Keep transitions for transform and filter */
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: blur(0px); /* Start with no blur */
+}
+
+/* --- REINTRODUCING THE WHITE OVERLAY --- */
+
+/* The pseudo-element for the very slight white overlay */
+.grid-item a::before {
+    content: ''; /* Required for pseudo-elements */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0); /* Start with fully transparent white */
+    transition: background-color 0.3s ease; /* Smooth transition for the opacity change */
+    pointer-events: none; /* Allows clicks to pass through the overlay to the link below */
+    z-index: 2; /* Set a higher z-index than the image but lower than text if any, to be on top */
+    border-radius: 8px; /* Match the border-radius of the image */
+}
+
+/* Hover effect for the white overlay */
+.grid-item a:hover::before {
+    background-color: rgba(255, 255, 255, 0.0); /* VERY subtle white overlay (5% opacity) */
+    /* Adjust '0.05' for desired lightness: 0.03 for even lighter, 0.1 for slightly more noticeable */
+}
+
+/* --- END WHITE OVERLAY REINTRODUCTION --- */
+
+
+/* Hover effect: Apply blur and optional scale directly to the image (unchanged from previous step) */
+.grid-item a:hover img {
+    filter: blur(0.0px); /* Subtle blur */
+    transform: scale(1.02); /* Subtle zoom */
+}
+
+
+/* ... (Your existing CSS after this point) ... */
+
+.text-container {
+    text-align: left; /* Ensures text stays left-aligned within the div */
+    padding-bottom: 20px; /* Adjust this value as needed for the space underneath */
+
+}
+
+
+.pulse {
+  display: inline-block;
+  animation: pulse 2s ease-in-out infinite;
+  color: #B8860B;
+}
+
+@keyframes pulse {
+  0%   { transform: scale(1);   opacity: 1; }
+  10%  { transform: scale(1.1); opacity: 0.8; }
+  20%  { transform: scale(1);   opacity: 1; }
+  100% { transform: scale(1);   opacity: 1; } /* holds steady till next cycle */
+}
+
+
+
+
+
+
+
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  border-top: 0px solid #e0e0e0;
+  padding: 8px 0;
+  z-index: 999;
+}
+
+.bar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  color: #333;
+  transition: background 0.2s, color 0.2s;
+}
+
+.icon-button:hover {
+  background: #f1f1f1;
+  color: #666;
+}
+
+.icon-button svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  display: block;
+}
+
+.spacer-5 {
+    height: 5px;
+}
+
+
+
+
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.carousel-wrapper {
+  /* no styles needed here for fade */
+}
+
+.carousel-slide {
+  display: none; /* Hide by default */
+  position: relative;
+  opacity: 0; /* Start hidden */
+  transition: opacity 0.7s ease-in-out; /* Fade transition */
+  width: 100%;
+}
+
+.carousel-slide.active {
+  display: block; /* Show active slide */
+  opacity: 1; /* Make visible */
+}
+
+.carousel-slide img {
+  width: 100%;
+  display: block;
+}
+
+.carousel-slide figcaption {
+  font-size: 11px;
+  padding-top: 4px;
+  text-align: left;
+  padding-left: 4px;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+.carousel-slide.active figcaption {
+  opacity: 1;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.carousel-btn.prev {
+  left: 10px;
+}
+
+.carousel-btn.next {
+  right: 10px;
+}
+
+.carousel-icon {
+  width: 28px;
+  height: 28px;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.carousel-dots {
+  text-align: center;
+  margin-top: 0px;
+}
+
+.carousel-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin: 0 4px;
+  background-color: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.carousel-dot.active {
+  background-color: #333;
+}
+
+
+/* --- Testimonial Section --- */
+.testimonial-section {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 0px;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.testimonial-card {
+  background: ;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 245, 240, 0.8);
+  border-radius: 8px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.testimonial-quote {
+  font-family: "Gelasio", serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0.03em;
+  color: #333333;
+  font-style: normal;
+  
+  /* The key change to vertically center the quote */
+  margin-top: auto; 
+  margin-bottom: auto;
+}
+
+.testimonial-author-group {
+  margin-top: auto;
+}
+
+.testimonial-author {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333333;
+  margin: 0;
+}
+
+.testimonial-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #666666;
+  margin: 5px 0 0 0;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .testimonial-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .testimonial-card {
+    padding: 15px;
+  }
+
+  .testimonial-quote {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+}
+
+
+
+/* Limit max-width for readability on general content */
+h2, h3, .project-description, .project-descriptionl, .project-description1 {
+  max-width: 900px;
+  text-align: left; /* Keep left-aligned */
+  margin-left: 0;   /* Ensure it doesn’t center */
+  margin-right: 0;  /* Ensure it doesn’t center */
+}

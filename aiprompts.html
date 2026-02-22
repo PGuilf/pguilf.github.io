@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C2YMSH68Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-C2YMSH68Z1');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vibe coding my portfolio site</title>
+  <link rel="stylesheet" href="styles.css">
+   <link rel="icon" href="images/favicon/favicon.png" type="image/svg+xml">
+</head>
+<body style="background: radial-gradient(circle at center, rgb(255, 255, 250) 0%, rgb(255, 245, 240) 100%); color: black;">
+
+ 
+
+  <div id="project-content" > 
+    <header style="background-color: rgba(255, 246, 240, 0);">
+      <div class="header-content">
+         <h4 class="project-title">Vibe coding my portfolio site</h4> 
+        <h2 class="right-title">
+          <a href="journal.html">Back to Journal</a> 
+        </h2>
+      </div>
+    </header>
+
+    <main class="project-page">
+      <div class="project-container">
+        <img src="images/ai/ai.jpg" alt="Project Title" class="project-image">
+        <div class="project-info">
+         
+          <p class="project-descriptionl2">
+            Every year I find myself rebuilding my portfolio. I've tried just about tried everything: hired developers, wrestled with WordPress, even subscription to Squarespace and Cargo Collective. But honestly, paying to showcase my own design work? That just never felt right.</br> </br>So, last Christmas, I decided to go fully custom. CSS and HTML from the ground up, with JavaScript thrown in for those page transitions and type movement.   </p>
+      
+
+<div class="text-container">
+    <p class="project-descriptions">
+        <strong>Getting the Basic Structure:</strong>
+        Google Gemini Advanced was my go-to for the core code. I made sure to build it responsive right from the start. Now, I know there are tools like V0 and Cursor that can whip up a site super fast, but I actually chose a more manual, collaborative way with AI, especially as these tools were in their infancy then. Plus, using my own HTML, CSS, and JavaScript know-how, it felt good to really custom-build something.
+    </p>
+    </div>
+
+
+    <div class="text-container">
+    <p class="project-descriptions">
+        <strong>Transitions and Movement:</strong>
+     Gemini was awesome for getting the page structure down, but ChatGPT really shined with the final touches, especially for movement and transitions. There was definitely some serious back-and-forth there; I'd often feed it examples directly from my Figma prototypes just to get the exact feel and flow I was after. This was particularly useful for page transitions and some rolling text on the homepage.
+    </p>
+    </div>
+
+
+  <div class="text-container">
+    <p class="project-descriptions">
+        <strong>Styling and css</strong>
+     Once I had the structural CSS in place, the rest of the styling was pretty manual. I was deep in the CSS file, pulling snippets directly from Figma's Dev Mode. This is where Gemini really shone again over chat gpt; it was incredibly useful at explaining individual CSS elements and, once I fed it my entire stylesheet, it could seamlessly provide snippets that integrated perfectly with other parts of the file. It also followed my prompts for the responsive nature of the site, which was a huge help.
+    </p>
+    </div>
+
+       <div class="text-container">
+    <p class="project-descriptions">
+        <strong>The Unexpected Colour Guru: </strong>
+The real shocker for me was ChatGPT's talent with colour. We had some pretty in-depth back and forth about palette choices; I'd ask it to be more subtle, or to really nail a specific emotion. It kept giving some fantastic options, always with some human-like reasoning, scary stuff! It did, however, fall short with accessibility, so I had to check and tweak accordingly.
+    </p>
+    </div>
+
+
+     <div class="project-container">
+
+      <img src="images/ai/html.png" alt="Project Title" class="project-image fade-slide-up"> 
+                <figcaption style="font-size: 11px; text-align: left; padding-top: 2px;">Building the foundational HTML structure in Sublime Text.</figcaption>
+
+                 <img src="images/ai/csstweaks.png" alt="Project Title" class="project-image fade-slide-up"> 
+                <figcaption style="font-size: 11px; text-align: left; padding-top: 2px;">Refining the visual details with Gemini's assistance for CSS tweaks.</figcaption>
+
+
+                  <img src="images/ai/transitions.png" alt="Project Title" class="project-image fade-slide-up"> 
+                <figcaption style="font-size: 11px; text-align: left; padding-top: 2px;">Collaborating with ChatGPT to implement smooth transitions and motion design via JavaScript, guided by my prototypes.</figcaption>
+
+                     <img src="images/ai/debugging.png" alt="Project Title" class="project-image fade-slide-up"> 
+                <figcaption style="font-size: 11px; text-align: left; padding-top: 2px;">Gemini to debug issues and ensure seamless fluidity across various screen sizes.</figcaption>
+                
+                </div>
+
+
+     <div class="text-container">
+    <p class="project-descriptions">
+        <strong>Conclusion: Simple and Effective </strong>
+It's a basic, clean site. Yes, the HTML's a bit messy, and sure, I could ask Gemini to tidy it up, or even go more extravagant. But for me, it's a simple, clean portfolio that works, and I can keep playing with it, alongside my AI friends.
+    </p>
+    </div>
+
+  
+    </main>
+
+
+    <footer>
+    </footer>
+
+    <script>
+    
+    </script>
+  </div>
+   <script>
+  window.addEventListener('load', function () {
+    document.body.classList.add('loaded');
+  });
+</script>
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const elements = document.querySelectorAll('.fade-slide-up');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target); // Animate once
+        }
+      });
+    }, { threshold: 0.1 });
+
+    elements.forEach(el => observer.observe(el));
+  });
+</script>
+
+
+<script>
+  // Fade in on page load
+  window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+  });
+
+  // Fade out before navigating
+  document.addEventListener('DOMContentLoaded', () => {
+    const links = document.querySelectorAll('a');
+
+    links.forEach(link => {
+      const href = link.getAttribute('href');
+      const isInternal = link.hostname === window.location.hostname;
+      const isAnchor = href && href.startsWith('#');
+      const isMailto = href && href.startsWith('mailto:');
+
+      if (isInternal && !link.target && !isAnchor && !isMailto) {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+
+          // Defer class removal to next frame for proper repaint
+          requestAnimationFrame(() => {
+            document.body.classList.remove('loaded');
+
+            // Wait for the transition to complete before navigating
+            setTimeout(() => {
+              window.location.href = href;
+            }, 600); // Match your CSS transition time
+          });
+        });
+      }
+    });
+  });
+</script>
+</body>
+</html>
