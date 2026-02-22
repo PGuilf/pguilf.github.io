@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tree Test P2U (Current)</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f3f4f6;
+      padding: 40px;
+    }
+
+    .tree-wrapper {
+      max-width: 520px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 1px 6px rgba(15, 23, 42, 0.12);
+      padding: 16px 12px 20px;
+    }
+
+    .tree-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .tree {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .tree-item {
+      margin: 3px 0;
+    }
+
+    .tree-node {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      border-radius: 4px;
+      border: 1px solid #d4d6e0;
+      background: #f6f7fb;
+      padding: 6px 10px;
+      font-size: 14px;
+      cursor: pointer;
+      user-select: none;
+      text-align: left;
+    }
+
+    .tree-node.leaf {
+      background: #ffffff;
+    }
+
+    .tree-node:hover {
+      border-color: #0055ff;
+    }
+
+    .tree-toggle {
+      width: 18px;
+      margin-right: 6px;
+      font-size: 10px;
+      color: #6b7280;
+    }
+
+    .tree-label {
+      flex: 1;
+    }
+
+    .tree-children {
+      list-style: none;
+      margin: 3px 0 0 18px;
+      padding-left: 10px;
+      border-left: 1px dashed #e5e7eb;
+    }
+
+    .tree-children.collapsed {
+      display: none;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 40px;
+      transform: translateX(-50%);
+      background: #111827;
+      color: #f9fafb;
+      padding: 9px 16px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.35);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 1000;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toast.visible {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="tree-wrapper">
+    <div class="tree-title">Tree Test P2U (Current)</div>
+
+    <!-- The tree will be generated from CSV-style data in the script -->
+    <ul class="tree" id="tree">
+      <!-- Tree nodes will be generated from CSV data in the script -->
+    </ul>
+  </div>
+
+  <div class="toast" id="toast" aria-live="polite"></div>
+
+  <script>
+    var toastTimeout;
+
+    // ======== CSV-style data (from tree_csv.csv) ========
+    // Each row has up to 4 columns; the first non-empty column
+    // determines the depth (0 = top level, 1 = child, etc.)
+
+    var rawCsv = [
+      ["Help and Support", "", "", ""],
+      ["", "Online Safety", "", ""],
+      ["", "", "Pharmacy2U Scams & Fraudulent Information", ""],
+      ["", "", "", "✍️ Beware of Scams, Spam, and Fraud"],
+      ["", "", "The Pharmacy2U Privacy Policy", ""],
+      ["", "", "", "✍️ Privacy policy"],
+      ["", "My account", "", ""],
+      ["", "", "Update your delivery address", ""],
+      ["", "", "", "✍️Update your delivery address"],
+      ["", "", "How to log in", ""],
+      ["", "", "", "✍️How to log in"],
+      ["", "", "How do I update My Exemption?", ""],
+      ["", "", "", "✍️How do I update My Exemption?"],
+      ["", "", "Am I entitled to free NHS prescriptions?", ""],
+      ["", "", "", "✍️Am I entitled to free NHS prescriptions?"],
+      ["", "", "What happens if my exemption has expired?", ""],
+      ["", "", "", "✍️What happens if my exemption has expired?"],
+      ["", "", "How do I get a medical exemption certificate?", ""],
+      ["", "", "", "✍️How do I get a medical exemption certificate?"],
+      ["", "", "Contraception", ""],
+      ["", "", "", "✍️Contraception"],
+      ["", "", "Can I use my prepayment certificate with Pharmacy2U?", ""],
+      ["", "", "", "✍️Can I use my prepayment certificate with Pharmacy2U?"],
+      ["", "", "Update my my details", ""],
+      ["", "", "", "✍️Update my my details"],
+      ["", "", "I want to close my account", ""],
+      ["", "", "", "✍️I want to close my account"],
+      ["", "", "How do I reset my password?", ""],
+      ["", "", "Manage my reminders", ""],
+      ["", "", "How do I add medication?", ""],
+      ["", "", "I need to update my surgery details", ""],
+      ["", "", "Marketing preferences", ""],
+      ["", "", "Activating your online account", ""],
+      ["", "New Mobile App", "", ""],
+      [
+        "",
+        "",
+        "How do I use biometrics to log in / how can I avoid having to enter my username and password every time I open the app?",
+        "",
+      ],
+      [
+        "",
+        "",
+        "",
+        "✍️How do I use biometrics to log in / how can I avoid having to enter my username and password every time I open the app?",
+      ],
+      ["", "", "What's New?", ""],
+      ["", "", "", "✍️What's New?"],
+      ["", "", "The way I place prescriptions has changed, how does it work?", ""],
+      ["", "", "", "✍️The way I place prescriptions has changed, how does it work?"],
+      ["", "", "Will my current orders / order history be available in the new app?", ""],
+      ["", "", "", "✍️Will my current orders / order history be available in the new app?"],
+      ["", "", "Do I login with the same details as the old app / website?", ""],
+      ["", "", "", "✍️Do I login with the same details as the old app / website?"],
+      ["", "", "What devices do you support?", ""],
+      ["", "", "", "✍️What devices do you support?"],
+      ["", "Tax Credit Exemption Changes", "", ""],
+      [
+        "",
+        "",
+        "I have been moved onto Universal Credit and am no longer eligible for free prescriptions. What can I do?",
+        "",
+      ],
+      [
+        "",
+        "",
+        "",
+        "✍️I have been moved onto Universal Credit and am no longer eligible for free prescriptions. What can I do?",
+      ],
+      [
+        "",
+        "",
+        "I have been moved onto Universal Credit from tax credits. Am I still eligible for free prescriptions?",
+        "",
+      ],
+      [
+        "",
+        "",
+        "",
+        "✍️I have been moved onto Universal Credit from tax credits. Am I still eligible for free prescriptions?",
+      ],
+      ["", "", "I had a tax credit exemption certificate. What should I do next?", ""],
+      ["", "", "", "✍️I had a tax credit exemption certificate. What should I do next?"],
+      ["", "Pharmacy2U Shop", "", ""],
+      ["", "Delivery", "", ""],
+      ["", "Online Doctor", "", ""],
+      ["", "Family Accounts", "", ""],
+      ["", "Your order", "", ""],
+      ["", "Medicines Advice", "", ""],
+      ["", "Contraception", "", ""],
+      ["", "Blood Pressure check clinics", "", ""],
+      ["", "One-off prescriptions", "", ""],
+      ["", "Ostomed Orders", "", ""],
+      ["", "Pharmacy2U Pet Health", "", ""],
+      ["", "All About Pharmacy2U", "", ""],
+      ["", "Registration", "", ""],
+      ["", "I Pay For My Medication", "", ""],
+    ];
+
+    function slugify(str) {
+      return str
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+    }
+
+    function buildTreeData(rows) {
+      var roots = [];
+      var stack = [];
+
+      rows.forEach(function (cols) {
+        var depth = -1;
+        var label = "";
+        for (var i = 0; i < cols.length; i++) {
+          if (cols[i] && cols[i].trim() !== "") {
+            depth = i;
+            label = cols[i].trim();
+            break;
+          }
+        }
+        if (depth === -1 || !label) return;
+
+        var node = {
+          label: label,
+          id: slugify(label) || "node-" + Math.random().toString(36).slice(2),
+          children: [],
+        };
+
+        if (depth === 0) {
+          roots.push(node);
+        } else {
+          var parent = stack[depth - 1];
+          if (parent) {
+            parent.children.push(node);
+          } else {
+            // fallback if hierarchy is broken
+            roots.push(node);
+          }
+        }
+        stack[depth] = node;
+        stack.length = depth + 1;
+      });
+
+      return roots;
+    }
+
+    function renderTree(nodes, container) {
+      nodes.forEach(function (node) {
+        var li = document.createElement("li");
+        li.className = "tree-item";
+
+        var btn = document.createElement("button");
+        btn.className = "tree-node";
+
+        if (node.children && node.children.length) {
+          btn.setAttribute("data-node-id", node.id);
+
+          var toggle = document.createElement("span");
+          toggle.className = "tree-toggle";
+          toggle.textContent = "▾";
+          btn.appendChild(toggle);
+        } else {
+          btn.classList.add("leaf");
+          var emptyToggle = document.createElement("span");
+          emptyToggle.className = "tree-toggle";
+          emptyToggle.textContent = "";
+          btn.appendChild(emptyToggle);
+        }
+
+        var labelSpan = document.createElement("span");
+        labelSpan.className = "tree-label";
+        labelSpan.textContent = node.label;
+        btn.appendChild(labelSpan);
+
+        li.appendChild(btn);
+
+        if (node.children && node.children.length) {
+          var ul = document.createElement("ul");
+          ul.className = "tree-children";
+          ul.setAttribute("data-parent-id", node.id);
+          renderTree(node.children, ul);
+          li.appendChild(ul);
+        }
+
+        container.appendChild(li);
+      });
+    }
+
+    function showToast(message) {
+      var toast = document.getElementById("toast");
+      if (!toast) return;
+
+      toast.innerHTML =
+        '<span aria-hidden="true" style="font-size:14px;">✅</span>' +
+        "<span>" + message + "</span>";
+      toast.classList.add("visible");
+
+      if (toastTimeout) {
+        clearTimeout(toastTimeout);
+      }
+
+      toastTimeout = setTimeout(function () {
+        toast.classList.remove("visible");
+      }, 1500);
+    }
+
+    // Click behavior: toggle branches, show toast on leaf click
+    document.addEventListener("click", function (e) {
+      const btn = e.target.closest(".tree-node");
+      if (!btn) return;
+
+      const nodeId = btn.getAttribute("data-node-id");
+      if (nodeId) {
+        const children = document.querySelector(
+          '.tree-children[data-parent-id="' + nodeId + '"]'
+        );
+
+        if (children) {
+          const collapsed = children.classList.toggle("collapsed");
+          const icon = btn.querySelector(".tree-toggle");
+          if (icon) icon.textContent = collapsed ? "▸" : "▾";
+        }
+      }
+
+      if (!nodeId || btn.classList.contains("leaf")) {
+        const labelEl = btn.querySelector(".tree-label");
+        const label = labelEl ? labelEl.textContent.trim() : "Selected";
+        showToast("Selected: " + label);
+      }
+    });
+
+    // Build tree and set initial open/closed state
+    document.addEventListener("DOMContentLoaded", function () {
+      var treeRoot = document.getElementById("tree");
+      if (!treeRoot) return;
+
+      var treeData = buildTreeData(rawCsv);
+      renderTree(treeData, treeRoot);
+
+      // Collapse all branches
+      document.querySelectorAll(".tree-children").forEach(function (ul) {
+        ul.classList.add("collapsed");
+      });
+
+      // Expand the main "Help and Support" branch by default
+      var rootChildren = document.querySelector(
+        '.tree-children[data-parent-id="help-and-support"]'
+      );
+      if (rootChildren) {
+        rootChildren.classList.remove("collapsed");
+        var rootToggle = document.querySelector(
+          '.tree-node[data-node-id="help-and-support"] .tree-toggle'
+        );
+        if (rootToggle) {
+          rootToggle.textContent = "▾";
+        }
+      }
+    });
+  </script>
+</body>
+</html>
