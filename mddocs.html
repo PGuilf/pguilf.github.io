@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C2YMSH68Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-C2YMSH68Z1');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Using MD files to document projects, LLM friendly</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="images/favicon/favicon.png" type="image/svg+xml">
+</head>
+<body style="background: radial-gradient(circle at center, rgb(255, 255, 250) 0%, rgb(255, 245, 240) 100%); color: black;">
+
+  <div class="custom-cursor"></div>
+
+  <div id="project-content">
+    <header style="background-color: rgba(255, 246, 240, 0);">
+      <div class="header-content">
+        <h4 class="project-title">Using MD files to document projects, LLM friendly</h4>
+        <h2 class="right-title">
+          <a href="journal.html">Back to Journal</a>
+        </h2>
+      </div>
+    </header>
+
+    <main class="project-page">
+      <div class="project-container">
+        <img src="images/mddocs/mddocs.jpg" alt="MD files for project documentation" class="project-image">
+
+        <div class="project-info">
+
+          <p class="project-descriptionl2">
+            Confluence is fine. But it's slow to update, rarely read, and by the time a project wraps up, half the decisions aren't in there anyway.</br></br>I've been experimenting with a different approach, documenting projects in markdown files, kept up to date throughout, and used as a direct input to AI tools.
+          </p>
+
+          <div class="text-container">
+            <p class="project-descriptions">
+              <strong>The basic idea:</strong>
+              Every major AI tool, Claude, ChatGPT, Langdock, NotebookLM, can read an MD file. That means your documentation isn't just a record, it's something you and your team can actually query through an LLM, through chat.
+            </p>
+          </div>
+
+          <div class="text-container">
+            <p class="project-descriptions">
+              <strong>How I structured it:</strong>
+              The file starts at kick-off, seeded with the brief and any existing Confluence context and description of stakeholders (linked to a separate stakeholder MD file). It grows with the project, stakeholder input, design decisions, user testing insights, feedback from content or engineering, links to video walkthroughs and vibe-coded explorations. Less about writing everything up perfectly, more about keeping it current. I update it using Claude and Whisper as I go, which keeps it efficient. I can also link it to Granola (AI meeting notes).
+            </p>
+          </div>
+
+          <div class="text-container">
+            <p class="project-descriptions">
+              <strong>What it replaces:</strong>
+              Previously I'd spread meeting notes and process steps across multiple Confluence pages. Now it's one file. Instead of hunting through pages or asking someone to recap a decision, you just upload it and ask. "What were the main constraints?" or "What did the content team flag?" The answer comes back with context.
+            </p>
+          </div>
+
+          <div class="text-container">
+            <p class="project-descriptions">
+              <strong>Where it lives:</strong>
+              I now attach it for sign off so team members can use it in Claude Projects, Langdock, ChatGPT or NotebookLM. The format isn't locked to any tool, which is the point.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="project-container">
+        <div style="display: flex; justify-content: center; align-items: center;">
+          <div style="width: 60%;">
+            <video autoplay muted loop style="width: 100%;">
+              <source src="images/mddocs/md.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <figcaption style="font-size: 11px; text-align: left; padding-top: 2px;">Uploading the project MD file into Claude Projects for team querying.</figcaption>
+          </div>
+        </div>
+        </br>
+        <div class="text-container">
+          <p class="project-descriptions">
+            <strong>The honest bit:</strong>
+            It only works if you keep it updated. A stale MD file is as useless as a stale Confluence page. But the bar is lower, a few lines after a meeting, a paste from a transcript. More likely to actually happen.
+          </p>
+        </div>
+      </div>
+
+    </main>
+
+    <footer>
+    </footer>
+  </div>
+
+  <script>
+    window.addEventListener('load', function () {
+      document.body.classList.add('loaded');
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const elements = document.querySelectorAll('.fade-slide-up');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      elements.forEach(el => observer.observe(el));
+    });
+  </script>
+
+  <script>
+    window.addEventListener('load', () => {
+      document.body.classList.add('loaded');
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const links = document.querySelectorAll('a');
+      links.forEach(link => {
+        const href = link.getAttribute('href');
+        const isInternal = link.hostname === window.location.hostname;
+        const isAnchor = href && href.startsWith('#');
+        const isMailto = href && href.startsWith('mailto:');
+        if (isInternal && !link.target && !isAnchor && !isMailto) {
+          link.addEventListener('click', function (e) {
+            e.preventDefault();
+            requestAnimationFrame(() => {
+              document.body.classList.remove('loaded');
+              setTimeout(() => {
+                window.location.href = href;
+              }, 600);
+            });
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
