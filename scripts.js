@@ -1,10 +1,34 @@
+// ── PROJECT PAGE OVERLAY TRANSITIONS ──
+(function() {
+  if (!document.getElementById('project-content')) return;
+
+  // Slide-up entrance — trigger on DOMContentLoaded for snappy feel
+  document.body.classList.add('overlay-page');
+  document.addEventListener('DOMContentLoaded', () => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => document.body.classList.add('loaded'));
+    });
+  });
+
+  // Smooth exit on close / back-to-home links
+  document.addEventListener('click', function(e) {
+    const link = e.target.closest('a[href="index.html"], a.close-link');
+    if (!link) return;
+    e.preventDefault();
+    const href = link.getAttribute('href') || 'index.html';
+    document.body.classList.add('overlay-exit');
+    setTimeout(() => { window.location.href = href; }, 320);
+  });
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
   const filterTags = document.querySelectorAll('.filter-tag');
   const gridItems = document.querySelectorAll('.grid-item');
 
   // Select the "All" filter tag initially and add "active" class
   const allFilter = document.querySelector('.filter-tag[data-category="all"]');
-  allFilter.classList.add('active');
+  if (allFilter) allFilter.classList.add('active');
+  if (!filterTags.length) return;
 
   filterTags.forEach(tag => {
     tag.addEventListener('click', () => {
@@ -28,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const rotatingTitle = document.getElementById('rotatingTitle');
+  if (!rotatingTitle) return;
   const titles = [
     { text: 'UX', color: '#68BB8F' },
     { text: 'UI', color: '#98B8DB' },

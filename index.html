@@ -1,285 +1,1116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-C2YMSH68Z1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Patrick Guilfoyle — Product Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,600;1,600&family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #111; --mid: #5c5c5c; --rule: #e8e4de;
+    --bg: #ffffff; --accent: #c8b89a; --white: #f7f5f1;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
 
-  gtag('config', 'G-C2YMSH68Z1');
-</script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patrick Guilfoyle</title>
-    <link rel="stylesheet" href="styles.css?v=672">
-    <link rel="icon" href="images/favicon/favicon.png" type="image/svg+xml">
+  /* NAV */
+  nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 20px; position: fixed; top: 0; left: 0; right: 0;
+    z-index: 50; transition: background 0.3s;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  body.dark nav { border-bottom-color: rgba(255,255,255,0.05); }
+  nav.scrolled { background: var(--bg); border-bottom-color: var(--rule); }
+  nav.on-carousel { background: transparent; }
+
+  .nav-search {
+    position: absolute; left: 50%; transform: translateX(-50%) translateY(-4px);
+    display: flex; align-items: center; gap: 8px;
+    background: var(--white); border: 1.5px solid var(--rule);
+    border-radius: 100px; padding: 6px 14px;
+    font-size: 13px; color: var(--mid); cursor: pointer;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s, box-shadow 0.2s;
+    white-space: nowrap;
+  }
+  .nav-search svg { width: 13px; height: 13px; flex-shrink: 0; }
+  .nav-search:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.1); border-color: var(--white); }
+  nav.search-sticky .nav-search {
+    opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0);
+  }
+  .nav-name {
+    font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700;
+    color: var(--ink); white-space: nowrap;
+    transition: font-size 0.4s cubic-bezier(0.22,1,0.36,1), color 0.3s;
+  }
+  nav.scrolled .nav-name { font-size: 16px; }
+
+  .nav-name.light { color: #fff; }
+  #rotatingTitle { display: inline-block; animation: flipInFromTop 0.5s ease-in-out; transition: filter 0.1s ease-in-out; }
+  @keyframes flipInFromTop {
+    0%   { transform: perspective(400px) rotateX(90deg); opacity: 0; }
+    40%  { transform: perspective(400px) rotateX(-10deg); }
+    70%  { transform: perspective(400px) rotateX(10deg); }
+    100% { transform: perspective(400px) rotateX(0deg); opacity: 1; }
+  }
+  .nav-left { display: flex; align-items: center; }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-link {
+    font-size: 14px; color: var(--mid); display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none; transition: color 0.25s ease, border-color 0.25s ease;
+    font-family: 'DM Sans', sans-serif;
+    border: 1px solid var(--rule); border-radius: 6px;
+    padding: 6px 14px;
+  }
+  .nav-link:hover { color: var(--ink); border-color: var(--ink); }
+  .nav-link svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .nav-avatar { width: 18px; height: 18px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+
+  /* animated sparkle icon */
+  /* Full sequence: rest → sm2 pops → sm1 pops → main pulses big → all rest together */
+  @keyframes jsMain {
+    0%,  15%, 85%, 100% { transform: scale(1);    opacity: 1; }
+    40%                 { transform: scale(0.6);  opacity: 0.3; }
+    55%                 { transform: scale(1.3);  opacity: 1; }
+    68%                 { transform: scale(0.9);  opacity: 1; }
+    76%                 { transform: scale(1.08); opacity: 1; }
+  }
+  @keyframes jsSm1 {
+    0%,  10%, 90%, 100% { transform: scale(1);   opacity: 1; }
+    25%                 { transform: scale(1.5); opacity: 1; }
+    38%                 { transform: scale(0);   opacity: 0; }
+    80%                 { transform: scale(0);   opacity: 0; }
+    88%                 { transform: scale(1.2); opacity: 1; }
+  }
+  @keyframes jsSm2 {
+    0%,   5%, 90%, 100% { transform: scale(1);   opacity: 1; }
+    15%                 { transform: scale(1.6); opacity: 1; }
+    28%                 { transform: scale(0);   opacity: 0; }
+    80%                 { transform: scale(0);   opacity: 0; }
+    86%                 { transform: scale(1.3); opacity: 1; }
+  }
+  .journal-icon { display: inline-flex; align-items: center; flex-shrink: 0; width: 16px; height: 16px; }
+  .journal-icon .js-main { animation: jsMain 4s 2s ease-in-out infinite; transform-origin: center; }
+  .journal-icon .js-sm1  { animation: jsSm1 4s 2s ease-in-out infinite; transform-origin: center; }
+  .journal-icon .js-sm2  { animation: jsSm2 4s 2s ease-in-out infinite; transform-origin: center; }
+  .nav-link.journal { color: var(--mid); animation: pulse 2s ease-in-out infinite; }
+  .nav-link.journal:hover { color: var(--ink); }
+  .dark-toggle {
+    background: none; border: none; cursor: pointer; padding: 0;
+    color: var(--mid); display: flex; align-items: center; transition: color 0.2s;
+  }
+  .dark-toggle:hover { color: var(--ink); }
+  .dark-toggle svg { width: 18px; height: 18px; }
+
+  /* ── DARK MODE ── */
+  body.dark {
+    --ink: #f0ede8; --mid: #aeaaa4; --rule: #2e2b28;
+    --bg: #141210; --accent: #c8b89a; --white: #1e1b18;
+  }
+  body.dark nav.scrolled { background: var(--bg); }
+  body.dark .search-box { box-shadow: 0 4px 24px rgba(0,0,0,0.3); }
+  body.dark .answer-bubble { box-shadow: none; }
+  body.dark .hero-toggle { background: rgba(255,255,255,0.06); }
+  body.dark .toggle-btn.active { background: var(--ink); color: var(--bg); }
+  body.dark .search-mic { border-color: var(--rule); }
+  body.dark .work-title { color: var(--ink); }
+  body.dark .work-item a:hover .work-title { color: var(--mid); }
+  body.dark .work-desc { color: var(--mid); }
+  body.dark .tcard { box-shadow: none; }
+  body.dark .tcard-quote { color: var(--mid); }
+  @keyframes pulse {
+    0%   { transform: scale(1);   opacity: 1; }
+    10%  { transform: scale(1.05); opacity: 0.8; }
+    20%  { transform: scale(1);   opacity: 1; }
+    100% { transform: scale(1);   opacity: 1; }
+  }
+
+  /* ── HERO SHELL ── */
+  .hero-shell {
+    height: auto; position: relative; overflow: hidden;
+  }
+
+  /* ── PANEL A: SEARCH ── */
+  .panel-search {
+    position: relative; width: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+    padding: 88px 24px 12px; text-align: center;
+    background: var(--bg);
+    transition: opacity 0.4s, transform 0.4s;
+    z-index: 2;
+  }
+  .panel-search.hidden { opacity: 0; transform: scale(0.97); pointer-events: none; }
+
+  .hero-eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); margin-bottom: 16px; animation: fadeUp 0.6s ease both; }
+  .hero-headline { font-family: 'Inter', 'DM Sans', sans-serif; font-size: clamp(30px, 7.5vw, 46px); font-weight: 600; line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 6px; min-height: 2.4em; }
+  .hero-headline em {
+    font-style: italic; font-weight: 600;
+    background: linear-gradient(95deg, #d4bfa0 0%, #a07840 40%, #d4bfa0 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub { font-size: 14px; color: var(--mid); max-width: 560px; white-space: nowrap; margin-top: 4px; margin-bottom: 32px; animation: fadeUp 0.6s 0.2s ease both; }
+
+  .search-wrap { width: 100%; max-width: 460px; animation: fadeUp 0.6s 0.3s ease both; }
+  .search-box {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--white); border: 1.5px solid var(--rule);
+    border-radius: 16px; padding: 8px 8px 8px 14px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .search-box:focus-within { border-color: var(--white); box-shadow: 0 4px 32px rgba(255,255,255,0.08); }
+  .search-icon { color: var(--mid); flex-shrink: 0; }
+  .search-input { flex: 1; border: none; outline: none; background: transparent; font-family: inherit; font-size: 15px; color: var(--ink); }
+  .search-input::placeholder { color: var(--mid); }
+  .search-send {
+    flex-shrink: 0; width: 34px; height: 34px; border-radius: 10px;
+    background: transparent; border: 1.5px solid var(--rule); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    -webkit-tap-highlight-color: transparent; transition: all 0.2s; color: var(--mid);
+  }
+  .search-send:hover { border-color: var(--white); color: var(--ink); }
+  .search-send:active { transform: scale(0.9); }
+  .search-send svg { width: 14px; height: 14px; color: inherit; }
+
+  .answer-area { width: 100%; max-width: 460px; margin-top: 16px; display: none; }
+  .answer-area.visible { display: block; animation: fadeUp 0.3s ease both; }
+  .answer-bubble { background: var(--white); border: 1px solid var(--rule); border-radius: 16px; padding: 14px 16px; font-size: 14px; line-height: 1.6; text-align: left; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+  .answer-avatar { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .avatar-dot { width: 26px; height: 26px; border-radius: 50%; background: var(--ink); color: var(--bg); display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 12px; flex-shrink: 0; }
+  .avatar-label { font-size: 11px; color: var(--mid); }
+
+  .chips { display: flex; gap: 7px; flex-wrap: wrap; justify-content: center; margin-top: 14px; animation: fadeUp 0.6s 0.4s ease both; }
+  .chip { font-size: 12px; padding: 6px 13px; border-radius: 100px; border: 1px solid var(--rule); background: transparent; color: var(--mid); cursor: pointer; white-space: nowrap; -webkit-tap-highlight-color: transparent; }
+  .chip:active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+  .typing { display: flex; gap: 4px; align-items: center; padding: 2px 0; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--mid); animation: bounce 1.2s infinite; }
+  .dot:nth-child(2) { animation-delay: 0.2s; }
+  .dot:nth-child(3) { animation-delay: 0.4s; }
+
+  /* mic button */
+  .search-mic {
+    flex-shrink: 0; width: 34px; height: 34px; border-radius: 10px;
+    background: transparent; border: 1.5px solid var(--rule); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    -webkit-tap-highlight-color: transparent; transition: all 0.2s; color: var(--mid);
+  }
+  .search-mic:hover { border-color: var(--white); color: var(--ink); }
+  .search-mic.listening { background: #e8433a; border-color: #e8433a; color: #fff; }
+  .search-mic svg { width: 14px; height: 14px; }
+
+  /* waveform */
+  .voice-wave {
+    display: none; align-items: center; gap: 3px; flex: 1; height: 24px;
+  }
+  .voice-wave.active { display: flex; align-items: center; gap: 8px; }
+  .wave-bars { display: flex; align-items: center; gap: 3px; height: 24px; }
+  .wave-bar {
+    width: 2.5px; border-radius: 2px; background: var(--ink);
+    animation: waveBar 0.7s ease-in-out infinite alternate;
+  }
+  body.dark .wave-bar { background: var(--ink); }
+  .wave-bar:nth-child(1) { height: 6px;  animation-delay: 0s;    animation-duration: 0.55s; }
+  .wave-bar:nth-child(2) { height: 12px; animation-delay: 0.08s; animation-duration: 0.7s; }
+  .wave-bar:nth-child(3) { height: 18px; animation-delay: 0.04s; animation-duration: 0.5s; }
+  .wave-bar:nth-child(4) { height: 10px; animation-delay: 0.12s; animation-duration: 0.8s; }
+  .wave-bar:nth-child(5) { height: 16px; animation-delay: 0s;    animation-duration: 0.65s; }
+  @keyframes waveBar { from { transform: scaleY(0.25); } to { transform: scaleY(1); } }
+  .wave-label { font-size: 13px; color: var(--mid); letter-spacing: 0.02em; }
+
+  /* ── PANEL B: VISUAL CAROUSEL ── */
+  .panel-carousel {
+    position: absolute; inset: 0; z-index: 1;
+    background: #0d0d0d;
+    transition: opacity 0.4s, transform 0.4s;
+    opacity: 0; transform: scale(1.02); pointer-events: none;
+  }
+  .panel-carousel.visible { opacity: 1; transform: scale(1); pointer-events: all; }
+
+  /* slides */
+  .carousel-track {
+    display: flex; height: 100%;
+    transition: transform 0.5s cubic-bezier(0.32,0.72,0,1);
+  }
+  .slide {
+    min-width: 100%; height: 100%; position: relative; flex-shrink: 0;
+    display: flex; align-items: flex-end;
+  }
+  .slide-bg {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+  }
+  .slide-bg::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
+  }
+  .slide-1 .slide-bg { background: linear-gradient(135deg,#0f2a1e,#1a4a34,#0d3326); }
+  .slide-2 .slide-bg { background: linear-gradient(135deg,#0d1a33,#162348,#0a1528); }
+  .slide-3 .slide-bg { background: linear-gradient(135deg,#1a0d28,#2d1a42,#150a20); }
+  .slide-4 .slide-bg { background: linear-gradient(135deg,#281a0d,#42301a,#1e1208); }
+  .slide-5 .slide-bg { background: linear-gradient(135deg,#0d1a1a,#1a3030,#081515); }
+
+  /* placeholder visual in each slide */
+  .slide-visual {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; color: rgba(255,255,255,0.1); font-style: italic; letter-spacing: 0.06em;
+  }
+
+  .slide-content {
+    position: relative; z-index: 2; padding: 0 24px 100px; color: #fff;
+  }
+  .slide-tag { font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
+  .slide-title { font-family: 'DM Serif Display', serif; font-size: 28px; line-height: 1.1; margin-bottom: 6px; }
+  .slide-desc { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+  /* dots */
+  .carousel-dots {
+    position: absolute; bottom: 52px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 6px; z-index: 10;
+  }
+  .cdot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: rgba(255,255,255,0.3); transition: all 0.3s; cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .cdot.active { background: #fff; width: 18px; border-radius: 3px; }
+
+  /* arrow taps */
+  .carousel-prev, .carousel-next {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    z-index: 10; width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; -webkit-tap-highlight-color: transparent;
+    color: rgba(255,255,255,0.5);
+  }
+  .carousel-prev { left: 12px; }
+  .carousel-next { right: 12px; }
+
+  /* ── TOGGLE BUTTON ── */
+  .hero-toggle {
+    display: flex; align-items: center; gap: 0;
+    margin: 12px auto 24px; width: fit-content;
+    background: rgba(17,17,17,0.07); backdrop-filter: blur(12px);
+    border: 1px solid var(--rule); border-radius: 100px;
+    padding: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    transition: background 0.4s, border-color 0.4s;
+  }
+  .hero-toggle.on-search {
+    background: rgba(17,17,17,0.07); backdrop-filter: blur(12px);
+    border-color: var(--rule);
+  }
+  .toggle-btn {
+    display: flex; align-items: center; gap: 6px;
+    padding: 8px 16px; border-radius: 100px; border: none;
+    font-family: inherit; font-size: 12px; font-weight: 500;
+    cursor: pointer; transition: all 0.25s; -webkit-tap-highlight-color: transparent;
+    color: var(--mid); background: transparent; letter-spacing: 0.02em;
+  }
+  .toggle-btn.active { background: var(--ink); color: var(--bg); box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+  .toggle-btn svg { width: 14px; height: 14px; }
+
+  /* ── PROJECTS (below fold) ── */
+  .projects { border-top: 1px solid var(--rule); padding-bottom: 0; scroll-margin-top: 56px; }
+  .clients {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 40;
+    background: var(--ink); border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; height: 28px;
+    --bar-text: var(--bg);
+    --bar-rule: rgba(255,255,255,0.1);
+  }
+  body.dark .clients {
+    background: var(--bg); border-top: 1px solid rgba(255,255,255,0.06);
+    --bar-text: var(--ink);
+    --bar-rule: rgba(255,255,255,0.08);
+  }
+  .clients-label {
+    flex-shrink: 0; font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--bar-text); opacity: 1; padding: 0 24px; border-right: 1px solid var(--bar-rule); white-space: nowrap;
+  }
+  .clients-ticker { flex: 1; max-width: 560px; overflow: hidden; height: 100%; display: flex; align-items: center; }
+  .clients-track { display: flex; gap: 64px; white-space: nowrap; width: max-content; animation: ticker 52s linear infinite; align-items: center; padding-left: 32px; }
+  .clients:hover .clients-track { animation-play-state: paused; }
+  .client-logo { display: flex; align-items: center; height: 20px; opacity: 0.6; transition: opacity 0.2s; flex-shrink: 0; filter: invert(1); }
+  body.dark .client-logo { filter: invert(0); }
+  .client-logo:hover { opacity: 0.95; }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  .clients-clocks { border-left: 1px solid var(--bar-rule); }
+  .bar-icons { display: flex; align-items: center; gap: 18px; border-left: 1px solid var(--bar-rule); padding: 0 24px; flex-shrink: 0; }
+  .bar-icon { color: var(--bar-text); opacity: 1; transition: opacity 0.2s; display: flex; align-items: center; }
+  .bar-icon:hover { opacity: 0.7; }
+  .bar-icon svg { width: 14px; height: 14px; }
+  body { padding-bottom: 28px; }
+
+  .projects-header { padding: 24px 20px 0; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .projects-header h2 { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 700; }
+
+  .pills-row { display: flex; gap: 7px; overflow-x: auto; scrollbar-width: none; padding: 0 20px 20px; }
+  .pills-row::-webkit-scrollbar { display: none; }
+  .pill { padding: 6px 15px; border-radius: 100px; font-size: 12px; border: 1px solid var(--rule); white-space: nowrap; background: transparent; color: var(--mid); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .pill.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    row-gap: 32px;
+    padding: 10px 20px 24px;
+  }
+  @media (max-width: 767px) { .works-grid { grid-template-columns: 1fr; } }
+
+  .work-item { text-align: left; }
+  .work-item a { text-decoration: none; color: inherit; display: block; }
+  .work-item img,
+  .work-item video { width: 100%; height: auto; border-radius: 8px; display: block; }
+  .work-info { margin-top: 10px; }
+  .work-title { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700; color: var(--ink); line-height: 1.4; margin-bottom: 4px; transition: color 0.2s; }
+  .work-item a:hover .work-title { color: var(--mid); }
+  .work-desc { font-size: 13px; color: var(--mid); line-height: 1.5; margin-bottom: 8px; }
+  .work-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+  .tag { font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--mid); border: 1px solid var(--rule); padding: 2px 8px; border-radius: 100px; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { border-top: 1px solid var(--rule); padding: 0 20px 64px; }
+  .testimonials-label { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 700; color: var(--ink); padding: 24px 0 0; margin-bottom: 16px; display: block; }
+  .tgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 767px) { .tgrid { grid-template-columns: 1fr; } }
+  .tcard {
+    background: rgba(200, 184, 154, 0.1); border: 1px solid rgba(200, 184, 154, 0.25); border-radius: 12px;
+    padding: 24px; display: flex; flex-direction: column; gap: 16px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 0 20px rgba(200,184,154,0.06);
+  }
+  body.dark .tcard {
+    background: #2a2520; border-color: #3a3028;
+    box-shadow: inset 0 1px 0 rgba(200,184,154,0.1);
+  }
+  .tcard-thumb {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--rule); overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .tcard-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .tcard-thumb-placeholder { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--mid); }
+  .tcard-quote { font-size: 14px; line-height: 1.65; color: var(--ink); flex: 1; opacity: 0.8; }
+  .tcard-author { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+  .tcard-role { font-size: 11px; color: var(--mid); }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes bounce { 0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)} }
+
+  /* ── DOT → EXPAND → TYPE animation ── */
+  @keyframes dotLife {
+    0%   { transform: scale(0);                opacity: 0; border-radius: 50%; }
+    8%   { transform: scale(1.3);              opacity: 1; border-radius: 50%; }
+    15%  { transform: scale(1);                opacity: 1; border-radius: 50%; }
+    27%  { transform: scale(1.2);              opacity: 0.65; border-radius: 50%; }
+    38%  { transform: scale(1);                opacity: 1; border-radius: 50%; }
+    50%  { transform: scale(1.15);             opacity: 0.7; border-radius: 50%; }
+    60%  { transform: scale(1);                opacity: 1; border-radius: 50%; }
+    72%  { transform: scaleX(2.5) scaleY(0.3); opacity: 1; border-radius: 4px; }
+    87%  { transform: scaleX(26) scaleY(0.08); opacity: 0.4; border-radius: 2px; }
+    100% { transform: scaleX(38) scaleY(0.03); opacity: 0; }
+  }
+  @keyframes cursorBlink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+  #typeCursor {
+    display: inline-block; width: 2.5px; height: 0.8em;
+    background: currentColor; vertical-align: text-bottom;
+    margin-left: 2px; border-radius: 1px;
+    animation: cursorBlink 0.65s step-end infinite;
+  }
+
+  /* ── CUSTOM CURSOR (desktop only) ── */
+  @media (pointer: fine) {
+    *, *::before, *::after { cursor: none !important; }
+    #pg-cursor {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--ink); opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: width 0.18s ease, height 0.18s ease, opacity 0.18s ease;
+      will-change: transform;
+    }
+    #pg-cursor.visible { opacity: 0.55; }
+    #pg-cursor.hover   { width: 32px; height: 32px; opacity: 0.15; }
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal.in-view { opacity: 1; transform: none; }
+
+  /* stagger for grid children */
+  .works-grid .work-item:nth-child(2) { transition-delay: 0.08s; }
+  .works-grid .work-item:nth-child(3) { transition-delay: 0.16s; }
+  .works-grid .work-item:nth-child(4) { transition-delay: 0.06s; }
+  .works-grid .work-item:nth-child(5) { transition-delay: 0.12s; }
+  .works-grid .work-item:nth-child(6) { transition-delay: 0.18s; }
+  .works-grid .work-item:nth-child(7) { transition-delay: 0.08s; }
+  .works-grid .work-item:nth-child(8) { transition-delay: 0.14s; }
+  .tgrid .tcard:nth-child(2) { transition-delay: 0.08s; }
+  .tgrid .tcard:nth-child(3) { transition-delay: 0.16s; }
+  .tgrid .tcard:nth-child(4) { transition-delay: 0.06s; }
+  .tgrid .tcard:nth-child(5) { transition-delay: 0.12s; }
+
+  /* smooth global colour transitions for dark mode */
+  body, nav, .panel-search, .search-box, .answer-bubble,
+  .tcard, .card, .projects, .testimonials, .hero-toggle,
+  .pill, .tag, .work-title, .work-desc, .nav-name, .nav-link,
+  .clients, .clients-label, .bar-icon, .bar-icons,
+  .search-send, .avatar-dot, .search-mic, .toggle-btn,
+  .hero-eyebrow, .hero-sub, .chip, .search-icon, .work-desc {
+    transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+  }
+  .client-logo { transition: opacity 0.2s ease, filter 0.35s ease; }
+</style>
 </head>
+<body class="dark">
 
+<nav id="nav">
+  <!-- Left: rotating title -->
+  <div class="nav-name" id="navName"><span id="rotatingTitle">Patrick Guilfoyle</span></div>
 
+  <!-- Centre: sticky search pill (appears on scroll) -->
+  <div class="nav-search" id="navSearch">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    Ask anything about my work…
+  </div>
 
-<body >
-
-
-    <header>
-        <div class="header-content">
-            <h1 class="left-title"><span id="rotatingTitle">Patrick Guilfoyle</span></h1>
-           <h2 class="right-title">
-    
- <a href="about.html" style="font-size:16px; color:#666666; display:inline-flex; align-items:center; gap:2px; text-decoration:none; transition: color 0.25s ease;"
-   onmouseover="this.style.color='#333333'"
-   onmouseout="this.style.color='#666666'">
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-  <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
-</svg>
-
-    About
-  </a>
-
-  <a href="journal.html" class="pulse"  style="color:#B8860B; font-size:16px; display:inline-flex; align-items:center; gap:2px; text-decoration:none; transition: color 0.25s ease;"
-   onmouseover="this.style.color='#DAA520'"
-   onmouseout="this.style.color='#B8860B'" >
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-      <path fill-rule="evenodd" d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5ZM18 1.5a.75.75 0 0 1 .728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 0 1 0 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 0 1-1.456 0l-.258-1.036a2.625 2.625 0 0 0-1.91-1.91l-1.036-.258a.75.75 0 0 1 0-1.456l1.036-.258a2.625 2.625 0 0 0 1.91-1.91l.258-1.036A.75.75 0 0 1 18 1.5ZM16.5 15a.75.75 0 0 1 .712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 0 1 0 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 0 1-1.422 0l-.395-1.183a1.5 1.5 0 0 0-.948-.948l-1.183-.395a.75.75 0 0 1 0-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0 1 16.5 15Z" clip-rule="evenodd" />
-    </svg>
-    Journal
-  </a>
-</h2>
-
-
-
-
-        </div>
-        <p class="homepagesubtext" >Experienced product designer crafting impactful, research-led experiences with tech teams. <br>Worked for Sedex, Eurostar, The Economist, Mr Porter, and more.</p>
-
-        <div class="keyline"></div> 
-
-        <div class="filter-tags">
-            <span class="filter-tag" data-category="all">All</span>
-            <span class="filter-tag" data-category="ux">UX</span>
-            <span class="filter-tag" data-category="ui">UI</span>
-            <span class="filter-tag" data-category="identity">Identity</span>
-        </div>
-    </header>
-
-    <main class="grid-container ">
-   
-
-    <div class="grid-item ui fade-slide-up">
-             <a href="project-intick.html">
-                <img src="images/intick/intick.gif" alt="Intick">
-                <div class="project-info fade-slide-up">
-                    <h2>Intick: A new approach to futures trading</h2>
-                    <p class="project-descriptions">
-I’m still writing this case study, so please check back soon for the full story. I was the sole product designer leading design from 0 to 1 at a trading startup, shaping the platform and first design system.
-                    </p>
-                </div>
-             </a>
-            <div class="project-tags fade-slide-up">
-            <span class="tag">UX</span>    
-            <span class="tag">UI</span>
-                <span class="tag">Research</span>
-                <span class="tag">Discovery</span> <span class="tag">AI Integration</span>
-            </div>
-        </div>
-
-
-
-
-
-        <div class="grid-item ux fade-slide-up">
-            <a href="project-sedexDS.html">
-              <video autoplay muted loop playsinline class="fade-slide-up" style="width: 100%; display: block;">
-  <source src="images/sedexds/opener.mp4" type="video/mp4">
-  <img src="images/sedexds/Opener.png" alt="Project 1">
-  Your browser does not support the video tag.
-</video>
-                <div class="project-info fade-slide-up">
-                    <h2>Reimagining Sedex: A Design System Approach</h2>
-                    <p class="project-descriptions">
-                        Sedex, one of the world's largest supply auditing platforms, was facing challenges with an underperforming platform...
-                    </p>
-                </div>
-            </a>
-            <div class="project-tags fade-slide-up">
-                <span class="tag">UX</span>
-                <span class="tag">UI</span>
-                <span class="tag">Workshops</span>
-                 <span class="tag">Discovery</span>
-            </div>
-        </div>
-
- 
-
-        <div class="grid-item ux fade-slide-up">
-            <a href="project-economist.html">
-                <img src="images/economist/Economist-Recovered_04.gif" alt="Economist">
-                <div class="project-info fade-slide-up">
-                    <h2>Redefining The Economist subscription journey</h2>
-                    <p class="project-descriptions">
-                        I joined The Economist as part of a new dedicated future customer experience (FCX) team...
-                    </p>
-                </div>
-            </a>
-            <div class="project-tags fade-slide-up">
-            <span class="tag">UX</span>    
-            <span class="tag">UI</span>
-                <span class="tag">Research</span>
-                <span class="tag">Discovery</span>
-            </div>
-        </div>
-
-       
-<div class="grid-item ux fade-slide-up">
-            <a href="project-heist.html">
-                <img src="images/heist/opener.gif" alt="Project 1" class="fade-slide-up">
-                <div class="project-info fade-slide-up">
-                    <h2>A new look for Heist: improving conversion and performance</h2>
-                    <p class="project-descriptions">
-                        I was the lead designer on a site redesign for Heist. They’d just engaged an agency who created new print guidelines...
-                    </p>
-                </div>
-            </a>
-            <div class="project-tags fade-slide-up">
-                <span class="tag">UX</span>
-                 <span class="tag">UI</span>
-                <span class="tag">Research</span>
-            </div>
-        </div>
-
-
-
-
-    <div class="grid-item UX fade-slide-up">
-            <a href="project-sedexSAQ.html">
-                <img src="images/sedexsaq/opener.jpg" alt="Project 1" class="fade-slide-up">
-                <div class="project-info fade-slide-up">
-                    <h2>Sedex's SAQ data collection: A collaborative approach with members and staff</h2>
-                    <p class="project-descriptions">
-                        I joined Sedex in a new area, intrigued by the challenge of reimagining their critical SAQ. As an auditor, I knew...
-                    </p>
-                </div>
-            </a>
-            <div class="project-tags fade-slide-up">
-                <span class="tag">UX</span>
-                <span class="tag">UI</span>
-                <span class="tag">Research</span>
-            </div>
-        </div>
-
-
-
-        <div class="grid-item ui fade-slide-up">
-            <a href="project-eurostar.html">
-                <img src="images/eurostar/EurostarUI_03.jpg" alt="Project 1" class="fade-slide-up">
-                <div class="project-info fade-slide-up">
-                    <h2>Eurostar pricing calendar and booking map view</h2>
-                    <p class="project-descriptions">
-                        The objective of displaying prices in the calendar is to create a user-friendly experience by helping...
-                    </p>
-                </div>
-            </a>
-            <div class="project-tags fade-slide-up">
-                <span class="tag">UX</span>
-                <span class="tag">UI</span>
-                <span class="tag">Research</span>
-            </div>
-        </div>
-
-    
-
-        <div class="grid-item ui fade-slide-up">
-            <a href="project-stella.html">
-                <img src="images/stella/Opener.png" alt="Project 1" class="fade-slide-up">
-                <div class="project-info fade-slide-up">
-                    <h2>Crafting a Fully Responsive and Seamless Shopping Experience for Stella</br></h2>
-                    <p class="project-descriptions">The objectives were to create a cleaner aesthetic and an easy-to-use, fully responsive shopping and checkout experience...
-                    </p>
-                </div>
-            </a>
-            <div class="project-tags fade-slide-up">
-                <span class="tag">UX</span>
-                <span class="tag">UI</span>
-            </div>
-        </div>
-
-        <div class="grid-item identity fade-slide-up">
-            <a href="project-branding.html">
-                <img src="images/branding/Opener.jpg" alt="Project 1" class="fade-slide-up">
-                <div class="project-info fade-slide-up">
-                    <h2>Branding</h2>
-                    <p class="project-descriptions">
-                        These branding projects allowed me to delve deeper using my typography and color theory skills...
-                    </p>
-                </div>
-            </a>
-            <div class="project-tags fade-slide-up">
-                <span class="tag">Identity</span>
-                <span class="tag">Visual design</span>
-            </div>
-        </div>
-
-
-
-<div class="bottom-bar">
-  <div class="bar-inner">
-  
-    
-    <a href="mailto:patrick.guilf@gmail.com" aria-label="Email" class="icon-button">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="16" height="16" viewBox="0 0 24 24">
-        <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
-        <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
-      </svg>
+  <!-- Right: About · AI Journal · dark toggle -->
+  <div class="nav-right">
+    <a href="about.html" class="nav-link">
+      <img src="images/about/avatar.png" alt="" class="nav-avatar">
+      About
     </a>
-
-    <a href="journal.html" aria-label="AI Prompts" class="icon-button">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="16" height="16" viewBox="0 0 24 24">
-        <path fill-rule="evenodd" d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5ZM18 1.5a.75.75 0 0 1 .728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 0 1 0 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 0 1-1.456 0l-.258-1.036a2.625 2.625 0 0 0-1.91-1.91l-1.036-.258a.75.75 0 0 1 0-1.456l1.036-.258a2.625 2.625 0 0 0 1.91-1.91l.258-1.036A.75.75 0 0 1 18 1.5ZM16.5 15a.75.75 0 0 1 .712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 0 1 0 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 0 1-1.422 0l-.395-1.183a1.5 1.5 0 0 0-.948-.948l-1.183-.395a.75.75 0 0 1 0-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0 1 16.5 15Z" clip-rule="evenodd" />
-      </svg>
+    <a href="journal.html" class="nav-link journal">
+      <span class="journal-icon">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+          <path class="js-main" fill-rule="evenodd" d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5Z" clip-rule="evenodd"/>
+          <path class="js-sm1" d="M18 1.5a.75.75 0 0 1 .728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 0 1 0 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 0 1-1.456 0l-.258-1.036a2.625 2.625 0 0 0-1.91-1.91l-1.036-.258a.75.75 0 0 1 0-1.456l1.036-.258a2.625 2.625 0 0 0 1.91-1.91l.258-1.036A.75.75 0 0 1 18 1.5Z"/>
+          <path class="js-sm2" d="M16.5 15a.75.75 0 0 1 .712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 0 1 0 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 0 1-1.422 0l-.395-1.183a1.5 1.5 0 0 0-.948-.948l-1.183-.395a.75.75 0 0 1 0-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0 1 16.5 15Z"/>
+        </svg>
+      </span>
+      AI Journal
     </a>
+    <button class="dark-toggle" id="darkToggle" title="Toggle dark mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</nav>
 
-  <a href="https://www.linkedin.com/in/patrick-guilfoyle/" target="_blank" aria-label="LinkedIn" class="icon-button">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="16" height="16" viewBox="0 0 24 24">
-        <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.7v2.3h.1c.7-1.3 2.4-2.6 4.9-2.6 5.2 0 6.2 3.4 6.2 7.7V24h-5v-6.8c0-1.6 0-3.8-2.3-3.8-2.3 0-2.7 1.8-2.7 3.6V24h-5V8z"/>
-      </svg>
-    </a>
+<!-- ══ HERO SHELL ══ -->
+<div class="hero-shell" id="heroShell">
+
+  <!-- PANEL A: SEARCH -->
+  <div class="panel-search" id="panelSearch">
+    <h1 class="hero-headline" id="heroHeadline"></h1>
+    <p class="hero-sub">Systems thinking &amp; research-led design.</p>
+
+    <div class="search-wrap">
+      <div class="search-box">
+        <div class="search-icon">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <input class="search-input" id="searchInput" placeholder="Ask anything about my work…" autocomplete="off" />
+        <div class="voice-wave" id="voiceWave">
+          <div class="wave-bars">
+            <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+            <div class="wave-bar"></div><div class="wave-bar"></div>
+          </div>
+          <span class="wave-label">Listening</span>
+        </div>
+        <button class="search-mic" id="searchMic" title="Speak">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        </button>
+        <button class="search-send" id="searchSend">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+      <div class="answer-area" id="answerArea">
+        <div class="answer-bubble">
+          <div class="answer-avatar">
+            <div class="avatar-dot">P</div>
+            <div class="avatar-label">Patrick's AI</div>
+          </div>
+          <div id="answerText"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chips">
+      <button class="chip">Are you available?</button>
+      <button class="chip">Design systems?</button>
+      <button class="chip">What's your process?</button>
+      <button class="chip">Mobile experience?</button>
+    </div>
+  </div>
+
+  <!-- PANEL B: SHOWCASE VIDEO -->
+  <div class="panel-carousel" id="panelCarousel">
+    <video id="showcaseVideo" muted loop playsinline
+      style="width:100%;height:100%;object-fit:cover;display:block;">
+      <source src="images/showcase/showcase.mp4" type="video/mp4">
+    </video>
+    <!-- Placeholder shown while no video file exists -->
+    <div class="slide-visual" id="videoPlaceholder" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0d0d0d;color:rgba(255,255,255,0.25);font-size:13px;letter-spacing:0.08em;gap:12px;">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="rgba(255,255,255,0.3)"><path d="M8 5v14l11-7z"/></svg>
+      Coming soon — see selected work below
+    </div>
+  </div>
+
+</div><!-- /hero-shell -->
+
+<!-- TOGGLE (outside shell so it doesn't stretch hero height) -->
+<div class="hero-toggle on-search" id="heroToggle">
+  <button class="toggle-btn active" id="btnSearch">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    Ask
+  </button>
+  <button class="toggle-btn" id="btnVisual">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    Work
+  </button>
+</div>
+
+<!-- ══ PROJECTS ══ -->
+<section class="projects">
+  <div class="projects-header">
+    <h2>Selected work</h2>
+  </div>
+  <div class="pills-row">
+    <button class="pill active" data-category="all">All</button>
+    <button class="pill" data-category="ux">UX</button>
+    <button class="pill" data-category="ui">UI</button>
+    <button class="pill" data-category="identity">Identity</button>
+  </div>
+  <div class="works-grid">
+
+    <div class="work-item ui reveal">
+      <a href="project-intick.html">
+        <img src="images/intick/intick.gif" alt="Intick">
+        <div class="work-info">
+          <div class="work-title">Intick: A new approach to futures trading</div>
+          <p class="work-desc">I'm still writing this case study, so please check back soon for the full story. I was the sole product designer leading design from 0 to 1 at a trading startup, shaping the platform and first design system.</p>
+          <div class="work-tags"><span class="tag">UX</span><span class="tag">UI</span><span class="tag">Research</span><span class="tag">Discovery</span><span class="tag">AI Integration</span></div>
+        </div>
+      </a>
+    </div>
+
+    <div class="work-item ux reveal">
+      <a href="project-sedexDS.html">
+        <video autoplay muted loop playsinline>
+          <source src="images/sedexds/opener.mp4" type="video/mp4">
+          <img src="images/sedexds/Opener.png" alt="Reimagining Sedex">
+        </video>
+        <div class="work-info">
+          <div class="work-title">Reimagining Sedex: A Design System Approach</div>
+          <p class="work-desc">Sedex, one of the world's largest supply auditing platforms, was facing challenges with an underperforming platform...</p>
+          <div class="work-tags"><span class="tag">UX</span><span class="tag">UI</span><span class="tag">Workshops</span><span class="tag">Discovery</span></div>
+        </div>
+      </a>
+    </div>
+
+    <div class="work-item ux reveal">
+      <a href="project-economist.html">
+        <img src="images/economist/Economist-Recovered_04.gif" alt="The Economist">
+        <div class="work-info">
+          <div class="work-title">Redefining The Economist subscription journey</div>
+          <p class="work-desc">I joined The Economist as part of a new dedicated future customer experience (FCX) team...</p>
+          <div class="work-tags"><span class="tag">UX</span><span class="tag">UI</span><span class="tag">Research</span><span class="tag">Discovery</span></div>
+        </div>
+      </a>
+    </div>
+
+    <div class="work-item ux reveal">
+      <a href="project-heist.html">
+        <img src="images/heist/opener.gif" alt="Heist">
+        <div class="work-info">
+          <div class="work-title">A new look for Heist: improving conversion and performance</div>
+          <p class="work-desc">I was the lead designer on a site redesign for Heist. They'd just engaged an agency who created new print guidelines...</p>
+          <div class="work-tags"><span class="tag">UX</span><span class="tag">UI</span><span class="tag">Research</span></div>
+        </div>
+      </a>
+    </div>
+
+    <div class="work-item ux reveal">
+      <a href="project-sedexSAQ.html">
+        <img src="images/sedexsaq/opener.jpg" alt="Sedex SAQ">
+        <div class="work-info">
+          <div class="work-title">Sedex's SAQ data collection: A collaborative approach with members and staff</div>
+          <p class="work-desc">I joined Sedex in a new area, intrigued by the challenge of reimagining their critical SAQ. As an auditor, I knew...</p>
+          <div class="work-tags"><span class="tag">UX</span><span class="tag">UI</span><span class="tag">Research</span></div>
+        </div>
+      </a>
+    </div>
+
+    <div class="work-item ui reveal">
+      <a href="project-eurostar.html">
+        <img src="images/eurostar/EurostarUI_03.jpg" alt="Eurostar">
+        <div class="work-info">
+          <div class="work-title">Eurostar pricing calendar and booking map view</div>
+          <p class="work-desc">The objective of displaying prices in the calendar is to create a user-friendly experience by helping...</p>
+          <div class="work-tags"><span class="tag">UX</span><span class="tag">UI</span><span class="tag">Research</span></div>
+        </div>
+      </a>
+    </div>
+
+    <div class="work-item ui reveal">
+      <a href="project-stella.html">
+        <img src="images/stella/Opener.png" alt="Stella">
+        <div class="work-info">
+          <div class="work-title">Crafting a Fully Responsive and Seamless Shopping Experience for Stella</div>
+          <p class="work-desc">The objectives were to create a cleaner aesthetic and an easy-to-use, fully responsive shopping and checkout experience...</p>
+          <div class="work-tags"><span class="tag">UX</span><span class="tag">UI</span></div>
+        </div>
+      </a>
+    </div>
+
+    <div class="work-item identity reveal">
+      <a href="project-branding.html">
+        <img src="images/branding/Opener.jpg" alt="Branding">
+        <div class="work-info">
+          <div class="work-title">Branding</div>
+          <p class="work-desc">These branding projects allowed me to delve deeper using my typography and color theory skills...</p>
+          <div class="work-tags"><span class="tag">Identity</span><span class="tag">Visual design</span></div>
+        </div>
+      </a>
+    </div>
 
   </div>
-</div>
-        
-    </main>
+</section>
 
+<section class="testimonials">
+  <div class="testimonials-label">What people say</div>
+  <div class="tgrid">
 
+    <div class="tcard reveal">
+      <div class="tcard-thumb"><span class="tcard-thumb-placeholder">S</span></div>
+      <p class="tcard-quote">"Patrick was a great mentor and trainer to product designers, implementing processes and practices to significantly elevate the design function. He established a usable design system and ensured its adoption. He's a great guy, a pleasure to work with and has a strong can-do attitude."</p>
+      <div>
+        <div class="tcard-author">Sarah Timms</div>
+        <div class="tcard-role">CPO, Intick &amp; Sedex</div>
+      </div>
+    </div>
 
-    
+    <div class="tcard reveal">
+      <div class="tcard-thumb"><span class="tcard-thumb-placeholder">L</span></div>
+      <p class="tcard-quote">"Patrick has been instrumental getting the Sedex Design to where it is today, both in terms of shepherding the design system into production, and building relationships outside our function, notably with the Front End Developers."</p>
+      <div>
+        <div class="tcard-author">Loz Gray</div>
+        <div class="tcard-role">Director of Product Design, Sedex</div>
+      </div>
+    </div>
 
-    <footer>
-    </footer>
+    <div class="tcard reveal">
+      <div class="tcard-thumb"><span class="tcard-thumb-placeholder">A</span></div>
+      <p class="tcard-quote">"Patrick worked on a really complex initiative at The Economist and did a brilliant job designing intricate user journeys and e-commerce flows. He jelled really well with the product managers and engineers to ship some really impactful and transformational work."</p>
+      <div>
+        <div class="tcard-author">Adam Morris</div>
+        <div class="tcard-role">VP of Design, The Economist</div>
+      </div>
+    </div>
 
-    <script src="scripts.js"></script>
-    <script>
-  window.addEventListener('load', function () {
-    document.body.classList.add('loaded');
-  });
-</script>
+    <div class="tcard reveal">
+      <div class="tcard-thumb"><span class="tcard-thumb-placeholder">L</span></div>
+      <p class="tcard-quote">"I really enjoyed working with Patrick. He had a very collaborative relationship with our devs and the design to build journey was super smooth, he was patient when requirements changed and turned things around really quickly."</p>
+      <div>
+        <div class="tcard-author">LJ Mendoza</div>
+        <div class="tcard-role">Senior Product Manager</div>
+      </div>
+    </div>
+
+    <div class="tcard reveal">
+      <div class="tcard-thumb"><span class="tcard-thumb-placeholder">?</span></div>
+      <p class="tcard-quote">"Quote goes here."</p>
+      <div>
+        <div class="tcard-author">Name</div>
+        <div class="tcard-role">Role</div>
+      </div>
+    </div>
+
+  </div>
+</section>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const elements = document.querySelectorAll('.fade-slide-up');
+// NAV scroll + sticky search
+const nav = document.getElementById('nav');
+const heroShell = document.getElementById('heroShell');
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY > 20;
+  nav.classList.toggle('scrolled', scrolled);
+  const heroPast = heroShell.getBoundingClientRect().bottom < 64;
+  nav.classList.toggle('search-sticky', heroPast);
+});
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting) {
-          entry.target.classList.add('active');
-          observer.unobserve(entry.target); // Animate once
-        }
+document.getElementById('navSearch').addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ── DARK MODE ──
+const darkToggle = document.getElementById('darkToggle');
+const sunIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+const moonIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+// starts dark — show sun so user can switch to light
+darkToggle.innerHTML = sunIcon;
+darkToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  const isDark = document.body.classList.contains('dark');
+  darkToggle.innerHTML = isDark ? sunIcon : moonIcon;
+});
+
+// ── TOGGLE ──
+const panelSearch = document.getElementById('panelSearch');
+const panelCarousel = document.getElementById('panelCarousel');
+const heroToggle = document.getElementById('heroToggle');
+const btnSearch = document.getElementById('btnSearch');
+const btnVisual = document.getElementById('btnVisual');
+const navName = document.getElementById('navName');
+let onCarousel = false;
+
+function showSearch() {
+  onCarousel = false;
+  panelSearch.classList.remove('hidden');
+  panelCarousel.classList.remove('visible');
+  heroToggle.classList.remove('on-carousel');
+  heroToggle.classList.add('on-search');
+  btnSearch.classList.add('active');
+  btnVisual.classList.remove('active');
+  navName.classList.remove('light');
+  showcaseVideo.pause();
+}
+function showCarousel() {
+  onCarousel = true;
+  panelSearch.classList.add('hidden');
+  panelCarousel.classList.add('visible');
+  heroToggle.classList.add('on-carousel');
+  heroToggle.classList.remove('on-search');
+  btnVisual.classList.add('active');
+  btnSearch.classList.remove('active');
+  navName.classList.add('light');
+  showcaseVideo.play().catch(() => {}); // autoplay (muted, so always allowed)
+}
+
+btnSearch.addEventListener('click', showSearch);
+btnVisual.addEventListener('click', showCarousel);
+
+// ── SHOWCASE VIDEO ──
+const showcaseVideo = document.getElementById('showcaseVideo');
+const videoPlaceholder = document.getElementById('videoPlaceholder');
+
+// Hide placeholder if video loads
+showcaseVideo.addEventListener('canplay', () => {
+  if (videoPlaceholder) videoPlaceholder.style.display = 'none';
+});
+
+// pills / filter
+const pills = document.querySelectorAll('.pill');
+const workItems = document.querySelectorAll('.work-item');
+pills.forEach(pill => {
+  pill.addEventListener('click', () => {
+    const category = pill.getAttribute('data-category');
+    if (category === 'all') {
+      workItems.forEach(item => item.style.display = 'block');
+    } else {
+      workItems.forEach(item => {
+        item.style.display = item.classList.contains(category) ? 'block' : 'none';
       });
-    }, { threshold: 0.1 });
-
-    elements.forEach(el => observer.observe(el));
+    }
+    pills.forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
   });
+});
+
+// ── AI SEARCH ──
+const CONTEXT = `Patrick Guilfoyle is a senior product designer based in London with 10+ years experience. Companies: Sedex (lead designer, design system, 27% load improvement), The Economist (future customer experience team), Eurostar (pricing calendar redesign), Mr Porter (UX/UI), Heist (site redesign), Intick (0-to-1 solo designer), Stella (responsive checkout). Skills: UX research, design systems (Figma, tokens, MUI, Storybook), UI design, accessibility (WCAG), Android (Jetpack Compose). Process: Discovery-first. Availability: Open to freelance, contract, or permanent. London-based, open to remote. Email: patrick.guilf@gmail.com`;
+
+async function askAI(q) {
+  const area = document.getElementById('answerArea');
+  const text = document.getElementById('answerText');
+  area.classList.add('visible');
+  text.innerHTML = '<div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514', max_tokens: 1000,
+        system: `You are an AI assistant on Patrick Guilfoyle's design portfolio. Answer questions about Patrick using the context. Be warm and concise — 1-3 sentences. No markdown. If unsure, direct to patrick.guilf@gmail.com.\n\n${CONTEXT}`,
+        messages: [{ role: 'user', content: q }]
+      })
+    });
+    const data = await res.json();
+    text.textContent = data.content?.[0]?.text || 'Not sure — reach Patrick at patrick.guilf@gmail.com';
+  } catch {
+    text.textContent = 'Something went wrong. Try patrick.guilf@gmail.com';
+  }
+}
+
+document.getElementById('searchSend').addEventListener('click', () => {
+  const q = document.getElementById('searchInput').value.trim();
+  if (q) askAI(q);
+});
+document.getElementById('searchInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') { const q = e.target.value.trim(); if (q) askAI(q); }
+});
+
+// ── VOICE INPUT ──
+const micBtn = document.getElementById('searchMic');
+const voiceWave = document.getElementById('voiceWave');
+const searchInput = document.getElementById('searchInput');
+
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+if (SpeechRecognition) {
+  const recognition = new SpeechRecognition();
+  recognition.lang = 'en-GB';
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  let listening = false;
+
+  micBtn.addEventListener('click', () => {
+    if (listening) {
+      recognition.stop();
+    } else {
+      recognition.start();
+    }
+  });
+
+  recognition.addEventListener('start', () => {
+    listening = true;
+    micBtn.classList.add('listening');
+    searchInput.style.display = 'none';
+    voiceWave.classList.add('active');
+    searchInput.value = '';
+    searchInput.placeholder = 'Listening…';
+  });
+
+  recognition.addEventListener('result', e => {
+    const transcript = e.results[0][0].transcript;
+    searchInput.value = transcript;
+  });
+
+  recognition.addEventListener('end', () => {
+    listening = false;
+    micBtn.classList.remove('listening');
+    voiceWave.classList.remove('active');
+    searchInput.style.display = '';
+    searchInput.placeholder = 'Ask anything about my work…';
+    const q = searchInput.value.trim();
+    if (q) askAI(q);
+  });
+
+  recognition.addEventListener('error', () => {
+    listening = false;
+    micBtn.classList.remove('listening');
+    voiceWave.classList.remove('active');
+    searchInput.style.display = '';
+  });
+} else {
+  micBtn.style.display = 'none'; // hide if browser doesn't support
+}
+document.querySelectorAll('.chip').forEach(c => {
+  c.addEventListener('click', () => { document.getElementById('searchInput').value = c.textContent; askAI(c.textContent); });
+});
+
+// ── DOT → EXPAND → TYPEWRITER (once per session) ──
+(function() {
+  const el = document.getElementById('heroHeadline');
+  const fullHTML = '10 years making<br><em>complex products</em> feel simple.';
+  const SEEN_KEY = 'pg_headline_seen';
+
+  // If already seen this session, just show the text instantly
+  if (sessionStorage.getItem(SEEN_KEY)) {
+    el.innerHTML = fullHTML;
+    return;
+  }
+
+  sessionStorage.setItem(SEEN_KEY, '1');
+
+  // Phase 1: dot appears and pulses, then expands to line
+  const dot = document.createElement('span');
+  dot.id = 'heroDot';
+  dot.style.cssText = 'display:inline-block;width:10px;height:10px;border-radius:50%;background:currentColor;vertical-align:middle;margin-bottom:0.1em;animation:dotLife 2s cubic-bezier(0.4,0,0.6,1) forwards';
+  el.appendChild(dot);
+
+  // Tokenise HTML for typing
+  const tokens = [];
+  let i = 0;
+  while (i < fullHTML.length) {
+    if (fullHTML[i] === '<') {
+      const end = fullHTML.indexOf('>', i);
+      tokens.push({ tag: fullHTML.substring(i, end + 1) });
+      i = end + 1;
+    } else {
+      tokens.push({ char: fullHTML[i] });
+      i++;
+    }
+  }
+
+  function startTyping() {
+    el.innerHTML = '';
+    const cursor = document.createElement('span');
+    cursor.id = 'typeCursor';
+    let pos = 0;
+    function tick() {
+      if (pos >= tokens.length) {
+        cursor.style.transition = 'opacity 0.6s';
+        cursor.style.opacity = '0';
+        setTimeout(() => cursor.remove(), 600);
+        return;
+      }
+      const t = tokens[pos++];
+      el.innerHTML = tokens.slice(0, pos).map(x => x.tag || x.char).join('');
+      el.appendChild(cursor);
+      if (t.tag) { tick(); }
+      else { setTimeout(tick, t.char === ' ' ? 58 : 36); }
+    }
+    tick();
+  }
+
+  setTimeout(startTyping, 2000);
+})();
+
+// ── AUTO SCROLL AFTER 20s ──
+(function() {
+  // Only fire once per session, and only if user hasn't already scrolled
+  if (sessionStorage.getItem('pg_autoscrolled')) return;
+  let userScrolled = false;
+  const onScroll = () => { userScrolled = true; };
+  window.addEventListener('scroll', onScroll, { once: true });
+
+  setTimeout(() => {
+    if (userScrolled) return;
+    sessionStorage.setItem('pg_autoscrolled', '1');
+    const target = document.querySelector('.projects');
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  }, 7000);
+})();
+
+// ── SCROLL REVEAL ──
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ── ROTATING TITLE ──
+const rotatingTitle = document.getElementById('rotatingTitle');
+const titles = [
+  { text: 'UX', color: '#68BB8F' },
+  { text: 'UI', color: '#98B8DB' },
+  { text: '& Research', color: '#E69279' },
+  { text: 'Patrick Guilfoyle', color: null } // inherits var(--ink) via CSS
+];
+
+// apply ink colour when null
+function getTitleColor(t) {
+  if (t.color) return t.color;
+  return getComputedStyle(document.body).getPropertyValue('--ink').trim();
+}
+let titleIndex = 0;
+setInterval(() => {
+  rotatingTitle.style.filter = 'blur(1px)';
+  setTimeout(() => {
+    rotatingTitle.textContent = titles[titleIndex].text;
+    rotatingTitle.style.color = getTitleColor(titles[titleIndex]);
+    rotatingTitle.style.filter = 'blur(0px)';
+    // re-trigger flip animation
+    rotatingTitle.style.animation = 'none';
+    rotatingTitle.offsetHeight; // reflow
+    rotatingTitle.style.animation = 'flipInFromTop 0.5s ease-in-out';
+    titleIndex = (titleIndex + 1) % titles.length;
+  }, 300);
+}, 5000);
+
+// ── CUSTOM CURSOR ──
+if (window.matchMedia('(pointer: fine)').matches) {
+  const cur = document.createElement('div');
+  cur.id = 'pg-cursor';
+  document.body.appendChild(cur);
+
+  let mx = 0, my = 0, cx = 0, cy = 0, started = false;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    if (!started) {
+      // snap to position on first move so it doesn't fly in from corner
+      cx = mx; cy = my;
+      cur.classList.add('visible');
+      started = true;
+    }
+  });
+
+  function loop() {
+    cx += (mx - cx) * 0.22;
+    cy += (my - cy) * 0.22;
+    cur.style.left = cx + 'px';
+    cur.style.top  = cy + 'px';
+    requestAnimationFrame(loop);
+  }
+  loop();
+
+  document.addEventListener('mouseleave', () => cur.classList.remove('visible'));
+  document.addEventListener('mouseenter', () => cur.classList.add('visible'));
+
+  const hoverEls = 'a, button, [role="button"], input, .pill, .chip, .toggle-btn, .work-item, .tcard';
+  document.querySelectorAll(hoverEls).forEach(el => {
+    el.addEventListener('mouseenter', () => cur.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cur.classList.remove('hover'));
+  });
+}
 </script>
+
+<!-- ══ FIXED BOTTOM BAR ══ -->
+<div class="clients">
+  <div class="clients-label">Who I've worked with</div>
+  <div class="clients-ticker">
+  <div class="clients-track" id="clientsTrack">
+    <div class="client-logo"><svg width="120" height="20" viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="20" rx="2" fill="var(--ink)"/><text x="60" y="14" font-family="Georgia,serif" font-size="9" fill="white" text-anchor="middle" letter-spacing="0.5">The Economist</text></svg></div>
+    <div class="client-logo"><svg width="80" height="20" viewBox="0 0 80 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="40" y="14" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="var(--ink)" text-anchor="middle" letter-spacing="-0.3">EUROSTAR</text></svg></div>
+    <div class="client-logo"><svg width="85" height="20" viewBox="0 0 85 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="42" y="14" font-family="Georgia,serif" font-size="11" fill="var(--ink)" text-anchor="middle" letter-spacing="1">MR PORTER</text></svg></div>
+    <div class="client-logo"><svg width="60" height="20" viewBox="0 0 60 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="30" y="14" font-family="Arial,sans-serif" font-weight="700" font-size="12" fill="var(--ink)" text-anchor="middle">sedex</text></svg></div>
+    <div class="client-logo"><svg width="50" height="20" viewBox="0 0 50 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="25" y="14" font-family="Georgia,serif" font-size="11" fill="var(--ink)" text-anchor="middle" letter-spacing="1">HEIST</text></svg></div>
+    <div class="client-logo"><svg width="50" height="20" viewBox="0 0 50 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="25" y="14" font-family="Arial,sans-serif" font-weight="600" font-size="11" fill="var(--ink)" text-anchor="middle">intick</text></svg></div>
+    <div class="client-logo"><svg width="110" height="20" viewBox="0 0 110 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="55" y="14" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="var(--ink)" text-anchor="middle" letter-spacing="-0.2">GetYourGuide</text></svg></div>
+    <!-- duplicate for seamless loop -->
+    <div class="client-logo"><svg width="120" height="20" viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="20" rx="2" fill="var(--ink)"/><text x="60" y="14" font-family="Georgia,serif" font-size="9" fill="white" text-anchor="middle" letter-spacing="0.5">The Economist</text></svg></div>
+    <div class="client-logo"><svg width="80" height="20" viewBox="0 0 80 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="40" y="14" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="var(--ink)" text-anchor="middle" letter-spacing="-0.3">EUROSTAR</text></svg></div>
+    <div class="client-logo"><svg width="85" height="20" viewBox="0 0 85 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="42" y="14" font-family="Georgia,serif" font-size="11" fill="var(--ink)" text-anchor="middle" letter-spacing="1">MR PORTER</text></svg></div>
+    <div class="client-logo"><svg width="60" height="20" viewBox="0 0 60 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="30" y="14" font-family="Arial,sans-serif" font-weight="700" font-size="12" fill="var(--ink)" text-anchor="middle">sedex</text></svg></div>
+    <div class="client-logo"><svg width="50" height="20" viewBox="0 0 50 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="25" y="14" font-family="Georgia,serif" font-size="11" fill="var(--ink)" text-anchor="middle" letter-spacing="1">HEIST</text></svg></div>
+    <div class="client-logo"><svg width="50" height="20" viewBox="0 0 50 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="25" y="14" font-family="Arial,sans-serif" font-weight="600" font-size="11" fill="var(--ink)" text-anchor="middle">intick</text></svg></div>
+    <div class="client-logo"><svg width="110" height="20" viewBox="0 0 110 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="55" y="14" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="var(--ink)" text-anchor="middle" letter-spacing="-0.2">GetYourGuide</text></svg></div>
+  </div>
+  </div>
+
+  <div class="bar-icons">
+      <a href="https://www.linkedin.com/in/patrick-guilfoyle/" target="_blank" class="bar-icon" title="LinkedIn">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.7v2.3h.1c.7-1.3 2.4-2.6 4.9-2.6 5.2 0 6.2 3.4 6.2 7.7V24h-5v-6.8c0-1.6 0-3.8-2.3-3.8-2.3 0-2.7 1.8-2.7 3.6V24h-5V8z"/></svg>
+      </a>
+      <a href="mailto:patrick.guilf@gmail.com" class="bar-icon" title="Email">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z"/><path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z"/></svg>
+      </a>
+      <a href="aiprompts.html" class="bar-icon" title="AI Prompts">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5ZM18 1.5a.75.75 0 0 1 .728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 0 1 0 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 0 1-1.456 0l-.258-1.036a2.625 2.625 0 0 0-1.91-1.91l-1.036-.258a.75.75 0 0 1 0-1.456l1.036-.258a2.625 2.625 0 0 0 1.91-1.91l.258-1.036A.75.75 0 0 1 18 1.5ZM16.5 15a.75.75 0 0 1 .712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 0 1 0 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 0 1-1.422 0l-.395-1.183a1.5 1.5 0 0 0-.948-.948l-1.183-.395a.75.75 0 0 1 0-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0 1 16.5 15Z" clip-rule="evenodd"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
 
 
 </body>
