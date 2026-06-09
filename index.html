@@ -255,13 +255,15 @@
   /* ── REEL TRACK ── */
 
   .reel-scroll {
-    width: 100%; overflow: hidden; cursor: grab;
+    width: 100%; overflow: hidden; cursor: grab; position: relative;
   }
   .reel-scroll.dragging { cursor: grabbing; user-select: none; }
   .reel-track {
     display: flex; gap: 3px; align-items: flex-end;
     padding: 8px 0 0; width: max-content;
+    animation: reelScroll 250s linear infinite;
   }
+  .reel-track.paused { animation-play-state: paused; }
 
   .reel-item {
     flex-shrink: 0;
@@ -853,49 +855,39 @@ function showCarousel() {
 btnSearch.addEventListener('click', showSearch);
 btnVisual.addEventListener('click', showCarousel);
 
-// ── REEL: seamless auto-scroll + drag/swipe ──
+// ── REEL: clone + drag to scrub (CSS animation handles auto-scroll) ──
 (function() {
   const scroller = document.getElementById('reelScroll');
   const track = document.getElementById('reelTrack');
   if (!scroller || !track) return;
-
   track.innerHTML += track.innerHTML;
 
-  const speed = 0.12;
-  let pos = 0, half = 0, dragging = false, lastX = 0;
+  let dragging = false, lastX = 0, dragOffset = 0;
 
-  function tick() {
-    // Measure lazily — keeps retrying until layout is ready
-    if (!half) half = track.scrollWidth / 2;
-    if (!dragging) pos += speed;
-    if (half > 0) {
-      if (pos >= half) pos -= half;
-      if (pos < 0) pos += half;
-    }
-    track.style.transform = `translateX(-${pos}px)`;
-    requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-
-  // Mouse drag — delta-based so pos stays authoritative
-  scroller.addEventListener('mousedown', e => {
-    dragging = true; lastX = e.pageX;
+  function startDrag(x) {
+    dragging = true; lastX = x; dragOffset = 0;
+    track.classList.add('paused');
     scroller.classList.add('dragging');
-  });
-  window.addEventListener('mouseup', () => { dragging = false; scroller.classList.remove('dragging'); });
-  window.addEventListener('mousemove', e => {
+  }
+  function moveDrag(x) {
     if (!dragging) return;
-    pos += lastX - e.pageX;
-    lastX = e.pageX;
-  });
+    dragOffset += lastX - x;
+    lastX = x;
+    track.style.marginLeft = `-${dragOffset}px`;
+  }
+  function endDrag() {
+    dragging = false;
+    track.classList.remove('paused');
+    scroller.classList.remove('dragging');
+    track.style.marginLeft = '';
+  }
 
-  // Touch — delta-based
-  scroller.addEventListener('touchstart', e => { dragging = true; lastX = e.touches[0].pageX; }, { passive: true });
-  scroller.addEventListener('touchmove', e => {
-    pos += lastX - e.touches[0].pageX;
-    lastX = e.touches[0].pageX;
-  }, { passive: true });
-  scroller.addEventListener('touchend', () => { dragging = false; });
+  scroller.addEventListener('mousedown', e => startDrag(e.pageX));
+  window.addEventListener('mousemove', e => moveDrag(e.pageX));
+  window.addEventListener('mouseup', endDrag);
+  scroller.addEventListener('touchstart', e => startDrag(e.touches[0].pageX), { passive: true });
+  scroller.addEventListener('touchmove', e => moveDrag(e.touches[0].pageX), { passive: true });
+  scroller.addEventListener('touchend', endDrag);
 })();
 
 // pills / filter
