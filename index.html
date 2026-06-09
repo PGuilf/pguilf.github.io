@@ -254,12 +254,16 @@
 
   /* ── REEL TRACK ── */
 
+  .reel-scroll {
+    width: 100%; overflow-x: auto; overflow-y: hidden;
+    scrollbar-width: none; cursor: grab;
+  }
+  .reel-scroll::-webkit-scrollbar { display: none; }
+  .reel-scroll.dragging { cursor: grabbing; user-select: none; }
   .reel-track {
     display: flex; gap: 3px; align-items: flex-end;
-    padding: 8px 20px 0; width: max-content;
-    animation: reelScroll 45s linear infinite;
+    padding: 8px 0 0; width: max-content;
   }
-  .reel-track:hover { animation-play-state: paused; }
 
   .reel-item {
     flex-shrink: 0;
@@ -320,11 +324,14 @@
     border-color: var(--rule);
   }
   .hero-sub-label {
-    font-size: 12px; color: var(--ink); opacity: 0.9;
-    margin: 96px 0 16px; text-align: center;
+    font-size: 12px; color: var(--ink);
+    margin: 16px 0 0; text-align: center;
     font-family: 'DM Sans', sans-serif; font-weight: 400;
-    flex-shrink: 0; width: 100%; padding: 0 40px;
+    width: 100%; padding: 0 40px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
   }
+  .hero-sub-label.visible { opacity: 0.9; pointer-events: auto; }
 
   .toggle-btn {
     display: flex; align-items: center; gap: 6px;
@@ -587,8 +594,7 @@
 
     <!-- PANEL B: WORK REEL (absolute, same footprint as search panel) -->
     <div class="panel-carousel" id="panelCarousel">
-      <p class="hero-sub-label">View selected work below for more in-depth case studies and process.</p>
-      <div class="reel-track" id="reelTrack">
+      <div class="reel-scroll" id="reelScroll"><div class="reel-track" id="reelTrack">
         <div class="reel-item landscape"><a class="reel-label" href="project-intick.html">Fintech<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a><div class="reel-img"><div class="reel-placeholder">Coming soon</div></div></div>
         <div class="reel-item portrait"><a class="reel-label" href="project-intick.html">Mobile<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a><div class="reel-img"><div class="reel-placeholder">Coming soon</div></div></div>
         <div class="reel-item landscape"><a class="reel-label" href="project-economist.html">Subscription &amp; onboarding<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a><div class="reel-img"><div class="reel-placeholder">Coming soon</div></div></div>
@@ -598,10 +604,12 @@
         <div class="reel-item landscape"><a class="reel-label" href="project-stella.html">Fashion retail<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a><div class="reel-img"><div class="reel-placeholder">Coming soon</div></div></div>
         <div class="reel-item portrait"><a class="reel-label" href="project-sedexDS.html">Design system<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a><div class="reel-img"><div class="reel-placeholder">Coming soon</div></div></div>
         <!-- Set B cloned by JS -->
-      </div>
+      </div></div><!-- /reel-track /reel-scroll -->
     </div>
 
   </div><!-- /hero-panels -->
+
+  <p class="hero-sub-label" id="heroSubLabel">View selected work below for more in-depth case studies and process.</p>
 
   <div class="hero-toggle on-search" id="heroToggle">
     <button class="toggle-btn active" id="btnSearch">
@@ -818,6 +826,7 @@ const btnSearch = document.getElementById('btnSearch');
 const btnVisual = document.getElementById('btnVisual');
 let onCarousel = false;
 
+const heroSubLabel = document.getElementById('heroSubLabel');
 function showSearch() {
   onCarousel = false;
   panelSearch.classList.remove('hidden');
@@ -826,6 +835,7 @@ function showSearch() {
   heroToggle.classList.add('on-search');
   btnSearch.classList.add('active');
   btnVisual.classList.remove('active');
+  if (heroSubLabel) heroSubLabel.classList.remove('visible');
 }
 function showCarousel() {
   onCarousel = true;
@@ -835,17 +845,58 @@ function showCarousel() {
   heroToggle.classList.remove('on-search');
   btnVisual.classList.add('active');
   btnSearch.classList.remove('active');
+  if (heroSubLabel) {
+    heroSubLabel.classList.add('visible');
+    clearTimeout(heroSubLabel._fadeTimer);
+    heroSubLabel._fadeTimer = setTimeout(() => heroSubLabel.classList.remove('visible'), 10000);
+  }
 }
 
 btnSearch.addEventListener('click', showSearch);
 btnVisual.addEventListener('click', showCarousel);
 
-// ── REEL: seamless infinite loop ──
+// ── REEL: seamless auto-scroll + drag/swipe ──
 (function() {
+  const scroller = document.getElementById('reelScroll');
   const track = document.getElementById('reelTrack');
-  if (!track) return;
-  // Clone so we have two identical sets; CSS animates by -50% (= one set width)
+  if (!scroller || !track) return;
+
   track.innerHTML += track.innerHTML;
+
+  const speed = 0.18; // px per frame — snail's pace
+  let dragging = false, touchActive = false, startX = 0, scrollStart = 0;
+
+  function tick() {
+    if (!dragging && !touchActive) {
+      scroller.scrollLeft += speed;
+      const half = track.scrollWidth / 2;
+      if (scroller.scrollLeft >= half) scroller.scrollLeft -= half;
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+  // Mouse drag
+  scroller.addEventListener('mousedown', e => {
+    dragging = true; startX = e.pageX; scrollStart = scroller.scrollLeft;
+    scroller.classList.add('dragging');
+  });
+  window.addEventListener('mouseup', () => { dragging = false; scroller.classList.remove('dragging'); });
+  scroller.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    e.preventDefault();
+    scroller.scrollLeft = scrollStart - (e.pageX - startX);
+  });
+
+  // Touch swipe
+  scroller.addEventListener('touchstart', e => { touchActive = true; startX = e.touches[0].pageX; scrollStart = scroller.scrollLeft; }, { passive: true });
+  scroller.addEventListener('touchmove', e => {
+    scroller.scrollLeft = scrollStart - (e.touches[0].pageX - startX);
+    const half = track.scrollWidth / 2;
+    if (scroller.scrollLeft >= half) scroller.scrollLeft -= half;
+    if (scroller.scrollLeft < 0) scroller.scrollLeft += half;
+  }, { passive: true });
+  scroller.addEventListener('touchend', () => { touchActive = false; });
 })();
 
 // pills / filter
