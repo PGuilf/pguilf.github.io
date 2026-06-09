@@ -395,6 +395,10 @@
     padding: 10px 20px 24px;
   }
   @media (max-width: 767px) { .works-grid { grid-template-columns: 1fr; } }
+  @media (min-width: 1025px) and (max-width: 1280px) {
+    .reel-img { height: 200px; }
+    .reel-item.landscape { width: 280px; }
+  }
   @media (max-width: 1024px) {
     .reel-img { height: clamp(220px, 38vh, 340px); }
   }
