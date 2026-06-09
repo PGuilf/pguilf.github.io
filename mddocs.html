@@ -13,7 +13,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Using MD files to document projects, LLM friendly</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=20260608">
   <link rel="icon" href="images/favicon/favicon.png" type="image/svg+xml">
 </head>
 <body style="background: radial-gradient(circle at center, rgb(255, 255, 250) 0%, rgb(255, 245, 240) 100%); color: black;">
@@ -21,11 +21,16 @@
   <div class="custom-cursor"></div>
 
   <div id="project-content">
-    <header style="background-color: rgba(255, 246, 240, 0);">
+    <header style="background-color: rgba(255, 255, 250, 0.92);">
       <div class="header-content">
         <h4 class="project-title">Using MD files to document projects, LLM friendly</h4>
         <h2 class="right-title">
-          <a href="journal.html">Back to Journal</a>
+          <a href="journal.html" class="close-link">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+            </svg>
+            Back to Journal
+          </a>
         </h2>
       </div>
     </header>
@@ -96,6 +101,7 @@
     </footer>
   </div>
 
+  <script src="scripts.js?v=20260608"></script>
   <script>
     window.addEventListener('load', function () {
       document.body.classList.add('loaded');

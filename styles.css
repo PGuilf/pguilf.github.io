@@ -83,16 +83,14 @@ body.loaded {
 }
 
 /* ── PROJECT PAGE OVERLAY ENTER ── */
-/* Override the default scale/blur entrance for overlay pages */
-body.overlay-page {
+/* Project pages start hidden via CSS — applied before JS runs, no flash */
+body:has(#project-content) {
   opacity: 0;
-  transform: translateY(40px);
-  filter: none;
-  transition:
-    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(18px);
+  transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1), transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
-body.overlay-page.loaded {
+body.loaded:has(#project-content),
+html.dark body.loaded:has(#project-content) {
   opacity: 1;
   transform: translateY(0);
 }
@@ -100,16 +98,16 @@ body.overlay-page.loaded {
 /* ── PROJECT PAGE OVERLAY EXIT ── */
 body.overlay-exit {
   opacity: 0 !important;
-  transform: translateY(30px) !important;
+  transform: translateY(10px) !important;
   filter: none !important;
-  transition: opacity 0.35s cubic-bezier(0.4, 0, 1, 1), transform 0.35s cubic-bezier(0.4, 0, 1, 1) !important;
+  transition: opacity 0.15s ease-in, transform 0.15s ease-in !important;
   pointer-events: none;
 }
 
 
 /* ── 4. NAVIGATION / HEADER ───────────────────────────────── */
 header {
-  padding: 10px 20px 0;
+  padding: 16px 20px;
   max-width: 100%;
   margin: 0;
   position: sticky;
@@ -124,7 +122,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 3px;
+  margin-bottom: 0;
 }
 
 /* Project page header: title on left */
@@ -158,11 +156,49 @@ header {
 }
 .right-title a:hover { color: #111111; }
 .right-title a svg { width: 14px; height: 14px; vertical-align: middle; }
+.right-title a.jump-link,
+.right-title a.close-link { transition: color 0.25s ease, border-color 0.25s ease; }
 
-/* Jump link / Close link */
+/* Scrolled state — buttons become fully visible in the sticky header */
+header.scrolled .jump-link,
+header.scrolled .close-link {
+  color: #111111 !important;
+  border-color: rgba(0,0,0,0.3) !important;
+}
+html.dark header.scrolled .jump-link,
+html.dark header.scrolled .close-link {
+  color: #f0ede8 !important;
+  border-color: rgba(255,255,255,0.35) !important;
+}
+html.dark header.scrolled .jump-link *,
+html.dark header.scrolled .close-link * {
+  color: #f0ede8 !important;
+}
+
+/* Jump link / Close link — nav-button style */
 .jump-link, .close-link {
   font-size: 14px;
-  color: #444444;
+  color: #5c5c5c !important;
+  border: 1px solid #e8e4de;
+  border-radius: 6px;
+  padding: 6px 14px;
+  gap: 6px;
+  white-space: nowrap;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+.jump-link:hover, .close-link:hover {
+  color: #111111 !important;
+  border-color: #111111 !important;
+}
+
+/* Animated bouncing arrow on jump link */
+@keyframes arrowBounce {
+  0%, 100% { transform: translateY(0); }
+  60%       { transform: translateY(4px); }
+}
+.jump-link svg {
+  animation: arrowBounce 1.4s ease-in-out infinite;
+  flex-shrink: 0;
 }
 
 /* Rotating title (homepage) */
@@ -291,6 +327,23 @@ h3, .project-description, .project-descriptionl, .project-description1 {
   height: 1px;
   background-color: #e0e0e0;
   margin: 0;
+}
+
+.next-project-link {
+  padding: 40px 0 56px;
+}
+.next-project-link a {
+  font-size: 20px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  color: #333333;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+.next-project-link a:hover {
+  color: #111111;
 }
 
 
@@ -910,3 +963,58 @@ figcaption { margin-bottom: 15px; }
   }
   .right-title { font-size: 13px; }
 }
+
+
+/* ── PROJECT PAGE DARK MODE ───────────────────────────────── */
+html.dark body {
+  background: linear-gradient(to bottom, #2a1f14 0%, #0e0a08 100%) !important;
+  color: #f0ede8 !important;
+}
+html.dark header {
+  background-color: rgba(20, 18, 16, 0.4) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+html.dark .project-title { color: #f0ede8 !important; }
+html.dark .right-title,
+html.dark .right-title a,
+html.dark .right-title a * { color: #aeaaa4 !important; }
+html.dark .right-title a:hover { color: #f0ede8 !important; }
+html.dark .jump-link,
+html.dark .close-link {
+  color: #c8c4be !important;
+  border-color: rgba(255,255,255,0.18) !important;
+}
+html.dark .jump-link:hover,
+html.dark .close-link:hover {
+  color: #f0ede8 !important;
+  border-color: #f0ede8 !important;
+}
+/* Ensure child elements (span, svg) also pick up the hover colour */
+html.dark .jump-link:hover *,
+html.dark .close-link:hover * { color: #f0ede8 !important; }
+html.dark .project-descriptionl,
+html.dark .project-descriptionl2,
+html.dark .project-descriptions { color: #d8d4ce !important; }
+html.dark .text-container { border-color: rgba(255,255,255,0.08); }
+html.dark figcaption { color: #b0aba4 !important; }
+html.dark .tag { color: #c8c4be !important; border-color: rgba(255,255,255,0.22) !important; }
+html.dark a { color: #aeaaa4 !important; }
+html.dark strong { color: #f0ede8 !important; }
+html.dark p, html.dark li, html.dark h1, html.dark h2, html.dark h3, html.dark h4 { color: #f0ede8 !important; }
+html.dark .keyline { background-color: rgba(255,255,255,0.1) !important; }
+html.dark .next-project-link a { color: #c8c4be !important; text-decoration-color: rgba(255,255,255,0.25) !important; }
+html.dark .next-project-link a:hover { color: #f0ede8 !important; text-decoration-color: #f0ede8 !important; }
+html.dark .testimonial-quote { color: #d8d4ce !important; }
+html.dark .testimonial-author { color: #f0ede8 !important; }
+html.dark .testimonial-title { color: #aeaaa4 !important; }
+
+/* Dark toggle button on project pages */
+.project-dark-toggle {
+  background: none; border: none; cursor: pointer; padding: 0;
+  color: #666; display: flex; align-items: center; transition: color 0.2s;
+  flex-shrink: 0;
+}
+.project-dark-toggle:hover { color: #111; }
+html.dark .project-dark-toggle { color: #aeaaa4; }
+html.dark .project-dark-toggle:hover { color: #f0ede8; }
+.project-dark-toggle svg { width: 18px; height: 18px; }

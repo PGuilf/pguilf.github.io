@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Patrick Guilfoyle — Product Designer</title>
+<link rel="icon" type="image/png" href="images/favicon/favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,600;1,600&family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Montserrat:wght@700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -23,7 +24,6 @@
   }
   body.dark nav { border-bottom-color: rgba(255,255,255,0.05); }
   nav.scrolled { background: var(--bg); border-bottom-color: var(--rule); }
-  nav.on-carousel { background: transparent; }
 
   .nav-search {
     position: absolute; left: 50%; transform: translateX(-50%) translateY(-4px);
@@ -42,7 +42,7 @@
     opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0);
   }
   .nav-name {
-    font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700;
+    font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 700;
     color: var(--ink); white-space: nowrap;
     transition: font-size 0.4s cubic-bezier(0.22,1,0.36,1), color 0.3s;
   }
@@ -50,6 +50,12 @@
 
   .nav-name.light { color: #fff; }
   #rotatingTitle { display: inline-block; animation: flipInFromTop 0.5s ease-in-out; transition: filter 0.1s ease-in-out; }
+  #navInitials { display: none; }
+  @media (max-width: 600px) {
+    #rotatingTitle { display: none; }
+    #navInitials { display: inline-block; }
+    .nav-search { display: none !important; }
+  }
   @keyframes flipInFromTop {
     0%   { transform: perspective(400px) rotateX(90deg); opacity: 0; }
     40%  { transform: perspective(400px) rotateX(-10deg); }
@@ -112,15 +118,12 @@
   }
   body.dark nav.scrolled { background: var(--bg); }
   body.dark .search-box { box-shadow: 0 4px 24px rgba(0,0,0,0.3); }
-  body.dark .answer-bubble { box-shadow: none; }
   body.dark .hero-toggle { background: rgba(255,255,255,0.06); }
   body.dark .toggle-btn.active { background: var(--ink); color: var(--bg); }
   body.dark .search-mic { border-color: var(--rule); }
   body.dark .work-title { color: var(--ink); }
   body.dark .work-item a:hover .work-title { color: var(--mid); }
   body.dark .work-desc { color: var(--mid); }
-  body.dark .tcard { box-shadow: none; }
-  body.dark .tcard-quote { color: var(--mid); }
   @keyframes pulse {
     0%   { transform: scale(1);   opacity: 1; }
     10%  { transform: scale(1.05); opacity: 0.8; }
@@ -128,33 +131,52 @@
     100% { transform: scale(1);   opacity: 1; }
   }
 
-  /* ── HERO SHELL ── */
-  .hero-shell {
-    height: auto; position: relative; overflow: hidden;
-  }
+  /* ── HERO ── */
+  .hero-wrap { padding-top: 56px; padding-bottom: 20px; }
+  .hero-panels { position: relative; }
 
-  /* ── PANEL A: SEARCH ── */
+  /* Search panel lives in normal flow — its height sets the container */
   .panel-search {
-    position: relative; width: 100%;
+    width: 100%;
     display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-    padding: 88px 24px 12px; text-align: center;
-    background: var(--bg);
-    transition: opacity 0.4s, transform 0.4s;
-    z-index: 2;
+    padding: 36px 24px 60px; text-align: center;
+    transition: opacity 0.4s ease;
   }
-  .panel-search.hidden { opacity: 0; transform: scale(0.97); pointer-events: none; }
+  .panel-search.hidden { opacity: 0; pointer-events: none; }
 
-  .hero-eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); margin-bottom: 16px; animation: fadeUp 0.6s ease both; }
-  .hero-headline { font-family: 'Inter', 'DM Sans', sans-serif; font-size: clamp(30px, 7.5vw, 46px); font-weight: 600; line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 6px; min-height: 2.4em; }
-  .hero-headline em {
-    font-style: italic; font-weight: 600;
-    background: linear-gradient(95deg, #d4bfa0 0%, #a07840 40%, #d4bfa0 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
+  /* Reel overlays exactly the same space */
+  .panel-carousel {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    overflow: hidden;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.4s ease;
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+    padding-bottom: 0;
   }
-  .hero-sub { font-size: 14px; color: var(--mid); max-width: 560px; white-space: nowrap; margin-top: 4px; margin-bottom: 32px; animation: fadeUp 0.6s 0.2s ease both; }
+  .panel-carousel.visible { opacity: 1; pointer-events: all; }
 
-  .search-wrap { width: 100%; max-width: 460px; animation: fadeUp 0.6s 0.3s ease both; }
+  /* waving hand */
+  #waveHand {
+    display: block; height: 56px; line-height: 56px;
+    font-size: 36px; margin: 24px auto 8px;
+    text-align: center;
+    transition: opacity 0.6s ease;
+  }
+  #waveHand.done { opacity: 0; }
+  #waveHand.anim-wave { transform-origin: 70% 80%; animation: waveHand 0.45s ease-in-out 10 alternate; }
+  #waveHand.anim-bounce { animation: thumbsBounce 0.4s ease-in-out 8 alternate; }
+  #waveHand.anim-swing  { animation: faceSwing 0.5s ease-in-out 8 alternate; }
+  #waveHand.anim-spin   { animation: faceSpin 0.6s ease-in-out 6 forwards; }
+  #waveHand.anim-nudge  { animation: nudge 0.5s ease-in-out 8 alternate; }
+  #waveHand.anim-write  { transform-origin: 80% 90%; animation: write 0.35s ease-in-out 12 alternate; }
+  @keyframes waveHand    { 0% { transform: rotate(0deg); } 100% { transform: rotate(28deg); } }
+  @keyframes thumbsBounce { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
+  @keyframes faceSwing   { 0% { transform: translateX(0); } 100% { transform: translateX(12px); } }
+  @keyframes faceSpin    { 0% { transform: rotate(0deg); } 100% { transform: rotate(720deg); } }
+  @keyframes nudge       { 0% { transform: translateX(-6px); } 100% { transform: translateX(6px); } }
+  @keyframes write       { 0% { transform: rotate(-8deg) translateX(0); } 100% { transform: rotate(4deg) translateX(4px); } }
+
+  .search-wrap { position: relative; width: 100%; max-width: 460px; animation: fadeUp 0.6s 0.3s ease both; }
   .search-box {
     display: flex; align-items: center; gap: 10px;
     background: var(--white); border: 1.5px solid var(--rule);
@@ -176,12 +198,20 @@
   .search-send:active { transform: scale(0.9); }
   .search-send svg { width: 14px; height: 14px; color: inherit; }
 
+  .search-caption { position: absolute; top: -3px; left: 28px; display: flex; align-items: center; gap: 4px; font-size: 10px; font-style: italic; color: var(--mid); background: var(--bg); padding: 0 4px; margin: 0; line-height: 1; }
+  .search-caption svg { flex-shrink: 0; }
+
   .answer-area { width: 100%; max-width: 460px; margin-top: 16px; display: none; }
   .answer-area.visible { display: block; animation: fadeUp 0.3s ease both; }
-  .answer-bubble { background: var(--white); border: 1px solid var(--rule); border-radius: 16px; padding: 14px 16px; font-size: 14px; line-height: 1.6; text-align: left; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+  .answer-bubble { background: rgba(200,184,154,0.1); border: 1px solid rgba(200,184,154,0.25); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); border-radius: 16px; padding: 14px 16px; font-size: 14px; line-height: 1.6; text-align: left; position: relative; }
+  body.dark .answer-bubble { background: #2a2520; border-color: #3a3028; box-shadow: inset 0 1px 0 rgba(200,184,154,0.1); }
   .answer-avatar { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-  .avatar-dot { width: 26px; height: 26px; border-radius: 50%; background: var(--ink); color: var(--bg); display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 12px; flex-shrink: 0; }
-  .avatar-label { font-size: 11px; color: var(--mid); }
+  .avatar-dot { width: 26px; height: 26px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+  .avatar-dot img { width: 100%; height: 100%; object-fit: cover; }
+  .avatar-label { font-size: 11px; color: var(--mid); flex: 1; }
+  .answer-close { position: absolute; top: 6px; right: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--mid); background: none; border: none; padding: 0; opacity: 0.6; transition: opacity 0.2s; }
+  .answer-close:hover { opacity: 1; }
+  .answer-close svg { width: 12px; height: 12px; }
 
   .chips { display: flex; gap: 7px; flex-wrap: wrap; justify-content: center; margin-top: 14px; animation: fadeUp 0.6s 0.4s ease both; }
   .chip { font-size: 12px; padding: 6px 13px; border-radius: 100px; border: 1px solid var(--rule); background: transparent; color: var(--mid); cursor: pointer; white-space: nowrap; -webkit-tap-highlight-color: transparent; }
@@ -200,7 +230,7 @@
     -webkit-tap-highlight-color: transparent; transition: all 0.2s; color: var(--mid);
   }
   .search-mic:hover { border-color: var(--white); color: var(--ink); }
-  .search-mic.listening { background: #e8433a; border-color: #e8433a; color: #fff; }
+  .search-mic.listening { background: var(--ink); border-color: var(--ink); color: var(--bg); }
   .search-mic svg { width: 14px; height: 14px; }
 
   /* waveform */
@@ -222,79 +252,63 @@
   @keyframes waveBar { from { transform: scaleY(0.25); } to { transform: scaleY(1); } }
   .wave-label { font-size: 13px; color: var(--mid); letter-spacing: 0.02em; }
 
-  /* ── PANEL B: VISUAL CAROUSEL ── */
-  .panel-carousel {
-    position: absolute; inset: 0; z-index: 1;
-    background: #0d0d0d;
-    transition: opacity 0.4s, transform 0.4s;
-    opacity: 0; transform: scale(1.02); pointer-events: none;
-  }
-  .panel-carousel.visible { opacity: 1; transform: scale(1); pointer-events: all; }
+  /* ── REEL TRACK ── */
 
-  /* slides */
-  .carousel-track {
-    display: flex; height: 100%;
-    transition: transform 0.5s cubic-bezier(0.32,0.72,0,1);
+  .reel-track {
+    display: flex; gap: 10px; align-items: center;
+    padding: 8px 20px 0; width: max-content;
+    animation: reelScroll 100s linear infinite;
   }
-  .slide {
-    min-width: 100%; height: 100%; position: relative; flex-shrink: 0;
-    display: flex; align-items: flex-end;
-  }
-  .slide-bg {
-    position: absolute; inset: 0;
-    background-size: cover; background-position: center;
-  }
-  .slide-bg::after {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
-  }
-  .slide-1 .slide-bg { background: linear-gradient(135deg,#0f2a1e,#1a4a34,#0d3326); }
-  .slide-2 .slide-bg { background: linear-gradient(135deg,#0d1a33,#162348,#0a1528); }
-  .slide-3 .slide-bg { background: linear-gradient(135deg,#1a0d28,#2d1a42,#150a20); }
-  .slide-4 .slide-bg { background: linear-gradient(135deg,#281a0d,#42301a,#1e1208); }
-  .slide-5 .slide-bg { background: linear-gradient(135deg,#0d1a1a,#1a3030,#081515); }
+  .reel-track:hover { animation-play-state: paused; }
 
-  /* placeholder visual in each slide */
-  .slide-visual {
-    position: absolute; inset: 0;
+  .reel-item {
+    flex-shrink: 0;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .reel-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; color: var(--mid);
+    white-space: nowrap;
+  }
+  .reel-item.landscape { width: 240px; }
+  .reel-item.portrait  { width: 135px; }
+
+  .reel-img {
+    height: 180px; width: 100%;
+    border-radius: 12px; overflow: hidden;
+    position: relative; background: var(--rule);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    transition: box-shadow 0.2s;
+  }
+  .reel-img:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .reel-img img, .reel-img video {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+
+  /* diagonal arrow on hover only */
+  .reel-link {
+    position: absolute; top: 8px; right: 8px;
+    width: 26px; height: 26px;
+    background: rgba(255,255,255,0.92); border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 12px; color: rgba(255,255,255,0.1); font-style: italic; letter-spacing: 0.06em;
+    opacity: 0; transform: scale(0.8);
+    transition: opacity 0.2s, transform 0.2s;
+    color: #111; text-decoration: none;
   }
+  .reel-link svg { width: 11px; height: 11px; }
+  .reel-img:hover .reel-link { opacity: 1; transform: scale(1); }
 
-  .slide-content {
-    position: relative; z-index: 2; padding: 0 24px 100px; color: #fff;
+  @keyframes reelScroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
   }
-  .slide-tag { font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
-  .slide-title { font-family: 'DM Serif Display', serif; font-size: 28px; line-height: 1.1; margin-bottom: 6px; }
-  .slide-desc { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; }
-
-  /* dots */
-  .carousel-dots {
-    position: absolute; bottom: 52px; left: 50%; transform: translateX(-50%);
-    display: flex; gap: 6px; z-index: 10;
-  }
-  .cdot {
-    width: 5px; height: 5px; border-radius: 50%;
-    background: rgba(255,255,255,0.3); transition: all 0.3s; cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .cdot.active { background: #fff; width: 18px; border-radius: 3px; }
-
-  /* arrow taps */
-  .carousel-prev, .carousel-next {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    z-index: 10; width: 44px; height: 44px;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer; -webkit-tap-highlight-color: transparent;
-    color: rgba(255,255,255,0.5);
-  }
-  .carousel-prev { left: 12px; }
-  .carousel-next { right: 12px; }
 
   /* ── TOGGLE BUTTON ── */
   .hero-toggle {
     display: flex; align-items: center; gap: 0;
-    margin: 12px auto 24px; width: fit-content;
+    margin: 12px auto 0; width: fit-content;
+    position: relative; z-index: 2;
     background: rgba(17,17,17,0.07); backdrop-filter: blur(12px);
     border: 1px solid var(--rule); border-radius: 100px;
     padding: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);
@@ -304,14 +318,23 @@
     background: rgba(17,17,17,0.07); backdrop-filter: blur(12px);
     border-color: var(--rule);
   }
+  .hero-sub-label {
+    font-size: 14px; color: var(--ink); opacity: 0.9;
+    margin: 12px 0 20px; text-align: center;
+    font-family: 'DM Sans', sans-serif; font-weight: 400;
+    flex-shrink: 0; width: 100%; padding: 0 24px;
+  }
+
   .toggle-btn {
     display: flex; align-items: center; gap: 6px;
     padding: 8px 16px; border-radius: 100px; border: none;
     font-family: inherit; font-size: 12px; font-weight: 500;
-    cursor: pointer; transition: all 0.25s; -webkit-tap-highlight-color: transparent;
+    cursor: pointer; transition: background 0.25s, color 0.25s, transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    -webkit-tap-highlight-color: transparent;
     color: var(--mid); background: transparent; letter-spacing: 0.02em;
   }
-  .toggle-btn.active { background: var(--ink); color: var(--bg); box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+  .toggle-btn.active { background: var(--ink); color: var(--bg); box-shadow: 0 2px 8px rgba(0,0,0,0.12); transform: scale(1.06); }
+  .toggle-btn:not(.active) { transform: scale(1); }
   .toggle-btn svg { width: 14px; height: 14px; }
 
   /* ── PROJECTS (below fold) ── */
@@ -324,27 +347,30 @@
     --bar-rule: rgba(255,255,255,0.1);
   }
   body.dark .clients {
-    background: var(--bg); border-top: 1px solid rgba(255,255,255,0.06);
-    --bar-text: var(--ink);
-    --bar-rule: rgba(255,255,255,0.08);
+    background: #ffffff; border-top: 1px solid rgba(0,0,0,0.08);
+    --bar-text: #111111;
+    --bar-rule: rgba(0,0,0,0.12);
   }
   .clients-label {
-    flex-shrink: 0; font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em;
+    flex-shrink: 0; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;
     color: var(--bar-text); opacity: 1; padding: 0 24px; border-right: 1px solid var(--bar-rule); white-space: nowrap;
   }
   .clients-ticker { flex: 1; max-width: 560px; overflow: hidden; height: 100%; display: flex; align-items: center; }
   .clients-track { display: flex; gap: 64px; white-space: nowrap; width: max-content; animation: ticker 52s linear infinite; align-items: center; padding-left: 32px; }
   .clients:hover .clients-track { animation-play-state: paused; }
   .client-logo { display: flex; align-items: center; height: 20px; opacity: 0.6; transition: opacity 0.2s; flex-shrink: 0; filter: invert(1); }
-  body.dark .client-logo { filter: invert(0); }
+  body.dark .client-logo { filter: invert(1); }
   .client-logo:hover { opacity: 0.95; }
   @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
   .clients-clocks { border-left: 1px solid var(--bar-rule); }
-  .bar-icons { display: flex; align-items: center; gap: 18px; border-left: 1px solid var(--bar-rule); padding: 0 24px; flex-shrink: 0; }
+  .bar-icons { display: flex; align-items: center; gap: 18px; border-left: 1px solid var(--bar-rule); padding: 0 24px; flex-shrink: 0; margin-left: auto; }
+  #copyToast { position: fixed; bottom: 48px; left: 50%; transform: translateX(-50%) translateY(8px); background: var(--ink); color: var(--bg); font-size: 12px; padding: 8px 16px; border-radius: 100px; opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s; white-space: nowrap; z-index: 9999; }
+  #copyToast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   .bar-icon { color: var(--bar-text); opacity: 1; transition: opacity 0.2s; display: flex; align-items: center; }
   .bar-icon:hover { opacity: 0.7; }
   .bar-icon svg { width: 14px; height: 14px; }
+  .bar-built { font-size: 10px; font-style: italic; color: var(--bar-text); opacity: 0.6; white-space: nowrap; padding-right: 18px; border-right: 1px solid var(--bar-rule); }
   body { padding-bottom: 28px; }
 
   .projects-header { padding: 24px 20px 0; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
@@ -381,13 +407,20 @@
   .tgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   @media (max-width: 767px) { .tgrid { grid-template-columns: 1fr; } }
   .tcard {
-    background: rgba(200, 184, 154, 0.1); border: 1px solid rgba(200, 184, 154, 0.25); border-radius: 12px;
+    background: #f0ece5; border: none; border-radius: 16px;
     padding: 24px; display: flex; flex-direction: column; gap: 16px;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 0 20px rgba(200,184,154,0.06);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -1px 0 rgba(0,0,0,0.04);
+    position: relative; overflow: hidden;
+  }
+  .tcard::after {
+    content: ''; position: absolute; inset: 0; border-radius: inherit;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+    opacity: 0.18; pointer-events: none; mix-blend-mode: overlay;
   }
   body.dark .tcard {
-    background: #2a2520; border-color: #3a3028;
-    box-shadow: inset 0 1px 0 rgba(200,184,154,0.1);
+    background: #f0ece5; border: none;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -1px 0 rgba(0,0,0,0.04);
   }
   .tcard-thumb {
     width: 44px; height: 44px; border-radius: 50%;
@@ -395,36 +428,17 @@
   }
   .tcard-thumb img { width: 100%; height: 100%; object-fit: cover; }
   .tcard-thumb-placeholder { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--mid); }
-  .tcard-quote { font-size: 14px; line-height: 1.65; color: var(--ink); flex: 1; opacity: 0.8; }
+  .tcard-quote { font-size: 14px; line-height: 1.65; color: var(--ink); flex: 1; opacity: 0.8; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
   .tcard-author { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
   .tcard-role { font-size: 11px; color: var(--mid); }
 
   @keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+
+  /* ── FOCUS STYLES ── */
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+  button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
   @keyframes bounce { 0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)} }
 
-  /* ── DOT → EXPAND → TYPE animation ── */
-  @keyframes dotLife {
-    0%   { transform: scale(0);                opacity: 0; border-radius: 50%; }
-    8%   { transform: scale(1.3);              opacity: 1; border-radius: 50%; }
-    15%  { transform: scale(1);                opacity: 1; border-radius: 50%; }
-    27%  { transform: scale(1.2);              opacity: 0.65; border-radius: 50%; }
-    38%  { transform: scale(1);                opacity: 1; border-radius: 50%; }
-    50%  { transform: scale(1.15);             opacity: 0.7; border-radius: 50%; }
-    60%  { transform: scale(1);                opacity: 1; border-radius: 50%; }
-    72%  { transform: scaleX(2.5) scaleY(0.3); opacity: 1; border-radius: 4px; }
-    87%  { transform: scaleX(26) scaleY(0.08); opacity: 0.4; border-radius: 2px; }
-    100% { transform: scaleX(38) scaleY(0.03); opacity: 0; }
-  }
-  @keyframes cursorBlink {
-    0%, 49% { opacity: 1; }
-    50%, 100% { opacity: 0; }
-  }
-  #typeCursor {
-    display: inline-block; width: 2.5px; height: 0.8em;
-    background: currentColor; vertical-align: text-bottom;
-    margin-left: 2px; border-radius: 1px;
-    animation: cursorBlink 0.65s step-end infinite;
-  }
 
   /* ── CUSTOM CURSOR (desktop only) ── */
   @media (pointer: fine) {
@@ -473,13 +487,20 @@
     transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
   }
   .client-logo { transition: opacity 0.2s ease, filter 0.35s ease; }
+
+  /* ── TCARD TEXT: dark mode — explicit overrides to ensure readability on light card bg ── */
+  body.dark .tcard .tcard-quote { color: #2a2420 !important; opacity: 1 !important; }
+  body.dark .tcard .tcard-quote strong { color: #2a2420 !important; }
+  body.dark .tcard .tcard-author { color: #1a1410 !important; }
+  body.dark .tcard .tcard-role { color: #6b5f52 !important; }
 </style>
 </head>
 <body class="dark">
+<script>if(localStorage.getItem('pg_dark')==='false'){document.body.classList.remove('dark');}</script>
 
 <nav id="nav">
   <!-- Left: rotating title -->
-  <div class="nav-name" id="navName"><span id="rotatingTitle">Patrick Guilfoyle</span></div>
+  <div class="nav-name" id="navName"><span id="rotatingTitle">Patrick Guilfoyle</span><span id="navInitials">PG</span></div>
 
   <!-- Centre: sticky search pill (appears on scroll) -->
   <div class="nav-search" id="navSearch">
@@ -490,7 +511,7 @@
   <!-- Right: About · AI Journal · dark toggle -->
   <div class="nav-right">
     <a href="about.html" class="nav-link">
-      <img src="images/about/avatar.png" alt="" class="nav-avatar">
+      <img src="images/about/avatar.png" alt="Patrick Guilfoyle" class="nav-avatar">
       About
     </a>
     <a href="journal.html" class="nav-link journal">
@@ -503,85 +524,96 @@
       </span>
       AI Journal
     </a>
-    <button class="dark-toggle" id="darkToggle" title="Toggle dark mode">
+    <button class="dark-toggle" id="darkToggle" title="Toggle dark mode" aria-label="Toggle dark mode">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
     </button>
   </div>
 </nav>
 
-<!-- ══ HERO SHELL ══ -->
-<div class="hero-shell" id="heroShell">
+<!-- ══ HERO ══ -->
+<div class="hero-wrap" id="heroWrap">
 
-  <!-- PANEL A: SEARCH -->
-  <div class="panel-search" id="panelSearch">
-    <h1 class="hero-headline" id="heroHeadline"></h1>
-    <p class="hero-sub">Systems thinking &amp; research-led design.</p>
+  <!-- Panels stack in same space — search drives the height, reel is absolute over it -->
+  <div class="hero-panels">
 
-    <div class="search-wrap">
-      <div class="search-box">
-        <div class="search-icon">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </div>
-        <input class="search-input" id="searchInput" placeholder="Ask anything about my work…" autocomplete="off" />
-        <div class="voice-wave" id="voiceWave">
-          <div class="wave-bars">
-            <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-            <div class="wave-bar"></div><div class="wave-bar"></div>
+    <!-- PANEL A: SEARCH -->
+    <div class="panel-search" id="panelSearch">
+      <div id="waveHand">👋</div>
+      <p style="font-size:22px; color:var(--ink); margin: 0 0 16px; opacity:0.9; animation: fadeUp 0.5s 0.1s ease both;">10+ years of systems thinking &amp; research-led product design.</p>
+
+      <div class="search-wrap">
+        <div class="search-box">
+          <div class="search-icon">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           </div>
-          <span class="wave-label">Listening</span>
+          <input class="search-input" id="searchInput" placeholder="Ask anything about my work…" autocomplete="off" />
+          <div class="voice-wave" id="voiceWave">
+            <div class="wave-bars">
+              <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+              <div class="wave-bar"></div><div class="wave-bar"></div>
+            </div>
+            <span class="wave-label">Listening</span>
+          </div>
+          <button class="search-mic" id="searchMic" title="Speak" aria-label="Use voice input">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          </button>
+          <button class="search-send" id="searchSend" aria-label="Send message">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
         </div>
-        <button class="search-mic" id="searchMic" title="Speak">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
-        </button>
-        <button class="search-send" id="searchSend">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-        </button>
+        <div class="answer-area" id="answerArea">
+          <div class="answer-bubble">
+            <div class="answer-avatar">
+              <div class="avatar-dot"><img src="images/about/avatar.png" alt="Patrick"></div>
+              <div class="avatar-label">Patrick's AI</div>
+            </div>
+            <button class="answer-close" id="answerClose" title="Close" aria-label="Close answer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div id="answerText"></div>
+          </div>
+        </div>
       </div>
-      <div class="answer-area" id="answerArea">
-        <div class="answer-bubble">
-          <div class="answer-avatar">
-            <div class="avatar-dot">P</div>
-            <div class="avatar-label">Patrick's AI</div>
-          </div>
-          <div id="answerText"></div>
-        </div>
+
+      <div class="chips">
+        <button class="chip">Are you available?</button>
+        <button class="chip">Design systems?</button>
+        <button class="chip">What's your process?</button>
+        <button class="chip">B2B experience?</button>
+        <button class="chip">Do you conduct research?</button>
       </div>
     </div>
 
-    <div class="chips">
-      <button class="chip">Are you available?</button>
-      <button class="chip">Design systems?</button>
-      <button class="chip">What's your process?</button>
-      <button class="chip">Mobile experience?</button>
+    <!-- PANEL B: WORK REEL (absolute, same footprint as search panel) -->
+    <div class="panel-carousel" id="panelCarousel">
+      <p class="hero-sub-label">View selected work below for more in-depth case studies.</p>
+      <div class="reel-track" id="reelTrack">
+        <div class="reel-item landscape"><div class="reel-label">Fintech</div><div class="reel-img"><img src="images/intick/Opener-Light.png" alt="Intick"><a class="reel-link" href="project-intick.html" aria-label="View Intick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a></div></div>
+        <div class="reel-item portrait"><div class="reel-label">Mobile</div><div class="reel-img"><img src="images/intick/Mobile1.png" alt="Intick mobile"><a class="reel-link" href="project-intick.html" aria-label="View Intick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a></div></div>
+        <div class="reel-item landscape"><div class="reel-label">Subscription &amp; onboarding</div><div class="reel-img"><img src="images/economist/EconomistDesktop-Onboarding.jpg" alt="The Economist"><a class="reel-link" href="project-economist.html" aria-label="View The Economist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a></div></div>
+        <div class="reel-item portrait"><div class="reel-label">Mobile UX</div><div class="reel-img"><img src="images/economist/EconomistMobile-Onboarding.jpg" alt="The Economist mobile"><a class="reel-link" href="project-economist.html" aria-label="View The Economist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a></div></div>
+        <div class="reel-item landscape"><div class="reel-label">Travel &amp; booking</div><div class="reel-img"><img src="images/eurostar/EurostarUIFrames.jpg" alt="Eurostar"><a class="reel-link" href="project-eurostar.html" aria-label="View Eurostar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a></div></div>
+        <div class="reel-item landscape"><div class="reel-label">E-commerce</div><div class="reel-img"><img src="images/heist/HeistUIImagex1.jpg" alt="Heist"><a class="reel-link" href="project-heist.html" aria-label="View Heist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a></div></div>
+        <div class="reel-item landscape"><div class="reel-label">Fashion retail</div><div class="reel-img"><img src="images/stella/Desktop-Product1.png" alt="Stella McCartney"><a class="reel-link" href="project-stella.html" aria-label="View Stella McCartney"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a></div></div>
+        <div class="reel-item portrait"><div class="reel-label">Design system</div><div class="reel-img"><img src="images/sedexds/both1.png" alt="Sedex design system"><a class="reel-link" href="project-sedexDS.html" aria-label="View Sedex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a></div></div>
+        <!-- Set B cloned by JS -->
+      </div>
     </div>
+
+  </div><!-- /hero-panels -->
+
+  <div class="hero-toggle on-search" id="heroToggle">
+    <button class="toggle-btn active" id="btnSearch">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      Ask
+    </button>
+    <button class="toggle-btn" id="btnVisual">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      Work
+    </button>
   </div>
 
-  <!-- PANEL B: SHOWCASE VIDEO -->
-  <div class="panel-carousel" id="panelCarousel">
-    <video id="showcaseVideo" muted loop playsinline
-      style="width:100%;height:100%;object-fit:cover;display:block;">
-      <source src="images/showcase/showcase.mp4" type="video/mp4">
-    </video>
-    <!-- Placeholder shown while no video file exists -->
-    <div class="slide-visual" id="videoPlaceholder" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0d0d0d;color:rgba(255,255,255,0.25);font-size:13px;letter-spacing:0.08em;gap:12px;">
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="rgba(255,255,255,0.3)"><path d="M8 5v14l11-7z"/></svg>
-      Coming soon — see selected work below
-    </div>
-  </div>
-
-</div><!-- /hero-shell -->
-
-<!-- TOGGLE (outside shell so it doesn't stretch hero height) -->
-<div class="hero-toggle on-search" id="heroToggle">
-  <button class="toggle-btn active" id="btnSearch">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    Ask
-  </button>
-  <button class="toggle-btn" id="btnVisual">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-    Work
-  </button>
-</div>
+</div><!-- /hero-wrap -->
 
 <!-- ══ PROJECTS ══ -->
 <section class="projects">
@@ -695,8 +727,8 @@
   <div class="tgrid">
 
     <div class="tcard reveal">
-      <div class="tcard-thumb"><span class="tcard-thumb-placeholder">S</span></div>
-      <p class="tcard-quote">"Patrick was a great mentor and trainer to product designers, implementing processes and practices to significantly elevate the design function. He established a usable design system and ensured its adoption. He's a great guy, a pleasure to work with and has a strong can-do attitude."</p>
+
+      <p class="tcard-quote">"Patrick was a <strong>great mentor and trainer</strong> to product designers, implementing processes and practices to significantly elevate the design function. He established a <strong>usable design system</strong> and ensured its adoption. He's a great guy, a pleasure to work with and has a strong <strong>can-do attitude.</strong>"</p>
       <div>
         <div class="tcard-author">Sarah Timms</div>
         <div class="tcard-role">CPO, Intick &amp; Sedex</div>
@@ -704,8 +736,8 @@
     </div>
 
     <div class="tcard reveal">
-      <div class="tcard-thumb"><span class="tcard-thumb-placeholder">L</span></div>
-      <p class="tcard-quote">"Patrick has been instrumental getting the Sedex Design to where it is today, both in terms of shepherding the design system into production, and building relationships outside our function, notably with the Front End Developers."</p>
+
+      <p class="tcard-quote">"Patrick has been <strong>instrumental</strong> getting the Sedex Design to where it is today, both in terms of <strong>shepherding the design system into production</strong>, and building relationships outside our function, notably with the Front End Developers."</p>
       <div>
         <div class="tcard-author">Loz Gray</div>
         <div class="tcard-role">Director of Product Design, Sedex</div>
@@ -713,8 +745,8 @@
     </div>
 
     <div class="tcard reveal">
-      <div class="tcard-thumb"><span class="tcard-thumb-placeholder">A</span></div>
-      <p class="tcard-quote">"Patrick worked on a really complex initiative at The Economist and did a brilliant job designing intricate user journeys and e-commerce flows. He jelled really well with the product managers and engineers to ship some really impactful and transformational work."</p>
+
+      <p class="tcard-quote">"Patrick worked on a really complex initiative at The Economist and did a <strong>brilliant job</strong> designing <strong>intricate user journeys and e-commerce flows</strong>. He jelled really well with the product managers and engineers to ship some really <strong>impactful and transformational work.</strong>"</p>
       <div>
         <div class="tcard-author">Adam Morris</div>
         <div class="tcard-role">VP of Design, The Economist</div>
@@ -722,8 +754,8 @@
     </div>
 
     <div class="tcard reveal">
-      <div class="tcard-thumb"><span class="tcard-thumb-placeholder">L</span></div>
-      <p class="tcard-quote">"I really enjoyed working with Patrick. He had a very collaborative relationship with our devs and the design to build journey was super smooth, he was patient when requirements changed and turned things around really quickly."</p>
+
+      <p class="tcard-quote">"I really enjoyed working with Patrick. He had a very <strong>collaborative relationship</strong> with our devs and the <strong>design to build journey was super smooth</strong>, he was patient when requirements changed and turned things around really quickly."</p>
       <div>
         <div class="tcard-author">LJ Mendoza</div>
         <div class="tcard-role">Senior Product Manager</div>
@@ -731,11 +763,18 @@
     </div>
 
     <div class="tcard reveal">
-      <div class="tcard-thumb"><span class="tcard-thumb-placeholder">?</span></div>
-      <p class="tcard-quote">"Quote goes here."</p>
+      <p class="tcard-quote">"Pat played a <strong>pivotal role</strong> in shaping the foundations of our design system — and is genuinely a pleasure to work with. He brought <strong>clarity and structure</strong> to what could have easily become a fragmented process. He didn't just create components — he established <strong>principles, patterns, and a scalable approach</strong> that continues to benefit the entire team."</p>
       <div>
-        <div class="tcard-author">Name</div>
-        <div class="tcard-role">Role</div>
+        <div class="tcard-author">Jon Smith</div>
+        <div class="tcard-role">Head of Digital Experience, Pharmacy2U</div>
+      </div>
+    </div>
+
+    <div class="tcard reveal">
+      <p class="tcard-quote">"Patrick is a <strong>calm, diligent designer</strong> and did some great work at The Economist on our new <strong>customer flows and journeys</strong>. He's a <strong>great listener</strong> and takes stakeholder feedback well. I would highly recommend Patrick and his work."</p>
+      <div>
+        <div class="tcard-author">Deep Bagchee</div>
+        <div class="tcard-role">Product & Technology Leader</div>
       </div>
     </div>
 
@@ -745,11 +784,11 @@
 <script>
 // NAV scroll + sticky search
 const nav = document.getElementById('nav');
-const heroShell = document.getElementById('heroShell');
+const heroWrap = document.getElementById('heroWrap');
 window.addEventListener('scroll', () => {
   const scrolled = window.scrollY > 20;
   nav.classList.toggle('scrolled', scrolled);
-  const heroPast = heroShell.getBoundingClientRect().bottom < 64;
+  const heroPast = heroWrap.getBoundingClientRect().bottom < 64;
   nav.classList.toggle('search-sticky', heroPast);
 });
 
@@ -761,11 +800,12 @@ document.getElementById('navSearch').addEventListener('click', () => {
 const darkToggle = document.getElementById('darkToggle');
 const sunIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
 const moonIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
-// starts dark — show sun so user can switch to light
-darkToggle.innerHTML = sunIcon;
+// Set icon to match actual current state (may have been overridden by localStorage)
+darkToggle.innerHTML = document.body.classList.contains('dark') ? sunIcon : moonIcon;
 darkToggle.addEventListener('click', () => {
   document.body.classList.toggle('dark');
   const isDark = document.body.classList.contains('dark');
+  localStorage.setItem('pg_dark', isDark);
   darkToggle.innerHTML = isDark ? sunIcon : moonIcon;
 });
 
@@ -775,7 +815,6 @@ const panelCarousel = document.getElementById('panelCarousel');
 const heroToggle = document.getElementById('heroToggle');
 const btnSearch = document.getElementById('btnSearch');
 const btnVisual = document.getElementById('btnVisual');
-const navName = document.getElementById('navName');
 let onCarousel = false;
 
 function showSearch() {
@@ -786,8 +825,6 @@ function showSearch() {
   heroToggle.classList.add('on-search');
   btnSearch.classList.add('active');
   btnVisual.classList.remove('active');
-  navName.classList.remove('light');
-  showcaseVideo.pause();
 }
 function showCarousel() {
   onCarousel = true;
@@ -797,21 +834,26 @@ function showCarousel() {
   heroToggle.classList.remove('on-search');
   btnVisual.classList.add('active');
   btnSearch.classList.remove('active');
-  navName.classList.add('light');
-  showcaseVideo.play().catch(() => {}); // autoplay (muted, so always allowed)
 }
 
 btnSearch.addEventListener('click', showSearch);
 btnVisual.addEventListener('click', showCarousel);
 
-// ── SHOWCASE VIDEO ──
-const showcaseVideo = document.getElementById('showcaseVideo');
-const videoPlaceholder = document.getElementById('videoPlaceholder');
-
-// Hide placeholder if video loads
-showcaseVideo.addEventListener('canplay', () => {
-  if (videoPlaceholder) videoPlaceholder.style.display = 'none';
-});
+// ── REEL: seamless infinite loop ──
+(function() {
+  const track = document.getElementById('reelTrack');
+  if (!track) return;
+  // Clone so we have two identical sets
+  const original = track.innerHTML;
+  track.innerHTML += original;
+  // Measure one set width then set animation to scroll exactly that far
+  requestAnimationFrame(() => {
+    const half = track.scrollWidth / 2;
+    const style = document.createElement('style');
+    style.textContent = `@keyframes reelScroll { from { transform: translateX(0); } to { transform: translateX(-${half}px); } }`;
+    document.head.appendChild(style);
+  });
+})();
 
 // pills / filter
 const pills = document.querySelectorAll('.pill');
@@ -832,7 +874,17 @@ pills.forEach(pill => {
 });
 
 // ── AI SEARCH ──
-const CONTEXT = `Patrick Guilfoyle is a senior product designer based in London with 10+ years experience. Companies: Sedex (lead designer, design system, 27% load improvement), The Economist (future customer experience team), Eurostar (pricing calendar redesign), Mr Porter (UX/UI), Heist (site redesign), Intick (0-to-1 solo designer), Stella (responsive checkout). Skills: UX research, design systems (Figma, tokens, MUI, Storybook), UI design, accessibility (WCAG), Android (Jetpack Compose). Process: Discovery-first. Availability: Open to freelance, contract, or permanent. London-based, open to remote. Email: patrick.guilf@gmail.com`;
+const CONTEXT = `Patrick Guilfoyle — senior product designer, London, 10+ years. Primarily works contracts. Booked until 23 June 2026, then open to contract/freelance/perm. Right to work UK and EU (dual British/Irish). Contact: patrick.guilf@gmail.com.
+
+Currently: Product Designer at GetYourGuide, Reviews team.
+
+Experience: Sedex (Lead PD — design system from scratch, token-based MUI, 27% faster load times, SAQ redesign: 95% completion rate, 32% more mobile usage; case studies: pguilf.github.io/project-sedexDS.html, pguilf.github.io/project-sedexSAQ.html). The Economist (Principal PD — subscription journey redesign, 0.5% conversion up, 6% checkout drop-off down; pguilf.github.io/project-economist.html). Eurostar (pricing calendar redesign, 4.5/5 user rating; pguilf.github.io/project-eurostar.html). Heist (site redesign, +6-7% conversions, -20% bounce; pguilf.github.io/project-heist.html). Intick (sole PD, 0-to-1 trading platform; pguilf.github.io/project-intick.html). Mr Porter, Stella McCartney (pguilf.github.io/project-stella.html).
+
+Skills: UX research, design systems, UI, accessibility (WCAG), product strategy, 0-to-1, stakeholder workshops, Android (Jetpack Compose). Tools: Figma, Storybook, Jira, Notion, Miro, Hotjar, UserZoom.
+
+AI-native: uses AI to go straight to build — working prototypes instead of static mocks. Journal: pguilf.github.io/journal.html.`;
+
+const GROQ_KEY = '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';
 
 async function askAI(q) {
   const area = document.getElementById('answerArea');
@@ -840,19 +892,23 @@ async function askAI(q) {
   area.classList.add('visible');
   text.innerHTML = '<div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${GROQ_KEY}` },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514', max_tokens: 1000,
-        system: `You are an AI assistant on Patrick Guilfoyle's design portfolio. Answer questions about Patrick using the context. Be warm and concise — 1-3 sentences. No markdown. If unsure, direct to patrick.guilf@gmail.com.\n\n${CONTEXT}`,
-        messages: [{ role: 'user', content: q }]
+        model: 'llama-3.1-8b-instant',
+        max_tokens: 120,
+        messages: [
+          { role: 'system', content: `You are an AI assistant on Patrick Guilfoyle's design portfolio. Answer questions about Patrick using only the context provided. Be warm and concise — 1-3 sentences. No markdown. If unsure, direct to patrick.guilf@gmail.com.\n\n${CONTEXT}` },
+          { role: 'user', content: q }
+        ]
       })
     });
     const data = await res.json();
-    text.textContent = data.content?.[0]?.text || 'Not sure — reach Patrick at patrick.guilf@gmail.com';
-  } catch {
-    text.textContent = 'Something went wrong. Try patrick.guilf@gmail.com';
+    if (data.error) { text.textContent = `Error: ${data.error.message}`; return; }
+    text.textContent = data.choices?.[0]?.message?.content || 'Not sure — reach Patrick at patrick.guilf@gmail.com';
+  } catch(err) {
+    text.textContent = `Error: ${err.message}`;
   }
 }
 
@@ -862,6 +918,9 @@ document.getElementById('searchSend').addEventListener('click', () => {
 });
 document.getElementById('searchInput').addEventListener('keydown', e => {
   if (e.key === 'Enter') { const q = e.target.value.trim(); if (q) askAI(q); }
+});
+document.getElementById('answerClose').addEventListener('click', () => {
+  document.getElementById('answerArea').classList.remove('visible');
 });
 
 // ── VOICE INPUT ──
@@ -923,62 +982,22 @@ document.querySelectorAll('.chip').forEach(c => {
   c.addEventListener('click', () => { document.getElementById('searchInput').value = c.textContent; askAI(c.textContent); });
 });
 
-// ── DOT → EXPAND → TYPEWRITER (once per session) ──
+// ── GREETING EMOJI ──
 (function() {
-  const el = document.getElementById('heroHeadline');
-  const fullHTML = '10 years making<br><em>complex products</em> feel simple.';
-  const SEEN_KEY = 'pg_headline_seen';
-
-  // If already seen this session, just show the text instantly
-  if (sessionStorage.getItem(SEEN_KEY)) {
-    el.innerHTML = fullHTML;
-    return;
-  }
-
-  sessionStorage.setItem(SEEN_KEY, '1');
-
-  // Phase 1: dot appears and pulses, then expands to line
-  const dot = document.createElement('span');
-  dot.id = 'heroDot';
-  dot.style.cssText = 'display:inline-block;width:10px;height:10px;border-radius:50%;background:currentColor;vertical-align:middle;margin-bottom:0.1em;animation:dotLife 2s cubic-bezier(0.4,0,0.6,1) forwards';
-  el.appendChild(dot);
-
-  // Tokenise HTML for typing
-  const tokens = [];
-  let i = 0;
-  while (i < fullHTML.length) {
-    if (fullHTML[i] === '<') {
-      const end = fullHTML.indexOf('>', i);
-      tokens.push({ tag: fullHTML.substring(i, end + 1) });
-      i = end + 1;
-    } else {
-      tokens.push({ char: fullHTML[i] });
-      i++;
-    }
-  }
-
-  function startTyping() {
-    el.innerHTML = '';
-    const cursor = document.createElement('span');
-    cursor.id = 'typeCursor';
-    let pos = 0;
-    function tick() {
-      if (pos >= tokens.length) {
-        cursor.style.transition = 'opacity 0.6s';
-        cursor.style.opacity = '0';
-        setTimeout(() => cursor.remove(), 600);
-        return;
-      }
-      const t = tokens[pos++];
-      el.innerHTML = tokens.slice(0, pos).map(x => x.tag || x.char).join('');
-      el.appendChild(cursor);
-      if (t.tag) { tick(); }
-      else { setTimeout(tick, t.char === ' ' ? 58 : 36); }
-    }
-    tick();
-  }
-
-  setTimeout(startTyping, 2000);
+  const el = document.getElementById('waveHand');
+  if (!el) return;
+  const visits = [
+    { emoji: '👋', anim: 'anim-wave' },
+    { emoji: '💻', anim: 'anim-bounce' },
+    { emoji: '📐', anim: 'anim-nudge' },
+    { emoji: '✍️', anim: 'anim-write' },
+  ];
+  const count = parseInt(localStorage.getItem('pg_visit') || '0', 10);
+  const v = visits[count % visits.length];
+  el.textContent = v.emoji;
+  el.classList.add(v.anim);
+  localStorage.setItem('pg_visit', count + 1);
+  el.addEventListener('animationend', () => el.classList.add('done'));
 })();
 
 // ── AUTO SCROLL AFTER 20s ──
@@ -994,7 +1013,7 @@ document.querySelectorAll('.chip').forEach(c => {
     sessionStorage.setItem('pg_autoscrolled', '1');
     const target = document.querySelector('.projects');
     if (target) target.scrollIntoView({ behavior: 'smooth' });
-  }, 7000);
+  }, 5000);
 })();
 
 // ── SCROLL REVEAL ──
@@ -1080,38 +1099,52 @@ if (window.matchMedia('(pointer: fine)').matches) {
   <div class="clients-label">Who I've worked with</div>
   <div class="clients-ticker">
   <div class="clients-track" id="clientsTrack">
-    <div class="client-logo"><svg width="120" height="20" viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="20" rx="2" fill="var(--ink)"/><text x="60" y="14" font-family="Georgia,serif" font-size="9" fill="white" text-anchor="middle" letter-spacing="0.5">The Economist</text></svg></div>
+    <div class="client-logo"><svg width="120" height="20" viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="60" y="14" font-family="Georgia,serif" font-size="10" fill="var(--ink)" text-anchor="middle" letter-spacing="0.4">The Economist</text></svg></div>
     <div class="client-logo"><svg width="80" height="20" viewBox="0 0 80 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="40" y="14" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="var(--ink)" text-anchor="middle" letter-spacing="-0.3">EUROSTAR</text></svg></div>
     <div class="client-logo"><svg width="85" height="20" viewBox="0 0 85 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="42" y="14" font-family="Georgia,serif" font-size="11" fill="var(--ink)" text-anchor="middle" letter-spacing="1">MR PORTER</text></svg></div>
     <div class="client-logo"><svg width="60" height="20" viewBox="0 0 60 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="30" y="14" font-family="Arial,sans-serif" font-weight="700" font-size="12" fill="var(--ink)" text-anchor="middle">sedex</text></svg></div>
     <div class="client-logo"><svg width="50" height="20" viewBox="0 0 50 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="25" y="14" font-family="Georgia,serif" font-size="11" fill="var(--ink)" text-anchor="middle" letter-spacing="1">HEIST</text></svg></div>
     <div class="client-logo"><svg width="50" height="20" viewBox="0 0 50 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="25" y="14" font-family="Arial,sans-serif" font-weight="600" font-size="11" fill="var(--ink)" text-anchor="middle">intick</text></svg></div>
     <div class="client-logo"><svg width="110" height="20" viewBox="0 0 110 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="55" y="14" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="var(--ink)" text-anchor="middle" letter-spacing="-0.2">GetYourGuide</text></svg></div>
+    <div class="client-logo"><svg width="110" height="20" viewBox="0 0 110 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="55" y="14" font-family="Arial,sans-serif" font-weight="600" font-size="11" fill="var(--ink)" text-anchor="middle" letter-spacing="-0.1">Pharmacy2U</text></svg></div>
     <!-- duplicate for seamless loop -->
-    <div class="client-logo"><svg width="120" height="20" viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="20" rx="2" fill="var(--ink)"/><text x="60" y="14" font-family="Georgia,serif" font-size="9" fill="white" text-anchor="middle" letter-spacing="0.5">The Economist</text></svg></div>
+    <div class="client-logo"><svg width="120" height="20" viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="60" y="14" font-family="Georgia,serif" font-size="10" fill="var(--ink)" text-anchor="middle" letter-spacing="0.4">The Economist</text></svg></div>
     <div class="client-logo"><svg width="80" height="20" viewBox="0 0 80 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="40" y="14" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="var(--ink)" text-anchor="middle" letter-spacing="-0.3">EUROSTAR</text></svg></div>
     <div class="client-logo"><svg width="85" height="20" viewBox="0 0 85 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="42" y="14" font-family="Georgia,serif" font-size="11" fill="var(--ink)" text-anchor="middle" letter-spacing="1">MR PORTER</text></svg></div>
     <div class="client-logo"><svg width="60" height="20" viewBox="0 0 60 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="30" y="14" font-family="Arial,sans-serif" font-weight="700" font-size="12" fill="var(--ink)" text-anchor="middle">sedex</text></svg></div>
     <div class="client-logo"><svg width="50" height="20" viewBox="0 0 50 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="25" y="14" font-family="Georgia,serif" font-size="11" fill="var(--ink)" text-anchor="middle" letter-spacing="1">HEIST</text></svg></div>
     <div class="client-logo"><svg width="50" height="20" viewBox="0 0 50 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="25" y="14" font-family="Arial,sans-serif" font-weight="600" font-size="11" fill="var(--ink)" text-anchor="middle">intick</text></svg></div>
     <div class="client-logo"><svg width="110" height="20" viewBox="0 0 110 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="55" y="14" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="var(--ink)" text-anchor="middle" letter-spacing="-0.2">GetYourGuide</text></svg></div>
+    <div class="client-logo"><svg width="110" height="20" viewBox="0 0 110 20" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="55" y="14" font-family="Arial,sans-serif" font-weight="600" font-size="11" fill="var(--ink)" text-anchor="middle" letter-spacing="-0.1">Pharmacy2U</text></svg></div>
   </div>
   </div>
 
   <div class="bar-icons">
+      <span class="bar-built">Built by me using Claude Code</span>
       <a href="https://www.linkedin.com/in/patrick-guilfoyle/" target="_blank" class="bar-icon" title="LinkedIn">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.7v2.3h.1c.7-1.3 2.4-2.6 4.9-2.6 5.2 0 6.2 3.4 6.2 7.7V24h-5v-6.8c0-1.6 0-3.8-2.3-3.8-2.3 0-2.7 1.8-2.7 3.6V24h-5V8z"/></svg>
       </a>
-      <a href="mailto:patrick.guilf@gmail.com" class="bar-icon" title="Email">
+      <a href="#" class="bar-icon" id="emailCopy" title="Copy email">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z"/><path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z"/></svg>
       </a>
-      <a href="aiprompts.html" class="bar-icon" title="AI Prompts">
+      <a href="journal.html" class="bar-icon" title="AI Journal">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5ZM18 1.5a.75.75 0 0 1 .728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 0 1 0 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 0 1-1.456 0l-.258-1.036a2.625 2.625 0 0 0-1.91-1.91l-1.036-.258a.75.75 0 0 1 0-1.456l1.036-.258a2.625 2.625 0 0 0 1.91-1.91l.258-1.036A.75.75 0 0 1 18 1.5ZM16.5 15a.75.75 0 0 1 .712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 0 1 0 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 0 1-1.422 0l-.395-1.183a1.5 1.5 0 0 0-.948-.948l-1.183-.395a.75.75 0 0 1 0-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0 1 16.5 15Z" clip-rule="evenodd"/></svg>
       </a>
     </div>
-  </div>
 </div>
 
+<div id="copyToast">Email copied to clipboard</div>
+
+<script>
+  document.getElementById('emailCopy').addEventListener('click', function(e) {
+    e.preventDefault();
+    navigator.clipboard.writeText('patrick.guilf@gmail.com').then(function() {
+      const toast = document.getElementById('copyToast');
+      toast.classList.add('show');
+      setTimeout(function() { toast.classList.remove('show'); }, 2500);
+    });
+  });
+</script>
 
 </body>
 </html>

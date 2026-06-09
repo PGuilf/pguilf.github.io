@@ -1,23 +1,53 @@
-// ── PROJECT PAGE OVERLAY TRANSITIONS ──
+// ── PROJECT PAGE OVERLAY TRANSITIONS + DARK MODE ──
 (function() {
-  if (!document.getElementById('project-content')) return;
+  const path = window.location.pathname;
+  const isProjectPage = path.includes('project-') || path.includes('about.html') || path.includes('journal.html') || path.includes('mddocs.html') || path.includes('figmamake.html') || path.includes('aiprompts.html') || path.includes('intick.html');
 
-  // Slide-up entrance — trigger on DOMContentLoaded for snappy feel
-  document.body.classList.add('overlay-page');
+  if (!isProjectPage) return;
+
+  // Apply dark mode immediately to <html> (body may not exist yet if script is in <head>)
+  const savedDark = localStorage.getItem('pg_dark');
+  if (savedDark === null || savedDark === 'true') {
+    document.documentElement.classList.add('dark');
+  }
+
+  const sunIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+  const moonIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+
+  // Scroll-aware header: make buttons fully visible once user scrolls
+  window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    if (header) header.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
   document.addEventListener('DOMContentLoaded', () => {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => document.body.classList.add('loaded'));
-    });
+    // Add loaded class for entrance transition
+    requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.add('loaded')));
+
+    // Inject toggle into header
+    const rightTitle = document.querySelector('.right-title');
+    if (rightTitle) {
+      const btn = document.createElement('button');
+      btn.className = 'project-dark-toggle';
+      btn.title = 'Toggle dark mode';
+      btn.innerHTML = document.documentElement.classList.contains('dark') ? sunIcon : moonIcon;
+      rightTitle.appendChild(btn);
+      btn.addEventListener('click', () => {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('pg_dark', isDark);
+        btn.innerHTML = isDark ? sunIcon : moonIcon;
+      });
+    }
   });
 
-  // Smooth exit on close / back-to-home links
+  // Fast exit on close / back links
   document.addEventListener('click', function(e) {
-    const link = e.target.closest('a[href="index.html"], a.close-link');
+    const link = e.target.closest('a[href="index.html"], a[href="journal.html"], a.close-link');
     if (!link) return;
     e.preventDefault();
     const href = link.getAttribute('href') || 'index.html';
     document.body.classList.add('overlay-exit');
-    setTimeout(() => { window.location.href = href; }, 320);
+    setTimeout(() => { window.location.href = href; }, 150);
   });
 })();
 
