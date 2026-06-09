@@ -257,7 +257,7 @@
   .reel-track {
     display: flex; gap: 3px; align-items: flex-end;
     padding: 8px 0 0; width: max-content;
-    animation: reelScroll 120s linear infinite;
+    animation: reelScroll 250s linear infinite;
     cursor: grab;
   }
   .reel-track:active { cursor: grabbing; }
@@ -860,11 +860,58 @@ function showCarousel() {
 btnSearch.addEventListener('click', showSearch);
 btnVisual.addEventListener('click', showCarousel);
 
-// ── REEL: clone for seamless CSS animation loop ──
+// ── REEL: clone + drag/swipe to scrub ──
 (function() {
   const track = document.getElementById('reelTrack');
   if (!track) return;
   track.innerHTML += track.innerHTML;
+
+  let dragging = false, lastX = 0, offset = 0;
+
+  function getAnimPos() {
+    // Get current animated position in pixels
+    const style = window.getComputedStyle(track);
+    const matrix = new DOMMatrix(style.transform);
+    return -matrix.m41;
+  }
+
+  function startDrag(x) {
+    dragging = true;
+    lastX = x;
+    offset = getAnimPos();
+    track.style.animationPlayState = 'paused';
+    track.style.transform = `translateX(-${offset}px)`;
+    track.style.animation = 'none';
+  }
+
+  function moveDrag(x) {
+    if (!dragging) return;
+    offset += lastX - x;
+    lastX = x;
+    const half = track.scrollWidth / 2;
+    if (offset >= half) offset -= half;
+    if (offset < 0) offset += half;
+    track.style.transform = `translateX(-${offset}px)`;
+  }
+
+  function endDrag() {
+    if (!dragging) return;
+    dragging = false;
+    const half = track.scrollWidth / 2;
+    const pct = (offset / half) * 100;
+    const duration = 250;
+    const delay = -(pct / 100) * duration;
+    track.style.transform = '';
+    track.style.animation = `reelScroll ${duration}s linear infinite`;
+    track.style.animationDelay = `${delay}s`;
+  }
+
+  track.addEventListener('mousedown', e => startDrag(e.pageX));
+  window.addEventListener('mousemove', e => moveDrag(e.pageX));
+  window.addEventListener('mouseup', endDrag);
+  track.addEventListener('touchstart', e => startDrag(e.touches[0].pageX), { passive: true });
+  track.addEventListener('touchmove', e => moveDrag(e.touches[0].pageX), { passive: true });
+  track.addEventListener('touchend', endDrag);
 })();
 
 // pills / filter
