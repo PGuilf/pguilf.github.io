@@ -254,14 +254,15 @@
 
   /* ── REEL TRACK ── */
 
+  .reel-outer {
+    width: 100%; overflow: hidden; cursor: grab; user-select: none;
+  }
+  .reel-outer.dragging { cursor: grabbing; }
   .reel-track {
     display: flex; gap: 3px; align-items: flex-end;
     padding: 8px 0 0; width: max-content;
     animation: reelScroll 250s linear infinite;
-    cursor: grab;
   }
-  .reel-track:active { cursor: grabbing; }
-  .reel-track.paused { animation-play-state: paused; }
 
   .reel-item {
     flex-shrink: 0;
@@ -599,6 +600,7 @@
 
     <!-- PANEL B: WORK REEL (absolute, same footprint as search panel) -->
     <div class="panel-carousel" id="panelCarousel">
+      <div class="reel-outer" id="reelOuter">
       <div class="reel-track" id="reelTrack">
         <div class="reel-item landscape"><a class="reel-label" href="project-intick.html">Fintech<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a><div class="reel-img"><div class="reel-placeholder">Coming soon</div></div></div>
         <div class="reel-item landscape"><a class="reel-label" href="project-intick.html">Mobile<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a><div class="reel-img"><div class="reel-placeholder">Coming soon</div></div></div>
@@ -610,6 +612,7 @@
         <div class="reel-item landscape"><a class="reel-label" href="project-sedexDS.html">Design system<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a><div class="reel-img"><div class="reel-placeholder">Coming soon</div></div></div>
         <!-- Set B cloned by JS -->
       </div>
+      </div><!-- /reel-outer -->
     </div>
 
   </div><!-- /hero-panels -->
@@ -862,26 +865,26 @@ btnVisual.addEventListener('click', showCarousel);
 
 // ── REEL: clone + drag/swipe to scrub ──
 (function() {
+  const outer = document.getElementById('reelOuter');
   const track = document.getElementById('reelTrack');
-  if (!track) return;
+  if (!outer || !track) return;
   track.innerHTML += track.innerHTML;
 
+  const DURATION = 250;
   let dragging = false, lastX = 0, offset = 0;
 
-  function getAnimPos() {
-    // Get current animated position in pixels
-    const style = window.getComputedStyle(track);
-    const matrix = new DOMMatrix(style.transform);
+  function currentOffset() {
+    const matrix = new DOMMatrix(window.getComputedStyle(track).transform);
     return -matrix.m41;
   }
 
   function startDrag(x) {
     dragging = true;
     lastX = x;
-    offset = getAnimPos();
-    track.style.animationPlayState = 'paused';
-    track.style.transform = `translateX(-${offset}px)`;
+    offset = currentOffset();
     track.style.animation = 'none';
+    track.style.transform = `translateX(-${offset}px)`;
+    outer.classList.add('dragging');
   }
 
   function moveDrag(x) {
@@ -897,21 +900,19 @@ btnVisual.addEventListener('click', showCarousel);
   function endDrag() {
     if (!dragging) return;
     dragging = false;
+    outer.classList.remove('dragging');
     const half = track.scrollWidth / 2;
-    const pct = (offset / half) * 100;
-    const duration = 250;
-    const delay = -(pct / 100) * duration;
+    const delay = -((offset / half) * DURATION);
     track.style.transform = '';
-    track.style.animation = `reelScroll ${duration}s linear infinite`;
-    track.style.animationDelay = `${delay}s`;
+    track.style.animation = `reelScroll ${DURATION}s ${delay}s linear infinite`;
   }
 
-  track.addEventListener('mousedown', e => startDrag(e.pageX));
+  outer.addEventListener('mousedown', e => { e.preventDefault(); startDrag(e.pageX); });
   window.addEventListener('mousemove', e => moveDrag(e.pageX));
   window.addEventListener('mouseup', endDrag);
-  track.addEventListener('touchstart', e => startDrag(e.touches[0].pageX), { passive: true });
-  track.addEventListener('touchmove', e => moveDrag(e.touches[0].pageX), { passive: true });
-  track.addEventListener('touchend', endDrag);
+  outer.addEventListener('touchstart', e => startDrag(e.touches[0].pageX), { passive: true });
+  outer.addEventListener('touchmove', e => moveDrag(e.touches[0].pageX), { passive: true });
+  outer.addEventListener('touchend', endDrag);
 })();
 
 // pills / filter
