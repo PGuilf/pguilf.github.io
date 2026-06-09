@@ -254,15 +254,13 @@
 
   /* ── REEL TRACK ── */
 
-  .reel-scroll {
-    width: 100%; overflow: hidden; cursor: grab; position: relative;
-  }
-  .reel-scroll.dragging { cursor: grabbing; user-select: none; }
   .reel-track {
     display: flex; gap: 3px; align-items: flex-end;
     padding: 8px 0 0; width: max-content;
     animation: reelScroll 250s linear infinite;
+    cursor: grab;
   }
+  .reel-track:active { cursor: grabbing; }
   .reel-track.paused { animation-play-state: paused; }
 
   .reel-item {
@@ -594,7 +592,7 @@
 
     <!-- PANEL B: WORK REEL (absolute, same footprint as search panel) -->
     <div class="panel-carousel" id="panelCarousel">
-      <div class="reel-scroll" id="reelScroll"><div class="reel-track" id="reelTrack">
+      <div class="reel-track" id="reelTrack">
         <div class="reel-item landscape"><a class="reel-label" href="project-intick.html">Fintech<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a><div class="reel-img"><div class="reel-placeholder">Coming soon</div></div></div>
         <div class="reel-item landscape"><a class="reel-label" href="project-intick.html">Mobile<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a><div class="reel-img"><div class="reel-placeholder">Coming soon</div></div></div>
         <div class="reel-item landscape"><a class="reel-label" href="project-economist.html">Subscription &amp; onboarding<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a><div class="reel-img"><div class="reel-placeholder">Coming soon</div></div></div>
@@ -604,7 +602,7 @@
         <div class="reel-item landscape"><a class="reel-label" href="project-stella.html">Fashion retail<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a><div class="reel-img"><div class="reel-placeholder">Coming soon</div></div></div>
         <div class="reel-item landscape"><a class="reel-label" href="project-sedexDS.html">Design system<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a><div class="reel-img"><div class="reel-placeholder">Coming soon</div></div></div>
         <!-- Set B cloned by JS -->
-      </div></div><!-- /reel-track /reel-scroll -->
+      </div>
     </div>
 
   </div><!-- /hero-panels -->
@@ -855,39 +853,11 @@ function showCarousel() {
 btnSearch.addEventListener('click', showSearch);
 btnVisual.addEventListener('click', showCarousel);
 
-// ── REEL: clone + drag to scrub (CSS animation handles auto-scroll) ──
+// ── REEL: clone for seamless CSS animation loop ──
 (function() {
-  const scroller = document.getElementById('reelScroll');
   const track = document.getElementById('reelTrack');
-  if (!scroller || !track) return;
+  if (!track) return;
   track.innerHTML += track.innerHTML;
-
-  let dragging = false, lastX = 0, dragOffset = 0;
-
-  function startDrag(x) {
-    dragging = true; lastX = x; dragOffset = 0;
-    track.classList.add('paused');
-    scroller.classList.add('dragging');
-  }
-  function moveDrag(x) {
-    if (!dragging) return;
-    dragOffset += lastX - x;
-    lastX = x;
-    track.style.marginLeft = `-${dragOffset}px`;
-  }
-  function endDrag() {
-    dragging = false;
-    track.classList.remove('paused');
-    scroller.classList.remove('dragging');
-    track.style.marginLeft = '';
-  }
-
-  scroller.addEventListener('mousedown', e => startDrag(e.pageX));
-  window.addEventListener('mousemove', e => moveDrag(e.pageX));
-  window.addEventListener('mouseup', endDrag);
-  scroller.addEventListener('touchstart', e => startDrag(e.touches[0].pageX), { passive: true });
-  scroller.addEventListener('touchmove', e => moveDrag(e.touches[0].pageX), { passive: true });
-  scroller.addEventListener('touchend', endDrag);
 })();
 
 // pills / filter
