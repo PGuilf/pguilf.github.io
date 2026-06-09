@@ -140,7 +140,7 @@
     width: 100%;
     display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
     padding: 36px 24px 60px; text-align: center;
-    transition: opacity 0.4s ease;
+    transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .panel-search.hidden { opacity: 0; pointer-events: none; }
 
@@ -149,7 +149,7 @@
     position: absolute; top: 0; left: 0; right: 0; bottom: 0;
     overflow: hidden;
     opacity: 0; pointer-events: none;
-    transition: opacity 0.4s ease;
+    transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
     padding-bottom: 0;
   }
@@ -255,9 +255,9 @@
   /* ── REEL TRACK ── */
 
   .reel-track {
-    display: flex; gap: 10px; align-items: center;
+    display: flex; gap: 3px; align-items: flex-end;
     padding: 8px 20px 0; width: max-content;
-    animation: reelScroll 100s linear infinite;
+    animation: reelScroll 45s linear infinite;
   }
   .reel-track:hover { animation-play-state: paused; }
 
@@ -265,39 +265,40 @@
     flex-shrink: 0;
     display: flex; flex-direction: column; gap: 6px;
   }
+  .reel-item.landscape { width: 360px; }
+  .reel-item.portrait  { width: 180px; }
+
+  /* label above image — sentence case, with inline arrow on hover */
   .reel-label {
+    display: inline-flex; align-items: center; gap: 4px;
     font-family: 'Montserrat', sans-serif;
-    font-size: 10px; font-weight: 700; letter-spacing: 0.05em;
-    text-transform: uppercase; color: var(--mid);
-    white-space: nowrap;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.01em;
+    color: var(--mid); white-space: nowrap;
+    text-decoration: none; transition: color 0.2s;
   }
-  .reel-item.landscape { width: 240px; }
-  .reel-item.portrait  { width: 135px; }
+  .reel-item:hover .reel-label { color: var(--ink); }
+  .reel-label svg {
+    width: 11px; height: 11px; flex-shrink: 0;
+    opacity: 0; transform: translateX(-3px);
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .reel-item:hover .reel-label svg { opacity: 1; transform: translateX(0); }
 
   .reel-img {
-    height: 180px; width: 100%;
-    border-radius: 12px; overflow: hidden;
-    position: relative; background: var(--rule);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-    transition: box-shadow 0.2s;
+    height: 260px; width: 100%;
+    border-radius: 0; overflow: hidden;
+    position: relative; background: #000;
   }
-  .reel-img:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
   .reel-img img, .reel-img video {
     width: 100%; height: 100%; object-fit: cover; display: block;
   }
-
-  /* diagonal arrow on hover only */
-  .reel-link {
-    position: absolute; top: 8px; right: 8px;
-    width: 26px; height: 26px;
-    background: rgba(255,255,255,0.92); border-radius: 50%;
+  .reel-placeholder {
+    width: 100%; height: 100%;
     display: flex; align-items: center; justify-content: center;
-    opacity: 0; transform: scale(0.8);
-    transition: opacity 0.2s, transform 0.2s;
-    color: #111; text-decoration: none;
+    font-family: 'DM Sans', sans-serif; font-size: 11px;
+    font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
   }
-  .reel-link svg { width: 11px; height: 11px; }
-  .reel-img:hover .reel-link { opacity: 1; transform: scale(1); }
 
   @keyframes reelScroll {
     from { transform: translateX(0); }
@@ -319,10 +320,10 @@
     border-color: var(--rule);
   }
   .hero-sub-label {
-    font-size: 14px; color: var(--ink); opacity: 0.9;
-    margin: 12px 0 20px; text-align: center;
+    font-size: 12px; color: var(--ink); opacity: 0.9;
+    margin: 56px 0 16px; text-align: center;
     font-family: 'DM Sans', sans-serif; font-weight: 400;
-    flex-shrink: 0; width: 100%; padding: 0 24px;
+    flex-shrink: 0; width: 100%; padding: 0 40px;
   }
 
   .toggle-btn {
@@ -586,16 +587,16 @@
 
     <!-- PANEL B: WORK REEL (absolute, same footprint as search panel) -->
     <div class="panel-carousel" id="panelCarousel">
-      <p class="hero-sub-label">View selected work below for more in-depth case studies.</p>
+      <p class="hero-sub-label">View selected work below for more in-depth case studies and process.</p>
       <div class="reel-track" id="reelTrack">
-        <div class="reel-item landscape"><div class="reel-label">Fintech</div><div class="reel-img"><img src="images/intick/Opener-Light.png" alt="Intick"><a class="reel-link" href="project-intick.html" aria-label="View Intick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a></div></div>
-        <div class="reel-item portrait"><div class="reel-label">Mobile</div><div class="reel-img"><img src="images/intick/Mobile1.png" alt="Intick mobile"><a class="reel-link" href="project-intick.html" aria-label="View Intick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a></div></div>
-        <div class="reel-item landscape"><div class="reel-label">Subscription &amp; onboarding</div><div class="reel-img"><img src="images/economist/EconomistDesktop-Onboarding.jpg" alt="The Economist"><a class="reel-link" href="project-economist.html" aria-label="View The Economist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a></div></div>
-        <div class="reel-item portrait"><div class="reel-label">Mobile UX</div><div class="reel-img"><img src="images/economist/EconomistMobile-Onboarding.jpg" alt="The Economist mobile"><a class="reel-link" href="project-economist.html" aria-label="View The Economist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a></div></div>
-        <div class="reel-item landscape"><div class="reel-label">Travel &amp; booking</div><div class="reel-img"><img src="images/eurostar/EurostarUIFrames.jpg" alt="Eurostar"><a class="reel-link" href="project-eurostar.html" aria-label="View Eurostar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a></div></div>
-        <div class="reel-item landscape"><div class="reel-label">E-commerce</div><div class="reel-img"><img src="images/heist/HeistUIImagex1.jpg" alt="Heist"><a class="reel-link" href="project-heist.html" aria-label="View Heist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a></div></div>
-        <div class="reel-item landscape"><div class="reel-label">Fashion retail</div><div class="reel-img"><img src="images/stella/Desktop-Product1.png" alt="Stella McCartney"><a class="reel-link" href="project-stella.html" aria-label="View Stella McCartney"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a></div></div>
-        <div class="reel-item portrait"><div class="reel-label">Design system</div><div class="reel-img"><img src="images/sedexds/both1.png" alt="Sedex design system"><a class="reel-link" href="project-sedexDS.html" aria-label="View Sedex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a></div></div>
+        <div class="reel-item landscape"><a class="reel-label" href="project-intick.html">Fintech<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a><div class="reel-img"><div class="reel-placeholder">Coming soon</div></div></div>
+        <div class="reel-item portrait"><a class="reel-label" href="project-intick.html">Mobile<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a><div class="reel-img"><div class="reel-placeholder">Coming soon</div></div></div>
+        <div class="reel-item landscape"><a class="reel-label" href="project-economist.html">Subscription &amp; onboarding<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a><div class="reel-img"><div class="reel-placeholder">Coming soon</div></div></div>
+        <div class="reel-item portrait"><a class="reel-label" href="project-economist.html">Mobile UX<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a><div class="reel-img"><div class="reel-placeholder">Coming soon</div></div></div>
+        <div class="reel-item landscape"><a class="reel-label" href="project-eurostar.html">Travel &amp; booking<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a><div class="reel-img"><div class="reel-placeholder">Coming soon</div></div></div>
+        <div class="reel-item landscape"><a class="reel-label" href="project-heist.html">E-commerce<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a><div class="reel-img"><div class="reel-placeholder">Coming soon</div></div></div>
+        <div class="reel-item landscape"><a class="reel-label" href="project-stella.html">Fashion retail<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a><div class="reel-img"><div class="reel-placeholder">Coming soon</div></div></div>
+        <div class="reel-item portrait"><a class="reel-label" href="project-sedexDS.html">Design system<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a><div class="reel-img"><div class="reel-placeholder">Coming soon</div></div></div>
         <!-- Set B cloned by JS -->
       </div>
     </div>
@@ -843,16 +844,8 @@ btnVisual.addEventListener('click', showCarousel);
 (function() {
   const track = document.getElementById('reelTrack');
   if (!track) return;
-  // Clone so we have two identical sets
-  const original = track.innerHTML;
-  track.innerHTML += original;
-  // Measure one set width then set animation to scroll exactly that far
-  requestAnimationFrame(() => {
-    const half = track.scrollWidth / 2;
-    const style = document.createElement('style');
-    style.textContent = `@keyframes reelScroll { from { transform: translateX(0); } to { transform: translateX(-${half}px); } }`;
-    document.head.appendChild(style);
-  });
+  // Clone so we have two identical sets; CSS animates by -50% (= one set width)
+  track.innerHTML += track.innerHTML;
 })();
 
 // pills / filter
