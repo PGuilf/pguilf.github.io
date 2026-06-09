@@ -17,7 +17,7 @@ Lead designer on reviews and content collection for one of the world's largest t
 Lead designer improving health hub journeys and site IA at the UK's largest online pharmacy. Key project: AI powered smart reminders — a predictive model identifying when patients are due medication and proactively triggering dispensing.
 
 ### Intick — Founding Product Designer (Contract) · 2024–2025
-Sole designer leading product 0 to 1 at a fintech startup simplifying futures trading. Built the platform, design system and research practice from scratch, collaborating on AI driven decision tools to reduce trader cognitive load.
+Sole designer leading product 0 to 1 at a fintech startup simplifying futures trading. Built the platform, design system and research practice from scratch, collaborating on AI driven decision tools to reduce trader cognitive load. This role gave me deep experience designing financial terminal interfaces — data-dense, real-time trading UIs where clarity, speed, and information hierarchy are critical. Understanding trader mental models, reducing cognitive load under pressure, and designing for complex data visualisation were central to the work.
 - Case study: https://pguilf.github.io/project-intick.html
 
 ### Sedex — Product Design Lead / Interim Head of PD (Contract) · 2021–2024
