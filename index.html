@@ -864,10 +864,9 @@ btnVisual.addEventListener('click', showCarousel);
   const speed = 0.12;
   let pos = 0, half = 0, dragging = false, lastX = 0;
 
-  // Measure half once layout is ready
-  requestAnimationFrame(() => { half = track.scrollWidth / 2; });
-
   function tick() {
+    // Measure lazily — keeps retrying until layout is ready
+    if (!half) half = track.scrollWidth / 2;
     if (!dragging) pos += speed;
     if (half > 0) {
       if (pos >= half) pos -= half;
