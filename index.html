@@ -255,10 +255,8 @@
   /* ── REEL TRACK ── */
 
   .reel-scroll {
-    width: 100%; overflow-x: auto; overflow-y: hidden;
-    scrollbar-width: none; cursor: grab;
+    width: 100%; overflow: hidden; cursor: grab;
   }
-  .reel-scroll::-webkit-scrollbar { display: none; }
   .reel-scroll.dragging { cursor: grabbing; user-select: none; }
   .reel-track {
     display: flex; gap: 3px; align-items: flex-end;
@@ -875,7 +873,7 @@ btnVisual.addEventListener('click', showCarousel);
       if (pos >= half) pos -= half;
       if (pos < 0) pos += half;
     }
-    scroller.scrollLeft = pos;
+    track.style.transform = `translateX(-${pos}px)`;
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
