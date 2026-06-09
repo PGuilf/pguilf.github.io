@@ -86,60 +86,94 @@
 </div>
 
 
-            <div class="project-container"> 
-               
+            <div class="project-container">
+
                 <div class="project-info">
-                    
-                    <p class="project-descriptionl fade-slide-up">
-                        I’m still writing this case study, so please check back soon for the full story. I was the sole product designer leading design from 0 to 1 at a trading startup, shaping the platform and first design system.</p>
+
+                    <p class="project-descriptionl fade-slide-up">I was the founding product designer at Intick, a fintech startup building a modern futures trading platform. I led design from 0 to 1 — building the product, design system, and research practice from scratch. The target users were professional traders working on institutional desks, people who spend their days staring at Bloomberg terminals and legacy OMS platforms.</p>
                     <div class="project-tags fade-slide-up">
-                          <a name="final-outcome"></a>
                         <span class="tag">UX</span>
                         <span class="tag">UI</span>
-                          <span class="tag">Research</span>
-                        <span class="tag">Discovery</span>
-                        <span class="tag">AI Integration</span>
-                      
-                    </div> 
-                </div> 
+                        <span class="tag">Research</span>
+                        <span class="tag">0 to 1</span>
+                        <span class="tag">Design System</span>
+                        <span class="tag">Fintech</span>
+                    </div>
+                </div>
             </div>
 
+            <div class="keyline"></div>
 
-
-      <div class="project-container">
-  <div style="background-color: #CCCCCC; display: flex; justify-content: center; align-items: center;">
-    <div style="width: 100%;">
-      <video autoplay muted loop playsinline style="width: 100%;">
-        <source src="images/intick/intick-mobile.mp4" type="video/mp4">
-        <img src="images/intick/intick.jpg" alt="Project Title" class="project-image">
-        Your browser does not support the video tag.
-      </video>
-          
-    </div>
-  </div>
-
-   
-        <div class="project-container">
-  <div style="background-color: #CCCCCC; display: flex; justify-content: center; align-items: center;">
-    <div style="width: 100%;">
-      <video autoplay muted loop playsinline style="width: 100%;">
-        <source src="images/intick/intick.mp4" type="video/mp4">
-        <img src="images/intick/intick.jpg" alt="Project Title" class="project-image">
-        Your browser does not support the video tag.
-      </video>
-
-    </div>
-
-  </div>
-
-
- <div class="project-container"> 
-               
-              
+            <div class="project-info fade-slide-up">
+                <h2>The challenge: replacing a legacy terminal</h2>
+                <p class="project-description fade-slide-up">Futures traders are deeply embedded in legacy infrastructure: EMSX, Charles River, and proprietary OMS platforms built for institutional desks. These systems are data-dense, keyboard-driven, and optimised for speed over usability. Traders develop precise muscle memory around them: shortcut sequences, visual scanning patterns, order entry flows they can execute without thinking. The challenge wasn’t to simplify or prettify — it was to match that fluency in a modern interface. Breaking familiar mental models mid-trade isn’t a UX inconvenience; it’s a risk event. Every decision around information hierarchy, data density, and interaction speed was weighed against how a trader actually behaves under pressure.</p>
             </div>
 
+            <div class="keyline"></div>
 
+            <div class="project-info fade-slide-up">
+                <h2>Research</h2>
+                <p class="project-description fade-slide-up">I established the research practice from the ground up. I conducted moderated user interviews with active traders, simulating multiple desk roles — buy-side trader, portfolio manager, sales trader, and execution broker. This gave us a rounded picture of the ecosystem and the different ways each persona would interact with the platform. I ran usability tests on the live build and on Figma prototypes across multiple iterations, tagging and synthesising findings in Airtable.</p>
+            </div>
 
+            <div class="project-info fade-slide-up">
+                <ul style="column-count: 2; list-style-type: none;">
+                    <h3>Recurring themes from research</h3>
+                    <li>• Order book orientation not matching trader expectations</li>
+                    <li>• Cold start state looked broken with no live data</li>
+                    <li>• Structure of the order book unclear (bid/ask separation)</li>
+                    <li>• Adding an order lacked open fields — felt unfamiliar</li>
+                    <li>• Notifications needed a unique sound and better positioning</li>
+                    <li>• Traders expected to trade directly from the parent order, not via the order book</li>
+                    <li>• New parent card and status visibility tested strongly</li>
+                    <li>• "Makes a lot more sense, I can really see what’s going on here"</li>
+                </ul>
+            </div>
+
+            <div class="keyline"></div>
+
+            <div class="project-info fade-slide-up">
+                <h2>Design exploration</h2>
+                <p class="project-description fade-slide-up">I explored three structural approaches for the main trading view, evaluating how to surface active orders, the order book, and markets simultaneously on a single screen — a core requirement for traders who need everything at a glance. Structure 1 emerged as the strongest: parent cards on the left, order books scrolling horizontally, with working orders visible below. It performed best for responsiveness and cognitive load.</p>
+                <p class="project-description fade-slide-up">I then moved into high-fidelity prototypes across two concepts, testing both with traders in moderated sessions. Results were closely correlated — both felt familiar, with clear preference for the new parent card design and the responsive component system. I iterated on key components including the summary box (the trade confirmation panel), trading order cards, filters, permissions, notifications, and the RFQ flow. The summary box went through the most rounds — we tested five distinct scenarios covering single aggressive trades, passive trades, combinations, residuals, and error handling before landing on a final pattern that traders understood without guidance.</p>
+            </div>
+
+            <div class="keyline"></div>
+
+            <div class="project-info fade-slide-up">
+                <h2 id="final-outcome"><a name="final-outcome"></a>Final outcome</h2>
+                <p class="project-description fade-slide-up">The platform shipped as a responsive, real-time trading interface built with a component library designed to scale. Below is the desktop and mobile experience.</p>
+            </div>
+
+            <div class="project-container">
+              <div style="background-color: #CCCCCC; display: flex; justify-content: center; align-items: center;">
+                <div style="width: 100%;">
+                  <video autoplay muted loop playsinline style="width: 100%;">
+                    <source src="images/intick/intick.mp4" type="video/mp4">
+                    <img src="images/intick/intick.jpg" alt="Intick desktop" class="project-image">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-container">
+              <div style="background-color: #CCCCCC; display: flex; justify-content: center; align-items: center;">
+                <div style="width: 100%;">
+                  <video autoplay muted loop playsinline style="width: 100%;">
+                    <source src="images/intick/intick-mobile.mp4" type="video/mp4">
+                    <img src="images/intick/intick.jpg" alt="Intick mobile" class="project-image">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+            </div>
+
+            <div class="keyline"></div>
+
+            <div class="next-project-link">
+                <a href="project-economist.html">Redefining The Economist subscription journey →</a>
+            </div>
 
 
 
