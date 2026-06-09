@@ -169,7 +169,21 @@
   #waveHand.anim-spin   { animation: faceSpin 0.6s ease-in-out 6 forwards; }
   #waveHand.anim-nudge  { animation: nudge 0.5s ease-in-out 8 alternate; }
   #waveHand.anim-write  { transform-origin: 80% 90%; animation: write 0.35s ease-in-out 12 alternate; }
+  #waveHand.anim-frog   { animation: frogDance 1.8s ease-in-out 1 forwards; }
   @keyframes waveHand    { 0% { transform: rotate(0deg); } 100% { transform: rotate(28deg); } }
+  @keyframes frogDance   {
+    0%   { transform: translateX(0) translateY(0); }
+    10%  { transform: translateX(-6px) translateY(0); }
+    20%  { transform: translateX(6px) translateY(0); }
+    30%  { transform: translateX(-6px) translateY(0); }
+    40%  { transform: translateX(6px) translateY(-8px); }
+    50%  { transform: translateX(0) translateY(0); }
+    60%  { transform: translateX(0) translateY(-8px); }
+    70%  { transform: translateX(0) translateY(0); }
+    80%  { transform: rotate(180deg); }
+    90%  { transform: rotate(360deg); }
+    100% { transform: rotate(720deg); }
+  }
   @keyframes thumbsBounce { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
   @keyframes faceSwing   { 0% { transform: translateX(0); } 100% { transform: translateX(12px); } }
   @keyframes faceSpin    { 0% { transform: rotate(0deg); } 100% { transform: rotate(720deg); } }
@@ -1051,7 +1065,7 @@ document.querySelectorAll('.chip').forEach(c => {
     { emoji: '💻', anim: 'anim-bounce' },
     { emoji: '📐', anim: 'anim-nudge' },
     { emoji: '✍️', anim: 'anim-write' },
-    { emoji: '🐸', anim: 'anim-nudge' },
+    { emoji: '🐸', anim: 'anim-frog' },
   ];
   const count = parseInt(localStorage.getItem('pg_visit') || '0', 10);
   const v = visits[count % visits.length];
