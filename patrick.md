@@ -53,7 +53,9 @@ Designed a fully responsive shopping and checkout experience. Drove increased sa
 - Stakeholder workshops, facilitation, and collaborative sketching
 - Vibe coding / prototyping in-browser with Claude Code (replaces lo-fi wireframe stage)
 - Android app design (Jetpack Compose, Material Design)
-- AI-native workflow (Figma Make, Claude, ChatGPT, Gemini, Groq)
+- AI-native workflow (Claude Code, Figma Make, Lovable, Maze, Claude, ChatGPT, Gemini, Groq)
+- AI research tooling: Maze for moderated and unmoderated usability testing and AI-assisted synthesis
+- AI build tooling: Claude Code for in-browser prototyping, Figma Make for ideation and motion/interaction exploration, Lovable for rapid app scaffolding
 - Tools: Figma, Storybook, Jira, Notion, Miro, Airtable, UserZoom, Hotjar
 
 ## Process
