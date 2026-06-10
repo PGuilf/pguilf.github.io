@@ -15,9 +15,14 @@
   const moonIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
 
   // Scroll-aware header: make buttons fully visible once user scrolls
+  // On mobile, fade the header out after scrolling past it
   window.addEventListener('scroll', () => {
     const header = document.querySelector('header');
-    if (header) header.classList.toggle('scrolled', window.scrollY > 40);
+    if (!header) return;
+    header.classList.toggle('scrolled', window.scrollY > 40);
+    if (window.innerWidth <= 600) {
+      header.classList.toggle('faded', window.scrollY > 80);
+    }
   }, { passive: true });
 
   document.addEventListener('DOMContentLoaded', () => {

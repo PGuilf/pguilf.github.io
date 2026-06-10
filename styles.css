@@ -964,17 +964,30 @@ figcaption { margin-bottom: 15px; }
   .right-title { font-size: 13px; }
 }
 
-/* Mobile: scale down internal page header */
+/* Mobile: stack internal page header and fade on scroll */
 @media (max-width: 600px) {
+  header {
+    transition: opacity 0.3s ease;
+  }
+  header.faded {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
   .project-title {
-    font-size: 15px;
+    font-size: 16px;
+  }
+  .right-title {
+    gap: 8px;
+    font-size: 13px;
   }
   .jump-link, .close-link {
     font-size: 12px;
     padding: 5px 10px;
-  }
-  .right-title {
-    gap: 8px;
   }
 }
 
