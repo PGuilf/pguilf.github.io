@@ -76,7 +76,7 @@ On the research side, I use AI tooling for usability testing — running moderat
 - Led first dedicated Future Customer Experience team at The Economist
 
 ## Availability
-I'm currently booked until 23rd June 2026, after which I'm open to new opportunities — freelance, contract, or permanent roles. I primarily work contracts. Based in London but open to remote or hybrid. As a dual British and Irish citizen I have the right to work in both the UK and EU. Best reached at patrick.guilf@gmail.com or via LinkedIn.
+I'm currently booked until 22nd June 2026, after which I'm open to new opportunities — freelance, contract, or permanent roles. I primarily work contracts. Based in London but open to remote or hybrid. As a dual British and Irish citizen I have the right to work in both the UK and EU. Best reached at patrick.guilf@gmail.com or via LinkedIn.
 
 ## Working Style
 I'm experienced working in agile teams — sprints, standups, and iterative delivery are second nature. I've worked in fast-paced startup environments (notably Intick, a 0-to-1 futures trading startup) as well as larger established organisations, so I'm comfortable in both. I'm known for being collaborative, calm under pressure, and easy to work with. Colleagues and stakeholders have described me as: patient when requirements change, thorough with specs and documentation, great at building relationships across functions (particularly with engineers), and someone who rolls up their sleeves and gets stuck in.
