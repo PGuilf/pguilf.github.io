@@ -364,8 +364,9 @@
     -webkit-tap-highlight-color: transparent;
     color: var(--mid); background: transparent; letter-spacing: 0.02em;
   }
-  .toggle-btn.active { background: var(--ink); color: var(--bg); box-shadow: 0 2px 8px rgba(0,0,0,0.12); transform: scale(1.06); }
-  .toggle-btn:not(.active) { transform: scale(1); }
+  #btnSearch.active  { background: var(--ink); color: var(--bg); box-shadow: 0 2px 8px rgba(0,0,0,0.12); transform: scale(1.06) translateX(-4px); }
+  #btnVisual.active  { background: var(--ink); color: var(--bg); box-shadow: 0 2px 8px rgba(0,0,0,0.12); transform: scale(1.06) translateX(4px); }
+  .toggle-btn:not(.active) { transform: scale(1) translateX(0); }
   .toggle-btn svg { width: 14px; height: 14px; }
 
   /* ── PROJECTS (below fold) ── */
