@@ -312,7 +312,7 @@
     position: relative; background: #000;
   }
   .reel-img img, .reel-img video {
-    width: 100%; height: 100%; object-fit: cover; display: block;
+    width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none;
   }
   .reel-mobile { display: none; }
   @media (max-width: 1024px) {
@@ -963,12 +963,17 @@ requestAnimationFrame(() => movePill(btnSearch));
     track.style.animation = `reelScroll ${DURATION}s ${delay}s linear infinite`;
   }
 
-  outer.addEventListener('mousedown', e => { e.preventDefault(); startDrag(e.pageX); });
-  window.addEventListener('mousemove', e => moveDrag(e.pageX));
-  window.addEventListener('mouseup', endDrag);
-  outer.addEventListener('touchstart', e => startDrag(e.touches[0].pageX), { passive: true });
-  outer.addEventListener('touchmove', e => moveDrag(e.touches[0].pageX), { passive: true });
-  outer.addEventListener('touchend', endDrag);
+  outer.addEventListener('pointerdown', e => {
+    e.preventDefault();
+    outer.setPointerCapture(e.pointerId);
+    startDrag(e.pageX);
+  });
+  outer.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    moveDrag(e.pageX);
+  });
+  outer.addEventListener('pointerup', endDrag);
+  outer.addEventListener('pointercancel', endDrag);
 })();
 
 // pills / filter
