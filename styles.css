@@ -964,6 +964,20 @@ figcaption { margin-bottom: 15px; }
   .right-title { font-size: 13px; }
 }
 
+/* Mobile: scale down internal page header */
+@media (max-width: 600px) {
+  .project-title {
+    font-size: 15px;
+  }
+  .jump-link, .close-link {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+  .right-title {
+    gap: 8px;
+  }
+}
+
 
 /* ── PROJECT PAGE DARK MODE ───────────────────────────────── */
 html.dark body {

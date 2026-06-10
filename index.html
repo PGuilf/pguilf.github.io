@@ -1094,8 +1094,8 @@ document.querySelectorAll('.chip').forEach(c => {
     if (userScrolled) return;
     if (document.getElementById('panelCarousel')?.classList.contains('visible')) return;
     sessionStorage.setItem('pg_autoscrolled', '1');
-    const target = document.querySelector('.projects');
-    if (target) target.scrollIntoView({ behavior: 'smooth' });
+    const workBtn = document.getElementById('btnVisual');
+    if (workBtn) workBtn.click();
   }, 5000);
 })();
 
