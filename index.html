@@ -360,14 +360,20 @@
     display: flex; align-items: center; gap: 6px;
     padding: 8px 16px; border-radius: 100px; border: none;
     font-family: inherit; font-size: 12px; font-weight: 500;
-    cursor: pointer; transition: background 0.25s, color 0.25s, transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    cursor: pointer; transition: color 0.25s ease;
     -webkit-tap-highlight-color: transparent;
     color: var(--mid); background: transparent; letter-spacing: 0.02em;
+    position: relative; z-index: 1;
   }
-  #btnSearch.active  { background: var(--ink); color: var(--bg); box-shadow: 0 2px 8px rgba(0,0,0,0.12); transform: scale(1.06) translateX(-4px); }
-  #btnVisual.active  { background: var(--ink); color: var(--bg); box-shadow: 0 2px 8px rgba(0,0,0,0.12); transform: scale(1.06) translateX(4px); }
-  .toggle-btn:not(.active) { transform: scale(1) translateX(0); }
+  .toggle-btn.active { color: var(--bg); }
   .toggle-btn svg { width: 14px; height: 14px; }
+  .toggle-pill {
+    position: absolute; top: 4px; bottom: 4px;
+    border-radius: 100px; background: var(--ink);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), width 0.35s cubic-bezier(0.4,0,0.2,1);
+    z-index: 0; pointer-events: none;
+  }
 
   /* ── PROJECTS (below fold) ── */
   .projects { border-top: 1px solid var(--rule); padding-bottom: 0; scroll-margin-top: 56px; }
@@ -644,6 +650,7 @@
   <p class="hero-sub-label" id="heroSubLabel">View case studies below for more in-depth process and thinking.</p>
 
   <div class="hero-toggle on-search" id="heroToggle">
+    <span class="toggle-pill" id="togglePill"></span>
     <button class="toggle-btn active" id="btnSearch">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       Ask
@@ -878,6 +885,7 @@ function showSearch() {
   heroToggle.classList.add('on-search');
   btnSearch.classList.add('active');
   btnVisual.classList.remove('active');
+  movePill(btnSearch);
   if (heroSubLabel) heroSubLabel.classList.remove('visible');
 }
 function showCarousel() {
@@ -888,6 +896,7 @@ function showCarousel() {
   heroToggle.classList.remove('on-search');
   btnVisual.classList.add('active');
   btnSearch.classList.remove('active');
+  movePill(btnVisual);
   const answerArea = document.getElementById('answerArea');
   if (answerArea) answerArea.classList.remove('visible');
   if (heroSubLabel) {
@@ -897,8 +906,18 @@ function showCarousel() {
   }
 }
 
+function movePill(btn) {
+  const pill = document.getElementById('togglePill');
+  if (!pill) return;
+  pill.style.left = btn.offsetLeft + 'px';
+  pill.style.width = btn.offsetWidth + 'px';
+}
+
 btnSearch.addEventListener('click', showSearch);
 btnVisual.addEventListener('click', showCarousel);
+
+// init pill position
+requestAnimationFrame(() => movePill(btnSearch));
 
 // ── REEL: clone + drag/swipe to scrub ──
 (function() {
