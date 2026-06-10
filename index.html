@@ -887,6 +887,8 @@ function showCarousel() {
   heroToggle.classList.remove('on-search');
   btnVisual.classList.add('active');
   btnSearch.classList.remove('active');
+  const answerArea = document.getElementById('answerArea');
+  if (answerArea) answerArea.classList.remove('visible');
   if (heroSubLabel) {
     heroSubLabel.classList.add('visible');
     clearTimeout(heroSubLabel._fadeTimer);
@@ -1099,14 +1101,15 @@ document.querySelectorAll('.chip').forEach(c => {
 (function() {
   // Only fire once per session, and only if user hasn't already scrolled
   if (sessionStorage.getItem('pg_autoscrolled')) return;
-  let userScrolled = false;
-  const onScroll = () => { userScrolled = true; };
-  window.addEventListener('scroll', onScroll, { once: true });
-  const searchInput = document.getElementById('searchInput');
-  if (searchInput) searchInput.addEventListener('focus', () => { userScrolled = true; }, { once: true });
+  let userInteracted = false;
+  const onInteract = () => { userInteracted = true; };
+  window.addEventListener('scroll', onInteract, { once: true });
+  window.addEventListener('click', onInteract, { once: true });
+  window.addEventListener('keydown', onInteract, { once: true });
+  window.addEventListener('touchstart', onInteract, { once: true });
 
   setTimeout(() => {
-    if (userScrolled) return;
+    if (userInteracted) return;
     if (document.getElementById('panelCarousel')?.classList.contains('visible')) return;
     sessionStorage.setItem('pg_autoscrolled', '1');
     const workBtn = document.getElementById('btnVisual');
