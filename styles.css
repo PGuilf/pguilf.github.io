@@ -987,6 +987,8 @@ figcaption { margin-bottom: 15px; }
   .right-title {
     gap: 8px;
     font-size: 13px;
+    align-self: flex-end;
+    margin-left: auto;
   }
   .jump-link, .close-link {
     font-size: 12px;
