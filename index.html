@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Patrick Guilfoyle — Product Designer</title>
 <link rel="icon" type="image/png" href="images/favicon/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,600;1,600&family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Montserrat:wght@700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -286,6 +288,7 @@
     display: flex; gap: 3px; align-items: flex-end;
     padding: 8px 0 0; width: max-content;
     animation: reelScroll 250s linear infinite;
+    animation-play-state: paused;
   }
 
   .reel-item {
@@ -684,7 +687,7 @@
 
     <div class="work-item ux ui reveal">
       <a href="project-p2u.html">
-        <img src="images/pharmacy2u/p2u.jpg" alt="Pharmacy 2 U">
+        <img src="images/pharmacy2u/p2u.jpg" alt="Pharmacy 2 U" loading="lazy">
         <div class="work-info">
           <div class="work-title">Pharmacy 2 U: AI-powered smart reminders</div>
           <p class="work-desc">Full case study coming soon. A predictive model identifying when patients are due medication and proactively triggering dispensing — reducing missed doses and improving adherence at scale.</p>
@@ -695,7 +698,7 @@
 
     <div class="work-item ui reveal">
       <a href="project-intick.html">
-        <img src="images/intick/intick.gif" alt="Intick">
+        <img src="images/intick/intick.gif" alt="Intick" loading="lazy">
         <div class="work-info">
           <div class="work-title">Intick: A new approach to futures trading</div>
           <p class="work-desc">Founding product designer at a fintech startup building a modern futures trading platform. Designed for institutional traders moving away from legacy OMS infrastructure, where data density, execution speed, and trader mental models are everything.</p>
@@ -706,7 +709,7 @@
 
     <div class="work-item ux reveal">
       <a href="project-sedexDS.html">
-        <video autoplay muted loop playsinline>
+        <video muted loop playsinline preload="none" data-autoplay>
           <source src="images/sedexds/opener.mp4" type="video/mp4">
           <img src="images/sedexds/Opener.png" alt="Reimagining Sedex">
         </video>
@@ -720,7 +723,7 @@
 
     <div class="work-item ux reveal">
       <a href="project-economist.html">
-        <img src="images/economist/Economist-Recovered_04.gif" alt="The Economist">
+        <img src="images/economist/Economist-Recovered_04.gif" alt="The Economist" loading="lazy">
         <div class="work-info">
           <div class="work-title">Redefining The Economist subscription journey</div>
           <p class="work-desc">I joined The Economist as part of a new dedicated future customer experience (FCX) team...</p>
@@ -731,7 +734,7 @@
 
     <div class="work-item ux reveal">
       <a href="project-heist.html">
-        <img src="images/heist/opener.gif" alt="Heist">
+        <img src="images/heist/opener.gif" alt="Heist" loading="lazy">
         <div class="work-info">
           <div class="work-title">A new look for Heist: improving conversion and performance</div>
           <p class="work-desc">I was the lead designer on a site redesign for Heist. They'd just engaged an agency who created new print guidelines...</p>
@@ -742,7 +745,7 @@
 
     <div class="work-item ux reveal">
       <a href="project-sedexSAQ.html">
-        <img src="images/sedexsaq/opener.jpg" alt="Sedex SAQ">
+        <img src="images/sedexsaq/opener.jpg" alt="Sedex SAQ" loading="lazy">
         <div class="work-info">
           <div class="work-title">Sedex's SAQ data collection: A collaborative approach with members and staff</div>
           <p class="work-desc">I joined Sedex in a new area, intrigued by the challenge of reimagining their critical SAQ. As an auditor, I knew...</p>
@@ -753,7 +756,7 @@
 
     <div class="work-item ui reveal">
       <a href="project-eurostar.html">
-        <img src="images/eurostar/EurostarUI_03.jpg" alt="Eurostar">
+        <img src="images/eurostar/EurostarUI_03.jpg" alt="Eurostar" loading="lazy">
         <div class="work-info">
           <div class="work-title">Eurostar pricing calendar and booking map view</div>
           <p class="work-desc">The objective of displaying prices in the calendar is to create a user-friendly experience by helping...</p>
@@ -764,7 +767,7 @@
 
     <div class="work-item ui reveal">
       <a href="project-stella.html">
-        <img src="images/stella/Opener.png" alt="Stella">
+        <img src="images/stella/Opener.png" alt="Stella" loading="lazy">
         <div class="work-info">
           <div class="work-title">Crafting a Fully Responsive and Seamless Shopping Experience for Stella</div>
           <p class="work-desc">The objectives were to create a cleaner aesthetic and an easy-to-use, fully responsive shopping and checkout experience...</p>
@@ -775,7 +778,7 @@
 
     <div class="work-item identity reveal">
       <a href="project-branding.html">
-        <img src="images/branding/Opener.jpg" alt="Branding">
+        <img src="images/branding/Opener.jpg" alt="Branding" loading="lazy">
         <div class="work-info">
           <div class="work-title">Branding</div>
           <p class="work-desc">These branding projects allowed me to delve deeper using my typography and color theory skills...</p>
@@ -855,7 +858,7 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', scrolled);
   const heroPast = heroWrap.getBoundingClientRect().bottom < 64;
   nav.classList.toggle('search-sticky', heroPast);
-});
+}, { passive: true });
 
 document.getElementById('navSearch').addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -887,6 +890,7 @@ function showSearch() {
   onCarousel = false;
   panelSearch.classList.remove('hidden');
   panelCarousel.classList.remove('visible');
+  document.getElementById('reelTrack')?.style.setProperty('animation-play-state', 'paused');
   heroToggle.classList.remove('on-carousel');
   heroToggle.classList.add('on-search');
   btnSearch.classList.add('active');
@@ -898,6 +902,7 @@ function showCarousel() {
   onCarousel = true;
   panelSearch.classList.add('hidden');
   panelCarousel.classList.add('visible');
+  document.getElementById('reelTrack')?.style.setProperty('animation-play-state', 'running');
   heroToggle.classList.add('on-carousel');
   heroToggle.classList.remove('on-search');
   btnVisual.classList.add('active');
@@ -1256,6 +1261,35 @@ if (window.matchMedia('(pointer: fine)').matches) {
     logo.classList.add('spinning');
     logo.addEventListener('animationend', () => logo.classList.remove('spinning'), { once: true });
   }, 10000);
+})();
+
+// ── PAGE VISIBILITY: pause reel CSS animation when tab is hidden ──
+document.addEventListener('visibilitychange', () => {
+  const reel = document.getElementById('reelTrack');
+  if (!reel) return;
+  if (document.hidden) {
+    reel.style.animationPlayState = 'paused';
+  } else if (document.getElementById('panelCarousel')?.classList.contains('visible')) {
+    reel.style.animationPlayState = 'running';
+  }
+});
+
+// ── WORKS GRID VIDEO: play when scrolled into view ──
+(function() {
+  const workVids = document.querySelectorAll('.work-item video[data-autoplay]');
+  if (!workVids.length) return;
+  const vidObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const v = entry.target;
+      if (entry.isIntersecting) {
+        v.load();
+        v.play().catch(() => {});
+      } else {
+        v.pause();
+      }
+    });
+  }, { threshold: 0.25 });
+  workVids.forEach(v => vidObserver.observe(v));
 })();
 </script>
 
