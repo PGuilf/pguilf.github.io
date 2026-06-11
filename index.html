@@ -937,10 +937,10 @@ requestAnimationFrame(() => movePill(btnSearch));
   if (!outer || !track) return;
   track.innerHTML += track.innerHTML;
 
-  // Lazy-load reel videos in staggered batches to avoid hammering the network on page load
+  // Load Set A immediately so videos are buffered and ready when the carousel opens.
+  // Set B are clones that don't scroll into view for ~2 minutes — load them lazily.
   const reelItems = Array.from(track.querySelectorAll('.reel-item'));
-  const setA = reelItems.slice(0, reelItems.length / 2);
-  const setB = reelItems.slice(reelItems.length / 2);
+  const half = reelItems.length / 2;
 
   function loadReelItem(item) {
     item.querySelectorAll('video[data-src]').forEach(function(v) {
@@ -950,15 +950,12 @@ requestAnimationFrame(() => movePill(btnSearch));
     });
   }
 
-  // Load Set A with a 200ms stagger between items
-  setA.forEach(function(item, i) {
-    setTimeout(function() { loadReelItem(item); }, i * 200);
-  });
-  // Load Set B after Set A is mostly underway
-  var setBDelay = setA.length * 200 + 1500;
-  setB.forEach(function(item, i) {
-    setTimeout(function() { loadReelItem(item); }, setBDelay + i * 200);
-  });
+  // Set A: load all in parallel immediately
+  reelItems.slice(0, half).forEach(function(item) { loadReelItem(item); });
+  // Set B: defer until Set A has had time to buffer
+  setTimeout(function() {
+    reelItems.slice(half).forEach(function(item) { loadReelItem(item); });
+  }, 8000);
 
   const DURATION = 250;
   let dragging = false, lastX = 0, offset = 0;
