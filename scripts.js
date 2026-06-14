@@ -1,7 +1,7 @@
 // ── PROJECT PAGE OVERLAY TRANSITIONS + DARK MODE ──
 (function() {
   const path = window.location.pathname;
-  const isProjectPage = path.includes('project-') || path.includes('about.html') || path.includes('journal.html') || path.includes('mddocs.html') || path.includes('figmamake.html') || path.includes('aiprompts.html') || path.includes('intick.html');
+  const isProjectPage = path.includes('project-') || path.includes('about.html') || path.includes('journal.html') || path.includes('mddocs.html') || path.includes('figmamake.html') || path.includes('aiprompts.html') || path.includes('intick.html') || path.includes('darkroom.html');
 
   if (!isProjectPage) return;
 
