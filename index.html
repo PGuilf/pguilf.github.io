@@ -673,7 +673,7 @@
 </div><!-- /hero-wrap -->
 
 <!-- ══ PROJECTS ══ -->
-<section class="projects">
+<section class="projects" id="case-studies">
   <div class="projects-header">
     <h2>Case studies</h2>
   </div>
@@ -956,6 +956,19 @@ requestAnimationFrame(() => movePill(btnSearch));
   setTimeout(function() {
     reelItems.slice(half).forEach(function(item) { loadReelItem(item); });
   }, 8000);
+
+  // Click any reel item → close carousel, scroll to case studies
+  let pointerDownX = 0;
+  outer.addEventListener('pointerdown', function(e) { pointerDownX = e.clientX; }, { passive: true });
+  reelItems.slice(0, half).forEach(function(item) {
+    item.style.cursor = 'pointer';
+    item.addEventListener('click', function(e) {
+      if (Math.abs(e.clientX - pointerDownX) > 5) return; // ignore drags
+      hideCarousel();
+      const target = document.getElementById('case-studies');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
 
   const DURATION = 250;
   let dragging = false, lastX = 0, offset = 0;
