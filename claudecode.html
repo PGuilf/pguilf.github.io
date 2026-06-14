@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C2YMSH68Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-C2YMSH68Z1');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping a new portfolio with Claude Code — Patrick Guilfoyle</title>
+  <link rel="stylesheet" href="styles.css?v=20260608">
+  <link rel="icon" href="images/favicon/favicon.png" type="image/svg+xml">
+</head>
+<body style="background: radial-gradient(circle at center, rgb(255, 255, 250) 0%, rgb(255, 245, 240) 100%); color: black;">
+
+  <div class="custom-cursor"></div>
+
+  <div id="project-content">
+    <header style="background-color: rgba(255, 255, 250, 0.92);">
+      <div class="header-content">
+        <h4 class="project-title">Shipping a new portfolio with Claude Code</h4>
+        <h2 class="right-title">
+          <a href="journal.html" class="close-link">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+            </svg>
+            Back to Journal
+          </a>
+        </h2>
+      </div>
+    </header>
+
+    <main class="project-page">
+      <div class="project-container">
+
+        <!-- VIDEO HEADER — swap src when ready -->
+        <video autoplay muted loop playsinline preload="auto" class="project-image" style="width: 100%;">
+          <source src="images/journal/header.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+
+        <div class="project-info">
+
+          <p class="project-descriptionl2">
+            The last version of this site worked. Gemini got the structure down, ChatGPT helped with transitions, and I hand-tuned the rest. But it was all chat-based — paste a snippet, copy the fix, start again next session with no memory of what came before. Claude Code changed that.
+          </p>
+
+          <div class="text-container">
+            <p class="project-descriptions">
+              <strong>A different way of working:</strong>
+              Claude Code runs inside the project. It reads every file, understands how things connect, and edits directly — no copy-pasting. I could describe a problem in plain English and it would reason through the codebase to fix it. Less like prompting an AI, more like working with someone who actually knows the repo.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PROGRESS IMAGE 1 — swap src -->
+      <div class="project-container">
+        <img src="images/journal/progress1.jpg" alt="Claude Code in the terminal" class="project-image fade-slide-up">
+        <figcaption style="font-size: 11px; text-align: left; padding-top: 2px;">Working in the terminal with Claude Code.</figcaption>
+      </div>
+
+      <div class="project-container">
+        <div class="project-info">
+
+          <div class="text-container">
+            <p class="project-descriptions">
+              <strong>Animation without Figma:</strong>
+              Small details that would have meant a Figma round-trip — hover states, scroll reveals, the reel carousel, page fade transitions — I just described them in plain English and iterated in the browser. Faster feedback, no back and forth between tools. I decided when each thing felt right; Claude drafted and revised until it did.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PROGRESS IMAGE 2 — swap src -->
+      <div class="project-container">
+        <img src="images/journal/progress2.jpg" alt="Animation and transition work" class="project-image fade-slide-up">
+        <figcaption style="font-size: 11px; text-align: left; padding-top: 2px;">Iterating on page transitions and scroll animations directly in the browser.</figcaption>
+      </div>
+
+      <div class="project-container">
+        <div class="project-info">
+
+          <div class="text-container">
+            <p class="project-descriptions">
+              <strong>The MD file:</strong>
+              I kept a markdown file alongside the project — decisions made, things tried, what's next. Drop it in at the start of each session and Claude Code has context that isn't in the code. No re-explaining the site every time. The work has a thread. I wrote more about this approach in <a href="mddocs.html" style="text-decoration: underline; text-underline-offset: 3px;">Using MD files to document projects</a>.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PROGRESS IMAGE 3 — swap src -->
+      <div class="project-container">
+        <img src="images/journal/progress3.jpg" alt="MD file context" class="project-image fade-slide-up">
+        <figcaption style="font-size: 11px; text-align: left; padding-top: 2px;">The project MD file — context that travels with every session.</figcaption>
+      </div>
+
+      <!-- PROGRESS IMAGE 4 — swap src -->
+      <div class="project-container">
+        <img src="images/journal/progress4.jpg" alt="Design details" class="project-image fade-slide-up">
+        <figcaption style="font-size: 11px; text-align: left; padding-top: 2px;">Design details refined without leaving the terminal.</figcaption>
+      </div>
+
+      <div class="project-container">
+        <div class="project-info">
+
+          <div class="text-container">
+            <p class="project-descriptions">
+              <strong>Shipping fast:</strong>
+              Start to shipped in a few days. The structure, the dark mode, the reel, the journal — all of it in short focused sessions. I still made every call: what stays, what goes, when something feels right. Claude Code just closed the gap between the idea and the thing.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+
+    <footer></footer>
+  </div>
+
+  <script src="scripts.js?v=20260608"></script>
+  <script>
+    window.addEventListener('load', function () {
+      document.body.classList.add('loaded');
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const elements = document.querySelectorAll('.fade-slide-up');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      elements.forEach(el => observer.observe(el));
+    });
+  </script>
+
+  <script>
+    window.addEventListener('load', () => {
+      document.body.classList.add('loaded');
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const links = document.querySelectorAll('a');
+      links.forEach(link => {
+        const href = link.getAttribute('href');
+        const isInternal = link.hostname === window.location.hostname;
+        const isAnchor = href && href.startsWith('#');
+        const isMailto = href && href.startsWith('mailto:');
+        if (isInternal && !link.target && !isAnchor && !isMailto) {
+          link.addEventListener('click', function (e) {
+            e.preventDefault();
+            requestAnimationFrame(() => {
+              document.body.classList.remove('loaded');
+              setTimeout(() => {
+                window.location.href = href;
+              }, 600);
+            });
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
