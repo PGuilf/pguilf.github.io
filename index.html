@@ -940,12 +940,17 @@ requestAnimationFrame(() => movePill(btnSearch));
     });
   }
 
-  // Set A: load all in parallel immediately
-  reelItems.slice(0, half).forEach(function(item) { loadReelItem(item); });
-  // Set B: defer until Set A has had time to buffer
-  setTimeout(function() {
-    reelItems.slice(half).forEach(function(item) { loadReelItem(item); });
-  }, 8000);
+  // Load videos only when the carousel is first opened (user-initiated)
+  let reelLoaded = false;
+  function loadReelOnFirstOpen() {
+    if (reelLoaded) return;
+    reelLoaded = true;
+    reelItems.slice(0, half).forEach(function(item) { loadReelItem(item); });
+    setTimeout(function() {
+      reelItems.slice(half).forEach(function(item) { loadReelItem(item); });
+    }, 8000);
+  }
+  document.getElementById('btnVisual')?.addEventListener('click', loadReelOnFirstOpen, { once: true });
 
   // Click any reel item → close carousel, scroll to case studies
   let pointerDownX = 0;
@@ -1034,6 +1039,8 @@ const CONTEXT = `Patrick Guilfoyle — senior product designer, London, 10+ year
 Currently: Product Designer at GetYourGuide, Reviews team.
 
 Experience: Sedex (Lead PD — design system from scratch, token-based MUI, 27% faster load times, SAQ redesign: 95% completion rate, 32% more mobile usage; case studies: pguilf.github.io/project-sedexDS.html, pguilf.github.io/project-sedexSAQ.html). The Economist (Principal PD — subscription journey redesign, 0.5% conversion up, 6% checkout drop-off down; pguilf.github.io/project-economist.html). Eurostar (pricing calendar redesign, 4.5/5 user rating; pguilf.github.io/project-eurostar.html). Heist (site redesign, +6-7% conversions, -20% bounce; pguilf.github.io/project-heist.html). Intick (sole PD, 0-to-1 fintech futures trading platform; regulated environment with bank and institutional counterparty relationships, designing for compliance and regulatory workflows; pguilf.github.io/project-intick.html). Mr Porter, Stella McCartney (pguilf.github.io/project-stella.html).
+
+Design systems: Sedex (built from scratch, token-based MUI), The Economist, Pharmacy 2U, Intick.
 
 Skills: UX research, design systems, UI, accessibility (WCAG), product strategy, 0-to-1, stakeholder workshops, Android (Jetpack Compose). Tools: Figma, Storybook, Jira, Notion, Miro, Hotjar, UserZoom.
 
@@ -1156,25 +1163,6 @@ document.querySelectorAll('.chip').forEach(c => {
   el.addEventListener('animationend', () => el.classList.add('done'));
 })();
 
-// ── AUTO SCROLL AFTER 20s ──
-(function() {
-  // Only fire once per session, and only if user hasn't already scrolled
-  if (sessionStorage.getItem('pg_autoscrolled')) return;
-  let userInteracted = false;
-  const onInteract = () => { userInteracted = true; };
-  window.addEventListener('scroll', onInteract, { once: true });
-  window.addEventListener('click', onInteract, { once: true });
-  window.addEventListener('keydown', onInteract, { once: true });
-  window.addEventListener('touchstart', onInteract, { once: true });
-
-  setTimeout(() => {
-    if (userInteracted) return;
-    if (document.getElementById('panelCarousel')?.classList.contains('visible')) return;
-    sessionStorage.setItem('pg_autoscrolled', '1');
-    const workBtn = document.getElementById('btnVisual');
-    if (workBtn) workBtn.click();
-  }, 2000);
-})();
 
 // ── SCROLL REVEAL ──
 const revealObserver = new IntersectionObserver((entries) => {
