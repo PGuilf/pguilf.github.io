@@ -451,8 +451,10 @@
   .work-title { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700; color: var(--ink); line-height: 1.4; margin-bottom: 4px; transition: color 0.2s; }
   .work-item a:hover .work-title { color: var(--mid); }
   .work-desc { font-size: 13px; color: var(--mid); line-height: 1.5; margin-bottom: 8px; }
-  .work-coming-soon { font-size: 10px; letter-spacing: 0.08em; color: var(--mid); opacity: 0.6; margin-bottom: 8px; }
-  body.dark .work-coming-soon { color: #ffffff; opacity: 1; }
+  .work-coming-soon { font-size: 10px; letter-spacing: 0.08em; color: #000000; opacity: 1; margin-bottom: 8px; padding-left: 8px; position: relative; display: inline-block; }
+  .work-coming-soon::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); height: 60%; width: 1px; background: #bbb; }
+  body.dark .work-coming-soon { color: #ffffff; }
+  body.dark .work-coming-soon::before { background: #555; }
   .work-tags { display: flex; gap: 5px; flex-wrap: wrap; }
   .tag { font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--mid); border: 1px solid var(--rule); padding: 2px 8px; border-radius: 100px; }
 
@@ -501,14 +503,14 @@
     #pg-cursor {
       position: fixed; top: 0; left: 0; z-index: 9999;
       width: 10px; height: 10px; border-radius: 50%;
-      background: var(--ink); opacity: 0;
+      background: #2563EB; opacity: 0;
       pointer-events: none;
       transform: translate(-50%, -50%);
       transition: width 0.18s ease, height 0.18s ease, opacity 0.18s ease;
       will-change: transform;
     }
-    #pg-cursor.visible { opacity: 0.55; }
-    #pg-cursor.hover   { width: 32px; height: 32px; opacity: 0.15; }
+    #pg-cursor.visible { opacity: 0.8; }
+    #pg-cursor.hover   { width: 32px; height: 32px; opacity: 0.25; }
   }
 
   /* ── SCROLL REVEAL ── */
@@ -712,6 +714,18 @@
           <div class="work-tags"><span class="tag">UX</span><span class="tag">UI</span><span class="tag">Research</span><span class="tag">0 to 1</span><span class="tag">Design System</span><span class="tag">Fintech</span></div>
         </div>
       </a>
+    </div>
+
+    <div class="work-item ux ai reveal">
+      <div>
+        <div style="width:100%;aspect-ratio:16/9;background:var(--rule);border-radius:8px;"></div>
+        <div class="work-info">
+          <div class="work-title">GetYourGuide: Reimagining reviews</div>
+          <p class="work-desc">Rebuilding the reviews experience through focused experiments and small bets, using AI to surface scannable summaries that turn browsers into bookers.</p>
+          <p class="work-coming-soon">FULL CASE STUDY COMING SOON</p>
+          <div class="work-tags"><span class="tag">AI</span><span class="tag">UX</span><span class="tag">Research</span><span class="tag">Experimentation</span></div>
+        </div>
+      </div>
     </div>
 
     <div class="work-item ux ai reveal">
