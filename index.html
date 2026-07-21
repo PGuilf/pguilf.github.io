@@ -451,6 +451,8 @@
   .work-title { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700; color: var(--ink); line-height: 1.4; margin-bottom: 4px; transition: color 0.2s; }
   .work-item a:hover .work-title { color: var(--mid); }
   .work-desc { font-size: 13px; color: var(--mid); line-height: 1.5; margin-bottom: 8px; }
+  .work-coming-soon { font-size: 10px; letter-spacing: 0.08em; color: var(--mid); opacity: 0.6; margin-bottom: 8px; }
+  body.dark .work-coming-soon { color: #ffffff; opacity: 1; }
   .work-tags { display: flex; gap: 5px; flex-wrap: wrap; }
   .tag { font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--mid); border: 1px solid var(--rule); padding: 2px 8px; border-radius: 100px; }
 
@@ -686,17 +688,6 @@
   </div>
   <div class="works-grid">
 
-    <div class="work-item ui ai reveal">
-      <a href="project-intick.html">
-        <img src="images/intick/intick.gif" alt="Intick" loading="lazy">
-        <div class="work-info">
-          <div class="work-title">Intick: A new approach to futures trading</div>
-          <p class="work-desc">Founding product designer at a fintech startup building a modern futures trading platform. Designed for institutional traders moving away from legacy OMS infrastructure, where data density, execution speed, and trader mental models are everything.</p>
-          <div class="work-tags"><span class="tag">UX</span><span class="tag">UI</span><span class="tag">Research</span><span class="tag">0 to 1</span><span class="tag">Design System</span><span class="tag">Fintech</span></div>
-        </div>
-      </a>
-    </div>
-
     <div class="work-item ux reveal">
       <a href="project-sedexDS.html">
         <video muted loop playsinline preload="none" data-autoplay>
@@ -709,6 +700,30 @@
           <div class="work-tags"><span class="tag">UX</span><span class="tag">UI</span><span class="tag">Workshops</span><span class="tag">Discovery</span></div>
         </div>
       </a>
+    </div>
+
+    <div class="work-item ui ai reveal">
+      <a href="project-intick.html">
+        <img src="images/intick/intick.gif" alt="Intick" loading="lazy">
+        <div class="work-info">
+          <div class="work-title">Intick: A new approach to futures trading</div>
+          <p class="work-desc">Founding product designer at a fintech startup building an AI-powered futures trading platform for institutional traders.</p>
+          <p class="work-coming-soon">FULL CASE STUDY COMING SOON</p>
+          <div class="work-tags"><span class="tag">UX</span><span class="tag">UI</span><span class="tag">Research</span><span class="tag">0 to 1</span><span class="tag">Design System</span><span class="tag">Fintech</span></div>
+        </div>
+      </a>
+    </div>
+
+    <div class="work-item ux ai reveal">
+      <div>
+        <img src="images/pharmacy2u/p2u.jpg" alt="Pharmacy2U" loading="lazy">
+        <div class="work-info">
+          <div class="work-title">Pharmacy2U: AI Smart Reminders</div>
+          <p class="work-desc">Using AI to power smart medication reminders for the UK's largest online pharmacy, helping patients stay on top of repeat prescriptions without the friction.</p>
+          <p class="work-coming-soon">FULL CASE STUDY COMING SOON</p>
+          <div class="work-tags"><span class="tag">AI</span><span class="tag">UX</span><span class="tag">Research</span><span class="tag">Mobile</span><span class="tag">Health</span></div>
+        </div>
+      </div>
     </div>
 
     <div class="work-item ux reveal">
@@ -1217,9 +1232,9 @@ if (window.matchMedia('(pointer: fine)').matches) {
     if (!started) {
       // snap to position on first move so it doesn't fly in from corner
       cx = mx; cy = my;
-      cur.classList.add('visible');
       started = true;
     }
+    cur.classList.add('visible');
   });
 
   function loop() {
