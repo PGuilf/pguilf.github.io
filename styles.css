@@ -118,6 +118,12 @@ header {
   z-index: 1000;
 }
 
+#project-content header {
+  background-color: rgba(252, 252, 251, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
 .header-content {
   display: flex;
   justify-content: space-between;
@@ -418,7 +424,9 @@ h3, .project-description, .project-descriptionl, .project-description1 {
 }
 .case-content { min-width: 0; }
 .case-content .project-container { max-width: none; margin: 0; }
-.case-content [id] { scroll-margin-top: 80px; }
+.case-content [id],
+.case-content h2,
+.case-content h3 { scroll-margin-top: 100px; }
 .case-sidebar-tags { display: flex; flex-direction: row; flex-wrap: wrap; gap: 6px; }
 /* Lightbox */
 .carousel-expand {
@@ -484,6 +492,21 @@ h3, .project-description, .project-descriptionl, .project-description1 {
   transition: opacity 0.2s;
 }
 #case-lightbox-close:hover { opacity: 1; }
+
+/* Video wrappers */
+.video-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.video-wrapper video {
+  width: 100%;
+}
+.video-wrapper-narrow video {
+  width: 30%;
+  margin: 0 auto;
+  display: block;
+}
 
 .next-project-link {
   padding: 40px 0 56px;
@@ -668,7 +691,13 @@ h3, .project-description, .project-descriptionl, .project-description1 {
   margin-right: 10px;
 }
 
-figcaption { margin-bottom: 15px; }
+figcaption {
+  font-size: 11px;
+  text-align: left;
+  padding-top: 2px;
+  color: #777;
+  margin-bottom: 15px;
+}
 
 
 /* ── 9. HALF-IMAGE / HALF-TEXT SECTIONS ───────────────────── */
@@ -1162,6 +1191,9 @@ html.dark header {
   background-color: rgba(20, 18, 16, 0.4) !important;
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
+html.dark #project-content header {
+  background-color: rgba(20, 18, 16, 0.85) !important;
+}
 html.dark .project-title { color: #f0ede8 !important; }
 html.dark .right-title,
 html.dark .right-title a,
@@ -1181,8 +1213,12 @@ html.dark .close-link:hover {
 html.dark .jump-link:hover *,
 html.dark .close-link:hover * { color: #f0ede8 !important; }
 html.dark .project-descriptionl,
-html.dark .project-descriptionl2,
-html.dark .project-descriptions { color: #d8d4ce !important; }
+html.dark .project-descriptionl2 { color: #f0ede8 !important; }
+html.dark .project-descriptions,
+html.dark .project-description,
+html.dark .project-description1 { color: #c8c4be !important; }
+html.dark .three-image-stack-section .item h3 { color: #f0ede8 !important; }
+html.dark .three-image-stack-section .item p { color: #c8c4be !important; }
 html.dark .text-container { border-color: rgba(255,255,255,0.08); }
 html.dark figcaption { color: #b0aba4 !important; }
 html.dark .tag { color: #c8c4be !important; border-color: rgba(255,255,255,0.22) !important; }

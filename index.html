@@ -452,7 +452,11 @@
   .work-title { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700; color: var(--ink); line-height: 1.4; margin-bottom: 4px; transition: color 0.2s; }
   .work-item a:hover .work-title { color: var(--mid); }
   .work-hidden { display: none; }
-  .work-hidden.work-revealed { display: block; }
+  .work-hidden.work-revealed { display: block; animation: work-reveal 0.5s ease both; }
+  @keyframes work-reveal {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
   #load-more-btn {
     background: none;
     border: 1px solid var(--ink);
