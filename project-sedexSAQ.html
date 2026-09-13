@@ -60,11 +60,41 @@
                 </div>
             </div>
 
+<div class="case-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="case-sidebar">
+    <div>
+      <div class="case-sidebar-heading">Key metrics</div>
+      <div class="case-metrics">
+        <div><span class="metric-num">95%</span><span class="metric-label">SAQ completion in 12 weeks</span></div>
+        <div><span class="metric-num">+18%</span><span class="metric-label">satisfaction score</span></div>
+        <div><span class="metric-num">+32%</span><span class="metric-label">mobile usage</span></div>
+        <div><span class="metric-num">30%</span><span class="metric-label">faster load times</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="case-sidebar-heading">Table of contents</div>
+      <nav class="case-toc">
+        <ul>
+          <li><a href="#discovery" class="toc-link">Discovery</a></li>
+          <li><a href="#collaborative-workshops" class="toc-link">Collaborative workshops</a></li>
+          <li><a href="#supplier-survey" class="toc-link">Supplier Survey</a></li>
+          <li><a href="#auditing" class="toc-link">Auditing</a></li>
+          <li><a href="#shaping-new-flow" class="toc-link">Shaping a new flow</a></li>
+          <li><a href="#testing-refining" class="toc-link">Testing and refining</a></li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <div class="case-content">
 
             <div class="keyline"></div>
             <div class="project-container fade-slide-up">
                 <div class="project-info">
-                    <h2>Discovery: Understanding the problem</h2>
+                    <h2 id="discovery">Discovery: Understanding the problem</h2>
                     <p class="project-description">It was quicker and easier to start with internal teams to understand supplier pain points. I interviewed 10 Sedex staff across Member Services and Relationship Management to capture trends and frustrations. Findings were analysed in Airtable and high level findings were prioritised. I found suppliers often felt the SAQ was designed for buyers, not them. The system was slow, guidance was skipped, and people struggled to complete sections requiring input from multiple departments. This section also felt long and overwhelming, especially for users who may not use a computer or device regularly as part of their work.
                     </p>
                 </div>
@@ -116,7 +146,7 @@
             <div class="keyline"></div>
             <div class="project-container">
                 <div class="project-info fade-slide-up">
-                    <h2>Collaborative workshops</h2>
+                    <h2 id="collaborative-workshops">Collaborative workshops</h2>
                     <p class="project-description1">Drawing on my early insights, I ran hour long remote Miro workshops with the Ethical Trade Coordinators and Member Services team to explore early ideas and prioritise improvements. These validated key pain points and surfaced a set of quick wins and bigger opportunities.
                     </p>
                 </div>
@@ -168,7 +198,7 @@
             <div class="keyline"></div>
             <div class="project-container">
                 <div class="project-info fade-slide-up">
-                    <h2>Supplier User Experience Survey</h2>
+                    <h2 id="supplier-survey">Supplier User Experience Survey</h2>
                     <p class="project-description1 fade-slide-up">To widen the lens, I sent a Qualtrics survey (translated into multiple languages) to over 10,000 suppliers. Around 3% responded, giving us insights into device use, working patterns, and platform frustrations. The results reinforced internal findings and helped guide the direction of design.
                     </p>
                 </div>
@@ -177,7 +207,7 @@
             <div class="keyline"></div>
             <div class="project-container">
                 <div class="project-info fade-slide-up">
-                    <h2>Auditing the SAQ experience</h2>
+                    <h2 id="auditing">Auditing the SAQ experience</h2>
                     <p class="project-description1 fade-slide-up">I conducted a UX audit of the SAQ platform, focusing on visual hierarchy, typography, button behaviour, navigation, and feedback loops. Many issues stemmed from dated patterns, tooltip overuse, and inconsistent guidance. It was clear that reducing cognitive load would be key.
                     </p>
                 </div>
@@ -215,7 +245,7 @@
             <div class="keyline"></div>
             <div class="project-container">
                 <div class="project-info fade-slide-up">
-                    <h2>Shaping a new SAQ flow</h2>
+                    <h2 id="shaping-new-flow">Shaping a new SAQ flow</h2>
                     <p class="project-description1 fade-slide-up">I focused on redesigning the first 20 questions — a test section to validate changes before scaling. I mapped user journeys and sketched three different low-fidelity wireframes to explore layout, guidance, and progress feedback. Ideas were informed by research, audit insights, and previous workshops. The goal was to balance flexibility with clarity and give users a better sense of structure and support.
                     </p>
                 </div>
@@ -350,7 +380,7 @@
             <div class="keyline"></div>
             <div class="project-container">
                 <div class="project-info fade-slide-up">
-                    <h2>Testing and refining the concept</h2>
+                    <h2 id="testing-refining">Testing and refining the concept</h2>
                     <p class="project-description fade-slide-up">I ran two rounds of moderated and unmoderated user testing with 10 suppliers per round. From this, I developed a refined low-fidelity prototype using a one-column layout, simplified structure, and improved spacing to help reduce friction and increase clarity.
                     </p>
                 </div>
@@ -398,7 +428,6 @@
                 <figcaption style="font-size: 11px; text-align: left; padding-top: 2px;">Updated low fidelity</figcaption>
 
                 <div class="project-info fade-slide-up">
-                    <a name="final-outcome"></a>
                     <ul style="column-count: 2; list-style-type: none;">
                         <li>• Progress bar tested well, bringing it more to life</li>
                         <li>• Clearer sign post of section and guidance</li>
@@ -409,11 +438,14 @@
                 </div>
             </div>
 
+  </div><!-- /case-content -->
+</div><!-- /case-layout -->
 
             <div class="keyline"></div>
             <div class="project-container">
                 <div class="project-info fade-slide-up">
-                    <h2>Final outcome</h2>
+                    <a name="final-outcome"></a>
+                    <h2 id="final-outcome">Final outcome</h2>
                     <p class="project-description fade-slide-up">I delivered a redesigned first section of the SAQ, informed by user testing, workshops, and research. The new layout improved task clarity and engagement — laying a foundation for scaling improvements across the full questionnaire. Getting the first section done was the hard part, but once that was in place and data was flowing, we could easily build out the other sections using the new components and feed everything back into the backend to generate insights.
                     </p>
                 </div>
@@ -510,6 +542,65 @@
         <footer>
         </footer>
     </div>
+
+    <!-- Lightbox -->
+    <div id="case-lightbox" style="display:none;" onclick="closeLightbox()">
+      <button id="case-lightbox-close" onclick="event.stopPropagation(); closeLightbox()">&#x2715;</button>
+      <img id="case-lightbox-img" src="" alt="" onclick="event.stopPropagation()">
+    </div>
+
+    <script>
+function openLightbox(src) {
+  const lb = document.getElementById('case-lightbox');
+  lb.style.top = window.scrollY + 'px';
+  document.getElementById('case-lightbox-img').src = src;
+  lb.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('case-lightbox').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+document.addEventListener('click', function(e) {
+  if (e.target.closest('#case-lightbox')) return;
+  const expandBtn = e.target.closest('.carousel-expand');
+  if (expandBtn) {
+    e.stopPropagation();
+    const container = expandBtn.closest('.carousel-container');
+    const activeImg = container && container.querySelector('.carousel-slide.active img');
+    if (activeImg) openLightbox(activeImg.src);
+    return;
+  }
+  if (e.target.tagName === 'IMG' && e.target.id !== 'case-lightbox-img' && e.target.closest('.carousel-container')) {
+    openLightbox(e.target.src);
+    return;
+  }
+});
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.carousel-container').forEach(container => {
+    const btn = document.createElement('button');
+    btn.className = 'carousel-expand';
+    btn.setAttribute('aria-label', 'Enlarge');
+    btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" width="15" height="15"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"/></svg><span class="enlarge-label">Enlarge</span>';
+    container.appendChild(btn);
+  });
+  document.querySelectorAll('.carousel-container img').forEach(img => {
+    img.style.cursor = 'zoom-in';
+  });
+});
+(function() {
+  const links = document.querySelectorAll('.toc-link');
+  const sections = [...links].map(l => document.querySelector(l.getAttribute('href')));
+  function update() {
+    let active = 0;
+    sections.forEach((sec, i) => { if (sec && sec.getBoundingClientRect().top <= 120) active = i; });
+    links.forEach((l, i) => l.classList.toggle('active', i === active));
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+    </script>
 
     <script>
   window.addEventListener('load', function () {

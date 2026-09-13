@@ -19,7 +19,7 @@
 </head>
 <body style="background: linear-gradient(to bottom, #F2F8FB, #F2F8FB);">
 
-    <div id="project-content"> 
+    <div id="project-content">
        <header style="background-color: rgba(242, 248, 251, 0.8); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
 
             <div class="header-content" >
@@ -42,7 +42,7 @@
             </div>
         </header>
 
-        <main class="project-page"> 
+        <main class="project-page">
           <div class="carousel-container">
   <div class="carousel-wrapper">
      <div class="carousel-slide active">
@@ -60,8 +60,8 @@
     <div class="carousel-slide active">
       <img src="images/intick/Tablet.png" alt="">
       <figcaption>Intick</figcaption>
-    </div> 
-   
+    </div>
+
   </div>
 
   <!-- Arrows -->
@@ -102,17 +102,37 @@
                 </div>
             </div>
 
+<div class="case-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="case-sidebar">
+    <div>
+      <div class="case-sidebar-heading">Table of contents</div>
+      <nav class="case-toc">
+        <ul>
+          <li><a href="#the-challenge" class="toc-link">The challenge</a></li>
+          <li><a href="#research" class="toc-link">Research</a></li>
+          <li><a href="#design-exploration" class="toc-link">Design exploration</a></li>
+          <li><a href="#final-outcome" class="toc-link">Final outcome</a></li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <div class="case-content">
+
             <div class="keyline"></div>
 
             <div class="project-info fade-slide-up">
-                <h2>The challenge: replacing a legacy terminal</h2>
-                <p class="project-description fade-slide-up">Futures traders are deeply embedded in legacy infrastructure: EMSX, Charles River, and proprietary OMS platforms built for institutional desks. These systems are data-dense, keyboard-driven, and optimised for speed over usability. Traders develop precise muscle memory around them: shortcut sequences, visual scanning patterns, order entry flows they can execute without thinking. The challenge wasn’t to simplify or prettify — it was to match that fluency in a modern interface. Breaking familiar mental models mid-trade isn’t a UX inconvenience; it’s a risk event. Every decision around information hierarchy, data density, and interaction speed was weighed against how a trader actually behaves under pressure.</p>
+                <h2 id="the-challenge">The challenge: replacing a legacy terminal</h2>
+                <p class="project-description fade-slide-up">Futures traders are deeply embedded in legacy infrastructure: EMSX, Charles River, and proprietary OMS platforms built for institutional desks. These systems are data-dense, keyboard-driven, and optimised for speed over usability. Traders develop precise muscle memory around them: shortcut sequences, visual scanning patterns, order entry flows they can execute without thinking. The challenge wasn't to simplify or prettify — it was to match that fluency in a modern interface. Breaking familiar mental models mid-trade isn't a UX inconvenience; it's a risk event. Every decision around information hierarchy, data density, and interaction speed was weighed against how a trader actually behaves under pressure.</p>
             </div>
 
             <div class="keyline"></div>
 
             <div class="project-info fade-slide-up">
-                <h2>Research</h2>
+                <h2 id="research">Research</h2>
                 <p class="project-description fade-slide-up">I established the research practice from the ground up. I conducted moderated user interviews with active traders, simulating multiple desk roles — buy-side trader, portfolio manager, sales trader, and execution broker. This gave us a rounded picture of the ecosystem and the different ways each persona would interact with the platform. I ran usability tests on the live build and on Figma prototypes across multiple iterations, tagging and synthesising findings in Airtable.</p>
             </div>
 
@@ -126,17 +146,20 @@
                     <li>• Notifications needed a unique sound and better positioning</li>
                     <li>• Traders expected to trade directly from the parent order, not via the order book</li>
                     <li>• New parent card and status visibility tested strongly</li>
-                    <li>• "Makes a lot more sense, I can really see what’s going on here"</li>
+                    <li>• "Makes a lot more sense, I can really see what's going on here"</li>
                 </ul>
             </div>
 
             <div class="keyline"></div>
 
             <div class="project-info fade-slide-up">
-                <h2>Design exploration</h2>
+                <h2 id="design-exploration">Design exploration</h2>
                 <p class="project-description fade-slide-up">I explored three structural approaches for the main trading view, evaluating how to surface active orders, the order book, and markets simultaneously on a single screen — a core requirement for traders who need everything at a glance. Structure 1 emerged as the strongest: parent cards on the left, order books scrolling horizontally, with working orders visible below. It performed best for responsiveness and cognitive load.</p>
                 <p class="project-description fade-slide-up">I then moved into high-fidelity prototypes across two concepts, testing both with traders in moderated sessions. Results were closely correlated — both felt familiar, with clear preference for the new parent card design and the responsive component system. I iterated on key components including the summary box (the trade confirmation panel), trading order cards, filters, permissions, notifications, and the RFQ flow. The summary box went through the most rounds — we tested five distinct scenarios covering single aggressive trades, passive trades, combinations, residuals, and error handling before landing on a final pattern that traders understood without guidance.</p>
             </div>
+
+  </div><!-- /case-content -->
+</div><!-- /case-layout -->
 
             <div class="keyline"></div>
 
@@ -182,23 +205,71 @@
                 <a href="project-economist.html">Redefining The Economist subscription journey →</a>
             </div>
 
-
-
-
-
-
-
-             <div class="keyline"></div> 
-              <div class="right-title">
-                    
-                </div>
-
         </main>
 
         <footer>
         </footer>
     </div>
-    
+
+    <!-- Lightbox -->
+    <div id="case-lightbox" style="display:none;" onclick="closeLightbox()">
+      <button id="case-lightbox-close" onclick="event.stopPropagation(); closeLightbox()">&#x2715;</button>
+      <img id="case-lightbox-img" src="" alt="" onclick="event.stopPropagation()">
+    </div>
+
+    <script>
+function openLightbox(src) {
+  const lb = document.getElementById('case-lightbox');
+  lb.style.top = window.scrollY + 'px';
+  document.getElementById('case-lightbox-img').src = src;
+  lb.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('case-lightbox').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+document.addEventListener('click', function(e) {
+  if (e.target.closest('#case-lightbox')) return;
+  const expandBtn = e.target.closest('.carousel-expand');
+  if (expandBtn) {
+    e.stopPropagation();
+    const container = expandBtn.closest('.carousel-container');
+    const activeImg = container && container.querySelector('.carousel-slide.active img');
+    if (activeImg) openLightbox(activeImg.src);
+    return;
+  }
+  if (e.target.tagName === 'IMG' && e.target.id !== 'case-lightbox-img' && e.target.closest('.carousel-container')) {
+    openLightbox(e.target.src);
+    return;
+  }
+});
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.carousel-container').forEach(container => {
+    const btn = document.createElement('button');
+    btn.className = 'carousel-expand';
+    btn.setAttribute('aria-label', 'Enlarge');
+    btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" width="15" height="15"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"/></svg><span class="enlarge-label">Enlarge</span>';
+    container.appendChild(btn);
+  });
+  document.querySelectorAll('.carousel-container img').forEach(img => {
+    img.style.cursor = 'zoom-in';
+  });
+});
+(function() {
+  const links = document.querySelectorAll('.toc-link');
+  const sections = [...links].map(l => document.querySelector(l.getAttribute('href')));
+  function update() {
+    let active = 0;
+    sections.forEach((sec, i) => { if (sec && sec.getBoundingClientRect().top <= 120) active = i; });
+    links.forEach((l, i) => l.classList.toggle('active', i === active));
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+    </script>
+
     <script>
   window.addEventListener('load', function () {
     document.body.classList.add('loaded');
