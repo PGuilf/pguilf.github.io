@@ -13,55 +13,76 @@
   <title>About me</title>
   <link rel="stylesheet" href="styles.css?v=20260608">
   <link rel="icon" href="images/favicon/favicon.png" type="image/svg+xml">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
   <style>
     body { margin: 0 20px; }
     #project-content { padding-top: 8px; }
     .project-section-half { padding: 0; }
     .project-section-half .text-half { padding: 0 0 0 20px; }
     .testimonial-section { padding: 0; }
-    /* kind words carousel */
-    .kind-words { border-top: 1px solid rgba(0,0,0,0.1); padding: 0 0 64px; margin-top: 40px; }
-    .kind-words-header { display: flex; align-items: center; justify-content: space-between; padding: 24px 0 16px; }
-    .kind-words-label { font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 500; color: #333; }
-    .t-arrows { display: flex; gap: 2px; }
-    .t-arrow-btn { background: none; border: none; cursor: pointer; padding: 4px; display: flex; align-items: center; color: #333; opacity: 0.5; transition: opacity 0.2s; }
-    .t-arrow-btn:hover { opacity: 1; }
-    .t-arrow-btn:disabled { opacity: 0.15; cursor: default; }
-    .t-track {
-      display: flex;
-      overflow-x: scroll;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
+
+    /* outside of work */
+    .outside-work { margin-top: 40px; padding-bottom: 72px; }
+
+    .oow-canvas {
+      position: relative;
+      height: 540px;
     }
-    .t-track::-webkit-scrollbar { display: none; }
-    .t-page { flex: 0 0 100%; scroll-snap-align: start; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    @media (max-width: 767px) { .t-page { grid-template-columns: 1fr; } }
-    .kw-card {
-      background: #f0ece5; border: none; border-radius: 16px;
-      padding: 24px; display: flex; flex-direction: column; gap: 16px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -1px 0 rgba(0,0,0,0.04);
-      position: relative; overflow: hidden;
+
+    .oow-wordmark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      pointer-events: none;
+      text-align: center;
+      white-space: nowrap;
+      background: rgba(255, 250, 245, 0.1);
+      padding: 28px 48px;
     }
-    .kw-card::after {
-      content: ''; position: absolute; inset: 0; border-radius: inherit;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 180px 180px;
-      opacity: 0.18; pointer-events: none; mix-blend-mode: overlay;
+    .oow-heading {
+      /* Montserrat 700 inherited from global h2 rule in styles.css */
+      font-size: clamp(40px, 5.5vw, 72px);
+      font-weight: 700;
+      line-height: 0.9;
+      letter-spacing: -2px;
+      color: #111;
+      margin: 0 0 8px;
+      max-width: none;
     }
-    html.dark .kw-card {
-      background: #f0ece5; border: none;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -1px 0 rgba(0,0,0,0.04);
+    .oow-sub {
+      font-size: 13px;
+      color: #888;
+      margin: 0;
     }
-    .kw-quote { font-size: 14px; line-height: 1.65; color: #333; flex: 1; opacity: 0.8; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
-    .kw-author { font-size: 13px; font-weight: 600; color: #333; margin-bottom: 2px; }
-    .kw-role { font-size: 11px; color: #888; }
-    html.dark .kw-quote { color: #2a2420 !important; opacity: 1 !important; }
-    html.dark .kw-quote strong { color: #2a2420 !important; }
-    html.dark .kw-author { color: #1a1410 !important; }
-    html.dark .kw-role { color: #6b5f52 !important; }
+
+    /* Floating image cards */
+    .oow-img {
+      position: absolute;
+      top: 0; left: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.07);
+      cursor: grab;
+      user-select: none;
+      will-change: transform;
+      transition: filter 0.4s ease, opacity 0.4s ease;
+    }
+    .oow-img:active { cursor: grabbing; }
+    .oow-img img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+
+    /* portrait */
+    .oow-img-1, .oow-img-3, .oow-img-4, .oow-img-7, .oow-img-8, .oow-img-9 { width: 175px; height: 230px; }
+    /* landscape */
+    .oow-img-2, .oow-img-5, .oow-img-6, .oow-img-10, .oow-img-11 { width: 240px; height: 165px; }
+
+    html.dark .oow-wordmark { background: rgba(14, 10, 8, 0.1); }
+
+    @media (max-width: 767px) {
+      .oow-canvas { height: 380px; }
+      .oow-img-1, .oow-img-3, .oow-img-4, .oow-img-7, .oow-img-8, .oow-img-9 { width: 118px; height: 156px; }
+      .oow-img-2, .oow-img-5, .oow-img-6, .oow-img-10, .oow-img-11 { width: 162px; height: 112px; }
+    }
   </style>
 </head>
 <body style="background: radial-gradient(circle at center, rgb(255, 255, 250) 0%, rgb(255, 245, 240) 100%); color: black;">
@@ -70,14 +91,14 @@
     <header>
       <div class="header-content">
         <h4 class="project-title">About</h4>
-        <h2 class="right-title">
+        <div class="right-title">
           <a href="index.html" class="close-link">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
             </svg>
             Back to home
           </a>
-        </h2>
+        </div>
       </div>
     </header>
 
@@ -122,75 +143,30 @@
 
 
 
-<div class="kind-words fade-slide-up">
-  <div class="kind-words-header">
-    <div class="kind-words-label">Kind words</div>
-    <div class="t-arrows">
-      <button class="t-arrow-btn t-prev-kw" aria-label="Previous" disabled>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-        </svg>
-      </button>
-      <button class="t-arrow-btn t-next-kw" aria-label="Next">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-        </svg>
-      </button>
+<section class="outside-work fade-slide-up">
+  <div class="oow-canvas">
+    <div class="oow-wordmark">
+      <h2 class="oow-heading">Work<br>and more</h2>
     </div>
+    <div class="oow-img oow-img-1"><img src="images/workandmore/IMG_20230420_180102.jpg" alt="Work and more"></div>
+    <div class="oow-img oow-img-2"><img src="images/workandmore/IMG_20220323_100805.jpg" alt="Work and more"></div>
+    <div class="oow-img oow-img-3"><img src="images/workandmore/IMG-20260904-WA0068.jpg" alt="Work and more"></div>
+    <div class="oow-img oow-img-4"><img src="images/workandmore/PXL_20231026_203826494.jpg" alt="Work and more"></div>
+    <div class="oow-img oow-img-5"><img src="images/workandmore/IMG_20220323_114203.jpg" alt="Work and more"></div>
+    <div class="oow-img oow-img-6"><img src="images/workandmore/IMG_20230329_140304.jpg" alt="Work and more"></div>
+    <div class="oow-img oow-img-7"><img src="images/workandmore/IMG_20220323_154027.jpg" alt="Work and more"></div>
+    <div class="oow-img oow-img-8"><img src="images/workandmore/IMG-20260315-WA0058.jpg" alt="Work and more"></div>
+    <div class="oow-img oow-img-9"><img src="images/workandmore/Screenshot 2026-09-16 at 23.24.44.png" alt="Work and more"></div>
+    <div class="oow-img oow-img-10"><img src="images/workandmore/remoteworkshop.png" alt="Work and more"></div>
+    <div class="oow-img oow-img-11"><img src="images/workandmore/Screenshot 2026-09-16 at 23.48.12.png" alt="Work and more"></div>
   </div>
-  <div class="t-track" id="kwTrack">
-    <div class="t-page">
-      <div class="kw-card">
-        <p class="kw-quote">"Patrick was a <strong>great mentor and trainer</strong> to product designers, implementing processes and practices to significantly elevate the design function. He established a <strong>usable design system</strong> and ensured its adoption. He's a great guy, a pleasure to work with and has a strong <strong>can-do attitude.</strong>"</p>
-        <div><div class="kw-author">Sarah Timms</div><div class="kw-role">CPO, Intick &amp; Sedex</div></div>
-      </div>
-      <div class="kw-card">
-        <p class="kw-quote">"Pat played a <strong>pivotal role</strong> in shaping the foundations of our design system — and is genuinely a pleasure to work with. He brought <strong>clarity and structure</strong> to what could have easily become a fragmented process. He didn't just create components — he established <strong>principles, patterns, and a scalable approach</strong> that continues to benefit the entire team."</p>
-        <div><div class="kw-author">Jon Smith</div><div class="kw-role">Head of Digital Experience, Pharmacy2U</div></div>
-      </div>
-      <div class="kw-card">
-        <p class="kw-quote">"Patrick worked on a really complex initiative at The Economist and did a <strong>brilliant job</strong> designing <strong>intricate user journeys and e-commerce flows</strong>. He jelled really well with the product managers and engineers to ship some really <strong>impactful and transformational work.</strong>"</p>
-        <div><div class="kw-author">Adam Morris</div><div class="kw-role">VP of Design, The Economist</div></div>
-      </div>
-    </div>
-    <div class="t-page">
-      <div class="kw-card">
-        <p class="kw-quote">"I really enjoyed working with Patrick. He had a very <strong>collaborative relationship</strong> with our devs and the <strong>design to build journey was super smooth</strong>, he was patient when requirements changed and turned things around really quickly."</p>
-        <div><div class="kw-author">LJ Mendoza</div><div class="kw-role">Senior Product Manager</div></div>
-      </div>
-      <div class="kw-card">
-        <p class="kw-quote">"Patrick has been <strong>instrumental</strong> getting the Sedex Design to where it is today, both in terms of <strong>shepherding the design system into production</strong>, and building relationships outside our function, notably with the Front End Developers."</p>
-        <div><div class="kw-author">Loz Gray</div><div class="kw-role">Director of Product Design, Sedex</div></div>
-      </div>
-      <div class="kw-card">
-        <p class="kw-quote">"Patrick is a <strong>calm, diligent designer</strong> and did some great work at The Economist on our new <strong>customer flows and journeys</strong>. He's a <strong>great listener</strong> and takes stakeholder feedback well. I would highly recommend Patrick and his work."</p>
-        <div><div class="kw-author">Deep Bagchee</div><div class="kw-role">Product &amp; Technology Leader</div></div>
-      </div>
-    </div>
-  </div>
-</div>
+</section>
        
     </main>
 
     <footer></footer>
 
-    <script>
-    (function() {
-      const track = document.getElementById('kwTrack');
-      if (!track) return;
-      const prevBtn = document.querySelector('.t-prev-kw');
-      const nextBtn = document.querySelector('.t-next-kw');
-      function updateBtns() {
-        if (prevBtn) prevBtn.disabled = track.scrollLeft < 10;
-        if (nextBtn) nextBtn.disabled = track.scrollLeft >= track.scrollWidth - track.offsetWidth - 10;
-      }
-      if (prevBtn) prevBtn.addEventListener('click', () => track.scrollBy({ left: -track.offsetWidth, behavior: 'smooth' }));
-      if (nextBtn) nextBtn.addEventListener('click', () => track.scrollBy({ left: track.offsetWidth, behavior: 'smooth' }));
-      track.addEventListener('scroll', updateBtns, { passive: true });
-      updateBtns();
-    })();
-    </script>
-    <script src="scripts.js?v=20260608"></script>
+<script src="scripts.js?v=20260608"></script>
     <script>
       window.addEventListener('load', function () {
         document.body.classList.add('loaded');
@@ -247,6 +223,80 @@
           }
         });
       });
+    </script>
+
+    <script>
+    (function () {
+      var stage = document.querySelector('.oow-canvas');
+      if (!stage) return;
+
+      var items = Array.from(stage.querySelectorAll('.oow-img'));
+      var n = items.length;
+      var rotations = [-3.5, 2.2, -1.8, 3.8, -2.4, 4.1, -3.1, 2.7, -4.2, 1.5];
+      var states = [];
+      var lastTime = null;
+
+      // Home positions as fractions of canvas w/h — spread around the edges
+      // Images dynamically go in front of or behind the title based on distance from centre
+      var configs = [
+        { xF:0.03,  yF:0.03,  rot:-3.5, ax:10, ay:11, fx:0.00035, fy:0.00042, px:0.0, py:1.1 },
+        { xF:0.35,  yF:0.02,  rot: 2.2, ax:11, ay:10, fx:0.00028, fy:0.00038, px:2.2, py:0.5 },
+        { xF:0.68,  yF:0.03,  rot:-1.8, ax:10, ay:12, fx:0.00040, fy:0.00030, px:1.5, py:3.0 },
+        { xF:0.81,  yF:0.38,  rot: 3.8, ax:11, ay:10, fx:0.00033, fy:0.00044, px:0.8, py:2.1 },
+        { xF:0.03,  yF:0.40,  rot:-2.4, ax:10, ay:11, fx:0.00038, fy:0.00036, px:3.5, py:0.9 },
+        { xF:0.30,  yF:0.38,  rot: 4.1, ax:11, ay:10, fx:0.00042, fy:0.00032, px:2.8, py:1.8 },
+        { xF:0.58,  yF:0.38,  rot:-3.1, ax:10, ay:11, fx:0.00036, fy:0.00038, px:1.8, py:2.5 },
+        { xF:0.10,  yF:0.66,  rot: 2.7, ax:11, ay:10, fx:0.00031, fy:0.00043, px:3.2, py:1.2 },
+        { xF:0.40,  yF:0.65,  rot:-1.5, ax:10, ay:11, fx:0.00034, fy:0.00041, px:0.6, py:3.3 },
+        { xF:0.68,  yF:0.66,  rot: 1.9, ax:11, ay:10, fx:0.00029, fy:0.00037, px:1.4, py:2.8 },
+        { xF:0.50,  yF:0.38,  rot:-2.1, ax:10, ay:11, fx:0.00037, fy:0.00033, px:2.0, py:1.6 },
+      ];
+
+      var sw, sh, cx, cy, threshold;
+
+      function init() {
+        sw = stage.offsetWidth; sh = stage.offsetHeight;
+        cx = sw / 2; cy = sh / 2;
+        threshold = Math.min(sw, sh) * 0.30;
+        configs.forEach(function (cfg, i) {
+          var el = items[i];
+          var iw = el.offsetWidth, ih = el.offsetHeight;
+          var hx = Math.min(cfg.xF * sw, sw - iw);
+          var hy = Math.min(cfg.yF * sh, sh - ih);
+          states.push({ hx:hx, hy:hy, ax:cfg.ax, ay:cfg.ay,
+                        fx:cfg.fx, fy:cfg.fy, px:cfg.px, py:cfg.py, rot:cfg.rot,
+                        iw:iw, ih:ih });
+          el.style.transform = 'translate('+hx.toFixed(1)+'px,'+hy.toFixed(1)+'px) rotate('+cfg.rot+'deg)';
+        });
+      }
+
+      // Track per-image behind state to avoid thrashing transitions
+      var wasBehind = configs.map(function() { return null; });
+
+      function tick(ts) {
+        states.forEach(function (s, i) {
+          var x = s.hx + Math.sin(s.fx * ts + s.px) * s.ax;
+          var y = s.hy + Math.cos(s.fy * ts + s.py) * s.ay;
+          items[i].style.transform = 'translate('+x.toFixed(1)+'px,'+y.toFixed(1)+'px) rotate('+s.rot+'deg)';
+
+          // Check if image centre is within the wordmark threshold
+          var imgCx = x + s.iw / 2;
+          var imgCy = y + s.ih / 2;
+          var dist = Math.sqrt((imgCx - cx) * (imgCx - cx) + (imgCy - cy) * (imgCy - cy));
+          var behind = dist < threshold;
+
+          if (behind !== wasBehind[i]) {
+            wasBehind[i] = behind;
+            items[i].style.zIndex  = behind ? '5'  : '25';
+            items[i].style.filter  = behind ? 'blur(1.5px)' : 'none';
+            items[i].style.opacity = behind ? '0.8' : '1';
+          }
+        });
+        requestAnimationFrame(tick);
+      }
+
+      window.addEventListener('load', function () { init(); requestAnimationFrame(tick); });
+    })();
     </script>
 </body>
 </html>
