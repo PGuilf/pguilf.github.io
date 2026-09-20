@@ -12,7 +12,7 @@
 </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intick: A new approach to futures trading</title>
+    <title>Intick: Reimagining How Traders Access Liquidity</title>
     <link rel="stylesheet" href="styles.css?v=20260608">
      <link rel="icon" href="images/favicon/favicon.png" type="image/svg+xml">
        <script src="scripts.js?v=20260608"></script>
@@ -23,7 +23,7 @@
        <header>
 
             <div class="header-content" >
-                <h4 class="project-title">Intick: A new approach to futures trading</h4>
+                <h4 class="project-title">Intick: Reimagining How Traders Access Liquidity</h4>
                   <div class="right-title">
       <a href="#final-outcome" class="jump-link">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="icon">
@@ -90,14 +90,13 @@
 
                 <div class="project-info">
 
-                    <p class="project-descriptionl fade-slide-up">I was the founding product designer at Intick, a fintech startup building a modern futures trading platform. I led design from 0 to 1 — building the product, design system, and research practice from scratch. The target users were professional traders working on institutional desks, people who spend their days staring at Bloomberg terminals and legacy OMS platforms.</p>
+                    <p class="project-descriptionl fade-slide-up">Founding product designer building a real-time trading marketplace from the ground up, for professional traders used to decades-old terminals.</p>
                     <div class="project-tags fade-slide-up">
                         <span class="tag">UX</span>
-                        <span class="tag">UI</span>
                         <span class="tag">Research</span>
                         <span class="tag">0 to 1</span>
-                        <span class="tag">Design System</span>
                         <span class="tag">Fintech</span>
+                        <span class="tag">Design System</span>
                     </div>
                 </div>
             </div>
@@ -110,10 +109,12 @@
       <div class="case-sidebar-heading">Table of contents</div>
       <nav class="case-toc">
         <ul>
-          <li><a href="#the-challenge" class="toc-link">The challenge</a></li>
-          <li><a href="#research" class="toc-link">Research</a></li>
-          <li><a href="#design-exploration" class="toc-link">Design exploration</a></li>
-          <li><a href="#final-outcome" class="toc-link">Final outcome</a></li>
+          <li><a href="#strategy-concepting" class="toc-link">Strategy &amp; Concepting</a></li>
+          <li><a href="#early-iterations" class="toc-link">Early Iterations</a></li>
+          <li><a href="#testing" class="toc-link">Testing: Who and How</a></li>
+          <li><a href="#trading-language" class="toc-link">Refining the Trading Language</a></li>
+          <li><a href="#design-system" class="toc-link">Building the Design System</a></li>
+          <li><a href="#final-outcome" class="toc-link">Outcome</a></li>
         </ul>
       </nav>
     </div>
@@ -125,41 +126,43 @@
             <div class="keyline"></div>
 
             <div class="project-info fade-slide-up">
-                <h2 id="the-challenge">The challenge: replacing a legacy terminal</h2>
-                <p class="project-description fade-slide-up">Futures traders are deeply embedded in legacy infrastructure: EMSX, Charles River, and proprietary OMS platforms built for institutional desks. These systems are data-dense, keyboard-driven, and optimised for speed over usability. Traders develop precise muscle memory around them: shortcut sequences, visual scanning patterns, order entry flows they can execute without thinking. The challenge wasn't to simplify or prettify — it was to match that fluency in a modern interface. Breaking familiar mental models mid-trade isn't a UX inconvenience; it's a risk event. Every decision around information hierarchy, data density, and interaction speed was weighed against how a trader actually behaves under pressure.</p>
+                <p class="project-description">Asset managers trading block-size listed derivatives get worse outcomes in as much as 70% of cases, because off-screen liquidity is opaque and the market can move against them mid-search. Intick built a marketplace where buy-side firms match directly with counterparties or send RFQs to liquidity providers they couldn't otherwise reach, all aggregated into a single lit order book so traders work within the tick, not against it. There was no existing pattern for most of this: showing live liquidity across counterparties, making residual amounts and match status legible at a glance, or designing for users with decades of muscle memory from legacy terminals. Anything that broke convention had to earn its place.</p>
             </div>
 
             <div class="keyline"></div>
 
             <div class="project-info fade-slide-up">
-                <h2 id="research">Research</h2>
-                <p class="project-description fade-slide-up">I established the research practice from the ground up. I conducted moderated user interviews with active traders, simulating multiple desk roles — buy-side trader, portfolio manager, sales trader, and execution broker. This gave us a rounded picture of the ecosystem and the different ways each persona would interact with the platform. I ran usability tests on the live build and on Figma prototypes across multiple iterations, tagging and synthesising findings in Airtable.</p>
-            </div>
-
-            <div class="project-info fade-slide-up">
-                <h3>Recurring themes from research</h3>
-                <div class="bullet-grid">
-                    <ul>
-                        <li>Order book orientation not matching trader expectations</li>
-                        <li>Cold start state looked broken with no live data</li>
-                        <li>Structure of the order book unclear (bid/ask separation)</li>
-                        <li>Adding an order lacked open fields — felt unfamiliar</li>
-                    </ul>
-                    <ul>
-                        <li>Notifications needed a unique sound and better positioning</li>
-                        <li>Traders expected to trade directly from the parent order, not via the order book</li>
-                        <li>New parent card and status visibility tested strongly</li>
-                        <li>"Makes a lot more sense, I can really see what's going on here"</li>
-                    </ul>
-                </div>
+                <h2 id="strategy-concepting">1. Strategy &amp; Concepting</h2>
+                <p class="project-description fade-slide-up">This started as strategy, not screens. Alongside the founder and CPO, I helped shape the platform's core idea: what the ladder could look like, how offers would move between parties, what would make this different from the terminals traders had used for decades. The strategy evolved with us as we went. Early sessions were rough paper sketches: price tickers, a basic buy/sell ladder, first attempts at showing liquidity.</p>
             </div>
 
             <div class="keyline"></div>
 
             <div class="project-info fade-slide-up">
-                <h2 id="design-exploration">Design exploration</h2>
-                <p class="project-description fade-slide-up">I explored three structural approaches for the main trading view, evaluating how to surface active orders, the order book, and markets simultaneously on a single screen — a core requirement for traders who need everything at a glance. Structure 1 emerged as the strongest: parent cards on the left, order books scrolling horizontally, with working orders visible below. It performed best for responsiveness and cognitive load.</p>
-                <p class="project-description fade-slide-up">I then moved into high-fidelity prototypes across two concepts, testing both with traders in moderated sessions. Results were closely correlated — both felt familiar, with clear preference for the new parent card design and the responsive component system. I iterated on key components including the summary box (the trade confirmation panel), trading order cards, filters, permissions, notifications, and the RFQ flow. The summary box went through the most rounds — we tested five distinct scenarios covering single aggressive trades, passive trades, combinations, residuals, and error handling before landing on a final pattern that traders understood without guidance.</p>
+                <h2 id="early-iterations">2. Early Iterations</h2>
+                <p class="project-description fade-slide-up">I joined alongside an agency dev team already deep into market and exchange integrations. With the founder and tech lead, we formed a quad, iterating on key ideas and screens while I built a design system in parallel. The goal was a demo credible enough for partner and investor buy-in: bootstrapped account creation first, then the first real concepts, parent cards on the left, order book scrolling horizontally, tested in light and dark mode.</p>
+            </div>
+
+            <div class="keyline"></div>
+
+            <div class="project-info fade-slide-up">
+                <h2 id="testing">3. Testing: Who and How</h2>
+                <p class="project-description fade-slide-up">Standard usability heuristics weren't enough, we needed people who understood block trading to tell us when something broke their mental model versus when it was just unfamiliar. We ran structured sessions with named buy-side traders, portfolio managers, sales traders, and execution brokers, using pre-built dev accounts for different states. Every session was recorded, clipped, timestamped, and tagged into a friction-point-to-solution log.</p>
+                <p class="project-description fade-slide-up">Recurring issues: order book orientation broke convention ("I'd typically see all the bids on one side and the ask on the other"), the cold-start state read as broken rather than empty, and adding an order felt unfamiliar. Each finding fed back into design: the parent/child card model, retested, landed far better ("makes a lot more sense, I can really see what's going on here"); the order book was restructured to match convention; the empty state got clear messaging; a lighter tweaks pass stripped visual noise and repetition.</p>
+            </div>
+
+            <div class="keyline"></div>
+
+            <div class="project-info fade-slide-up">
+                <h2 id="trading-language">4. Refining the Trading Language</h2>
+                <p class="project-description fade-slide-up">As the product matured, we moved from agency-supported to a dedicated in-house team, with me on the front end and running proper sprints for the first time. We tested five trading scenarios end-to-end to unify the summary box, one of the hardest interaction problems on the platform, since a single trade could be aggressive, passive, combined, or residual, and all of it had to be legible at a glance. Traders wanted trades combined rather than suggested separately, valued repeated info as a safety check, and defaulted to aggressive first. This meant refining the visual language: Summary Box 2.0, a traffic-light system for order states, a buy/sell colour convention, full dark/light mode, a visual language that hadn't existed before.</p>
+            </div>
+
+            <div class="keyline"></div>
+
+            <div class="project-info fade-slide-up">
+                <h2 id="design-system">5. Building Out the Design System</h2>
+                <p class="project-description fade-slide-up">Here the work became a proper system: tokens, components, and structural concepts compared side by side before committing to one that scaled across every tested scenario. We pressure-tested it live with the Intick committee, a group of ex-bankers, through a full sales demo covering the entire loop: checking markets, sending an RFQ, taking and rejecting responses, adjusting to a market move, cancelling and re-sending. It held up.</p>
             </div>
 
   </div><!-- /case-content -->
@@ -168,8 +171,8 @@
             <div class="keyline"></div>
 
             <div class="project-info fade-slide-up">
-                <h2 id="final-outcome"><a name="final-outcome"></a>Final outcome</h2>
-                <p class="project-description fade-slide-up">The platform shipped as a responsive, real-time trading interface built with a component library designed to scale. Below is the desktop and mobile experience.</p>
+                <h2 id="final-outcome"><a name="final-outcome"></a>6. Outcome</h2>
+                <p class="project-description fade-slide-up">The result gives traders what they said they needed most: real-time clarity on every order, in a language built for how they actually work.</p>
             </div>
 
             <div class="project-container">
@@ -190,13 +193,6 @@
                     Your browser does not support the video tag.
                   </video>
               </div>
-            </div>
-
-            <div class="keyline"></div>
-
-            <div class="project-info fade-slide-up">
-                <h2>Full case study coming soon</h2>
-                <p class="project-description">Full write-up in progress.</p>
             </div>
 
             <div class="keyline"></div>
