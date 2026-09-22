@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C2YMSH68Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-C2YMSH68Z1');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Putting Claude to work</title>
+  <link rel="stylesheet" href="styles.css?v=20260608">
+  <link rel="icon" href="images/favicon/favicon.png" type="image/svg+xml">
+</head>
+<body style="background: radial-gradient(circle at center, rgb(255, 255, 250) 0%, rgb(255, 245, 240) 100%); color: black;">
+
+  <div class="custom-cursor"></div>
+
+  <div id="project-content">
+    <header style="background-color: rgba(255, 255, 250, 0.92);">
+      <div class="header-content">
+        <h4 class="project-title">Putting Claude to work</h4>
+        <h2 class="right-title">
+          <a href="journal.html" class="close-link">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width:14px;height:14px;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+            Close
+          </a>
+        </h2>
+      </div>
+    </header>
+
+    <main class="project-page">
+      <div class="project-container">
+        <img src="images/ai/projects.jpg" alt="Putting Claude to work" class="project-image">
+
+        <div class="project-info">
+
+          <p class="project-descriptionl2">
+            Designing an end-to-end journey produces far more than meeting notes. Strategy documents, Jira tickets, data analysis, user interviews, usability insights, design decisions, feedback from peer crits, iterations, tech feasibility, Slack messages... I put everything into Claude Projects.
+          </p>
+
+          <div class="text-container">
+            <p class="project-descriptions">
+              It starts with Granola and Notes from discovery meetings, existing documentation, and a scan of any research already done. As the work moves on, I connect it with Statsig (other data platforms are available) and run through experiments, show it concepts, and work on strategy documents with it. At the end of each day, I dictate short notes with Wispr Flow. A skill I built summarises where things currently stand: where we've been and where we're heading next.
+            </p>
+          </div>
+
+          <div class="text-container">
+            <p class="project-descriptions">
+              Over time it builds into a rich repository of the whole journey. I use it to validate concepts, pull out insights, and frame the journey's history for stakeholder meetings. It also helps me guide other designers, giving them a framework to follow for their own work. This approach was particularly useful on recent work around collecting and surfacing data, where I was testing with users how best to collect it and working out why we were collecting it in the first place. Now it's my memory for the work, and a work buddy I just keep feeding.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+
+    <footer>
+    </footer>
+  </div>
+
+  <script src="scripts.js?v=20260608"></script>
+  <script>
+    window.addEventListener('load', function () {
+      document.body.classList.add('loaded');
+    });
+    setTimeout(() => { document.title = 'Work.'; }, 6000);
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const elements = document.querySelectorAll('.fade-slide-up');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      elements.forEach(el => observer.observe(el));
+    });
+  </script>
+
+  <script>
+    window.addEventListener('load', () => {
+      document.body.classList.add('loaded');
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const links = document.querySelectorAll('a');
+      links.forEach(link => {
+        const href = link.getAttribute('href');
+        const isInternal = link.hostname === window.location.hostname;
+        const isAnchor = href && href.startsWith('#');
+        const isMailto = href && href.startsWith('mailto:');
+        if (isInternal && !link.target && !isAnchor && !isMailto) {
+          link.addEventListener('click', function (e) {
+            e.preventDefault();
+            requestAnimationFrame(() => {
+              document.body.classList.remove('loaded');
+              setTimeout(() => {
+                window.location.href = href;
+              }, 600);
+            });
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
