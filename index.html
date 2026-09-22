@@ -1130,7 +1130,7 @@ function loadMoreWorks() {
   const first = document.querySelector('.work-hidden:not(.work-revealed)');
   document.querySelectorAll('.work-hidden').forEach(el => el.classList.add('work-revealed'));
   document.getElementById('load-more-btn').style.display = 'none';
-  if (first) first.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (first) window.scrollTo({ top: first.offsetTop - 80, behavior: 'smooth' });
 }
 
 // pills / filter
