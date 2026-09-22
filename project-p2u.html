@@ -52,7 +52,7 @@
 
             <div class="project-container">
                 <div class="project-info">
-                    <p class="project-descriptionl fade-slide-up">Patients on repeat prescriptions were opting out of the one feature meant to stop them running out of medicine. Smart Reminders rebuilt it end to end: a data pipeline mapping ambiguous NHS dosing instructions through a confidence-gated LLM, a per-medicine reminder system grounded in real dispensing data, and an MVP shipped across web, iOS, and Android.</p>
+                    <p class="project-descriptionl fade-slide-up">Patients on repeat prescriptions were opting out of the one feature meant to stop them running out of medicine. At the start of the project, the reminder model treated an entire account as a single cadence, rather than a set of medicines with their own supply and risk profile. Smart Reminders rebuilt it end to end: a data pipeline mapping ambiguous NHS dosing instructions through a confidence-gated LLM, a per-medicine reminder system grounded in real dispensing data, and an MVP shipped across web, iOS, and Android.</p>
                     <div class="project-tags fade-slide-up">
                         <span class="tag">UX Research</span>
                         <span class="tag">Data Architecture</span>
@@ -91,49 +91,51 @@
                     <div class="keyline"></div>
 
                     <div class="project-info fade-slide-up">
-                        <p class="project-description">It treated an entire account as a single dial, not a dozen medicines with their own supply and risk profile. The old system had one reminder and one cadence for everything. Smart Reminders fixed that from the ground up.</p>
+                        <p class="project-description">At the start of the project, the reminder model treated an entire account as a single cadence, rather than a set of medicines with their own supply and risk profile. Smart Reminders fixed that from the ground up.</p>
                     </div>
 
                     <div class="keyline"></div>
 
                     <div class="project-info fade-slide-up">
                         <h2 id="discovery">1. Discovery</h2>
-                        <p class="project-description fade-slide-up">Before screens, we ran research: stakeholder interviews with the pharmacy and data science leads, and a focus group of 10 repeat prescription users, over 50, tested through clickable prototypes with think-aloud sessions. Patterns emerged fast. Patients couldn't tell whose prescriptions they were looking at when switching between family members. The line between an "existing prescription" and something sitting in an active order wasn't intuitive. Editing days remaining or a start date, say after a missed dose or a delayed delivery, was technically possible but not something patients trusted. And nobody understood why some medicines, like creams and inhalers, had no countdown at all. Every one of these became a design constraint, not just a research note.</p>
+                        <p class="project-description fade-slide-up">Before screens, we ran research: stakeholder interviews with the pharmacy and data science leads, and a focus group of 10 repeat prescription users, over 50, tested through clickable prototypes with think-aloud sessions. Patterns emerged fast. Patients couldn't tell whose prescriptions they were looking at when switching between family members. The line between an "existing prescription" and something sitting in an active order wasn't intuitive. Editing days remaining or a start date, say after a missed dose or a delayed delivery, was technically possible but not something patients trusted. Participants also questioned why some medicines, like creams and inhalers, had no countdown at all. Every one of these became a design constraint, not just a research note.</p>
                     </div>
 
                     <div class="keyline"></div>
 
                     <div class="project-info fade-slide-up">
                         <h2 id="current-state">2. Current State</h2>
-                        <p class="project-description fade-slide-up">The system we inherited: one reminder, one cadence, for an entire account. Patients had to opt in manually, choose a single interval like a 30-day cycle for every medicine they took, and re-order each one individually by searching for it. A fixed cadence had no way of knowing that two different medicines run out at different rates. Ordering too early risked GP rejection, mitigated only by a warning checkbox: "your GP may reject it." The system had no concept of a sensible request window, so it left both problems, timing and risk, entirely to the patient.</p>
+                        <p class="project-description fade-slide-up">The system we inherited: one reminder, one cadence, for an entire account. Patients had to opt in manually, choose a single interval like a 30-day cycle for every medicine they took, and re-order each one individually by searching for it. A fixed cadence had no way of knowing that two different medicines run out at different rates. Ordering too early risked GP rejection, mitigated only by a warning checkbox: <em>"your GP may reject it."</em> The system had no concept of a sensible request window, so it left both problems, timing and risk, entirely to the patient.</p>
                     </div>
 
                     <div class="keyline"></div>
 
                     <div class="project-info fade-slide-up">
                         <h2 id="metrics">3. Metrics &amp; Impact</h2>
-                        <p class="project-description fade-slide-up">Smart Reminders moved four numbers: per-medicine reminder adoption reached 68% of eligible repeat patients, 82% of dose mappings were resolved automatically at high confidence, reminder-related Contact Centre contacts fell 35%, and GP-rejected "too early" requests dropped 40% after the lead time moved from 10 days to 7.</p>
+                        <p class="project-description fade-slide-up"><em>Note: figures below are illustrative, replace with real numbers before publishing.</em></p>
+                        <p class="project-description fade-slide-up">Smart Reminders moved four numbers: per-medicine reminder adoption reached 68% of eligible repeat patients, 82% of dose mappings were resolved automatically at high confidence, reminder-related Contact Centre contacts fell 35%, and GP-rejected "too early" requests dropped 40% after the lead time moved from 10 working days to 7 working days.</p>
                     </div>
 
                     <div class="keyline"></div>
 
                     <div class="project-info fade-slide-up">
                         <h2 id="architecture">4. Architecture</h2>
-                        <p class="project-description fade-slide-up">Everything here comes down to one decision made early: map deterministically wherever possible, and only reach for an LLM when that fails. A dispatch event brings in the prescription data, things like quantity, SIG codes, and DM&amp;D IDs, which gets checked against an existing dose-mapping table. Most of the time a mapping already exists, so days-of-supply is worked out straight from quantity dispensed with no model in the loop at all. When instructions are free-text or ambiguous, a RAG-based LLM pulls the relevant BNF section and returns a mapped option with a confidence score attached. If confidence is high, that result goes straight into the calculation. If it's not, it lands with a pharmacist to check, and whatever they correct feeds back into the mapping table for next time. Pharmacy2U's Head of Data Science has talked publicly about this same principle: get the data foundation right before reaching for a model, and don't let a model's confidence stand in for a human check when the stakes are clinical.</p>
+                        <p class="project-description fade-slide-up">Everything here comes down to one decision we made early: map deterministically wherever possible, and only reach for an LLM when that fails. A dispatch event brings in the prescription data, things like quantity, dosage instructions, and dm+d IDs, which gets checked against an existing dose-mapping table. Most of the time a mapping already exists, so days-of-supply is calculated deterministically from quantity dispensed and a validated dose/frequency mapping, with no model in the loop at all. When instructions are free-text or ambiguous, a RAG-based LLM pulls the relevant BNF section and returns a mapped option with a confidence score attached. If confidence is high, that result goes straight into the calculation. If it's not, it lands with a pharmacist to check, and whatever they correct can be incorporated into the mapping table as a reviewed, reusable rule.</p>
+                        <p class="project-description fade-slide-up">This reflects the broader approach Pharmacy2U's Head of Data Science has described publicly: build the underlying solution around the real operational problem, rather than treating the model as the product. Pharmacy2U also publicly describes automated interpretation of dosage instructions with human review, pharmacist or clinical override, and fallback routes for unsupported or low-confidence cases.</p>
                     </div>
 
                     <div class="keyline"></div>
 
                     <div class="project-info fade-slide-up">
                         <h2 id="ux-strategy">5. UX Strategy &amp; Framework</h2>
-                        <p class="project-description fade-slide-up">The UX decisions were policy decisions as much as design ones. Reminders were classified as service communications rather than marketing, maximising coverage without consent friction, provided a patient-led pause or removal was always available. Language was deliberately "Add/Remove," never "Opt-in/Opt-out." Every edit, whether a paused reminder or a shortened countdown, was logged with actor, timestamp, and reason, and two consecutive shortenings on the same item triggered an automatic pharmacist review rather than a silent acceptance.</p>
+                        <p class="project-description fade-slide-up">The UX decisions were policy decisions as much as design ones. Reminders were treated as service communications rather than direct marketing, subject to the relevant privacy and communications rules, reducing unnecessary marketing-consent friction while keeping a patient-led pause or removal available. Language was deliberately "Add/Remove," never "Opt-in/Opt-out." Every edit, whether a paused reminder or a shortened countdown, was logged with actor, timestamp, and reason, and two consecutive shortenings on the same item triggered an automatic pharmacist review rather than a silent acceptance.</p>
                     </div>
 
                     <div class="keyline"></div>
 
                     <div class="project-info fade-slide-up">
                         <h2 id="concept-testing">6. Concept Testing</h2>
-                        <p class="project-description fade-slide-up">We tested three prototypes in parallel, each isolating a different failure mode rather than iterating the same screen. One tested the baseline add/manage flow. One stress-tested search depth and what happens when nothing matches, with a plain "no matching medicines found, contact your GP if needed" state, which was directly relevant to how the LLM fallback needed to fail gracefully rather than guess. The third tested an overdue-medicine flow: a "still needing this medication?" decision point that, if declined, required a reason sent to the patient's GP before the item went inactive.</p>
+                        <p class="project-description fade-slide-up">We tested three prototypes in parallel, each isolating a different failure mode rather than iterating the same screen. One tested the baseline add/manage flow. One stress-tested search depth and what happens when nothing matches, with a plain "no matching medicines found, contact your GP if needed" state, which was directly relevant to how the LLM fallback needed to fail gracefully rather than guess. The third tested an overdue-medicine flow: a "still needing this medication?" decision point that, if declined, required a reason sent to the patient's GP before the item went inactive. All three prototypes were run as UserZoom unmoderated sessions. The add/manage flow scored well on task completion and felt familiar to most participants. The search and empty-state prototype surfaced one consistent issue: participants expected a free-text search before a filtered list, which fed directly into the navigation structure. The overdue-medicine flow performed strongly on clarity, with most participants saying the decision point felt appropriate given the clinical context.</p>
                     </div>
 
                     <div class="keyline"></div>
