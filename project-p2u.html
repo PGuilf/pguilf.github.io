@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-C2YMSH68Z1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -10,18 +11,24 @@
 </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pharmacy 2 U: AI-powered smart reminders</title>
-    <link rel="stylesheet" href="styles.css?v=20260610b">
+    <title>Pharmacy2U: AI Smart Reminders</title>
+    <link rel="stylesheet" href="styles.css?v=20260608">
     <link rel="icon" href="images/favicon/favicon.png" type="image/svg+xml">
-    <script src="scripts.js?v=20260610b"></script>
+    <script src="scripts.js?v=20260608"></script>
 </head>
 <body style="background: linear-gradient(to bottom, #F0F7F4, #F0F7F4);">
 
     <div id="project-content">
         <header style="background-color: rgba(240, 247, 244, 0.88); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
             <div class="header-content">
-                <h4 class="project-title">Pharmacy 2 U: AI-powered smart reminders</h4>
+                <h4 class="project-title">Pharmacy2U: AI Smart Reminders</h4>
                 <div class="right-title">
+                    <a href="#final-outcome" class="jump-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" />
+                        </svg>
+                        <span>Jump to final outcome</span>
+                    </a>
                     <a href="index.html" class="close-link">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="icon">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -33,70 +40,252 @@
         </header>
 
         <main class="project-page">
-
-            <div class="project-container">
-                <img src="images/pharmacy2u/p2u.jpg" alt="Pharmacy 2 U" style="width: 100%; border-radius: 8px; display: block;">
+            <div class="carousel-container">
+                <div class="carousel-wrapper">
+                    <div class="carousel-slide active">
+                        <img src="images/pharmacy2u/p2u.jpg" alt="Pharmacy2U AI Smart Reminders">
+                        <figcaption>Pharmacy2U</figcaption>
+                    </div>
+                </div>
+                <div class="carousel-dots"></div>
             </div>
 
             <div class="project-container">
                 <div class="project-info">
-                    <p class="project-descriptionl fade-slide-up">AI powered smart reminders, a predictive model identifying when patients are due medication and proactively triggering dispensing.</p>
+                    <p class="project-descriptionl fade-slide-up">Patients on repeat prescriptions were opting out of the one feature meant to stop them running out of medicine. Smart Reminders rebuilt it end to end: a data pipeline mapping ambiguous NHS dosing instructions through a confidence-gated LLM, a per-medicine reminder system grounded in real dispensing data, and an MVP shipped across web, iOS, and Android.</p>
                     <div class="project-tags fade-slide-up">
-                        <span class="tag">UX</span>
-                        <span class="tag">UI</span>
-                        <span class="tag">Research</span>
+                        <span class="tag">UX Research</span>
+                        <span class="tag">Data Architecture</span>
+                        <span class="tag">LLM Systems</span>
                         <span class="tag">Healthcare</span>
                     </div>
                 </div>
             </div>
 
+            <div class="case-layout">
+
+                <!-- SIDEBAR -->
+                <aside class="case-sidebar">
+                    <div>
+                        <div class="case-sidebar-heading">Table of contents</div>
+                        <nav class="case-toc">
+                            <ul>
+                                <li><a href="#discovery" class="toc-link">Discovery</a></li>
+                                <li><a href="#current-state" class="toc-link">Current State</a></li>
+                                <li><a href="#metrics" class="toc-link">Metrics &amp; Impact</a></li>
+                                <li><a href="#architecture" class="toc-link">Architecture</a></li>
+                                <li><a href="#ux-strategy" class="toc-link">UX Strategy &amp; Framework</a></li>
+                                <li><a href="#concept-testing" class="toc-link">Concept Testing</a></li>
+                                <li><a href="#mvp" class="toc-link">MVP Walkthrough</a></li>
+                                <li><a href="#post-mvp" class="toc-link">Post-MVP</a></li>
+                                <li><a href="#design-system" class="toc-link">Design System</a></li>
+                                <li><a href="#final-outcome" class="toc-link">Outcome</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </aside>
+
+                <!-- CONTENT -->
+                <div class="case-content">
+
+                    <div class="keyline"></div>
+
+                    <div class="project-info fade-slide-up">
+                        <p class="project-description">It treated an entire account as a single dial, not a dozen medicines with their own supply and risk profile. The old system had one reminder and one cadence for everything. Smart Reminders fixed that from the ground up.</p>
+                    </div>
+
+                    <div class="keyline"></div>
+
+                    <div class="project-info fade-slide-up">
+                        <h2 id="discovery">1. Discovery</h2>
+                        <p class="project-description fade-slide-up">Before screens, we ran research: stakeholder interviews with the pharmacy and data science leads, and a focus group of 10 repeat prescription users, over 50, tested through clickable prototypes with think-aloud sessions. Patterns emerged fast. Patients couldn't tell whose prescriptions they were looking at when switching between family members. The line between an "existing prescription" and something sitting in an active order wasn't intuitive. Editing days remaining or a start date, say after a missed dose or a delayed delivery, was technically possible but not something patients trusted. And nobody understood why some medicines, like creams and inhalers, had no countdown at all. Every one of these became a design constraint, not just a research note.</p>
+                    </div>
+
+                    <div class="keyline"></div>
+
+                    <div class="project-info fade-slide-up">
+                        <h2 id="current-state">2. Current State</h2>
+                        <p class="project-description fade-slide-up">The system we inherited: one reminder, one cadence, for an entire account. Patients had to opt in manually, choose a single interval like a 30-day cycle for every medicine they took, and re-order each one individually by searching for it. A fixed cadence had no way of knowing that two different medicines run out at different rates. Ordering too early risked GP rejection, mitigated only by a warning checkbox: "your GP may reject it." The system had no concept of a sensible request window, so it left both problems, timing and risk, entirely to the patient.</p>
+                    </div>
+
+                    <div class="keyline"></div>
+
+                    <div class="project-info fade-slide-up">
+                        <h2 id="metrics">3. Metrics &amp; Impact</h2>
+                        <p class="project-description fade-slide-up">Smart Reminders moved four numbers: per-medicine reminder adoption reached 68% of eligible repeat patients, 82% of dose mappings were resolved automatically at high confidence, reminder-related Contact Centre contacts fell 35%, and GP-rejected "too early" requests dropped 40% after the lead time moved from 10 days to 7.</p>
+                    </div>
+
+                    <div class="keyline"></div>
+
+                    <div class="project-info fade-slide-up">
+                        <h2 id="architecture">4. Architecture</h2>
+                        <p class="project-description fade-slide-up">Everything here comes down to one decision made early: map deterministically wherever possible, and only reach for an LLM when that fails. A dispatch event brings in the prescription data, things like quantity, SIG codes, and DM&amp;D IDs, which gets checked against an existing dose-mapping table. Most of the time a mapping already exists, so days-of-supply is worked out straight from quantity dispensed with no model in the loop at all. When instructions are free-text or ambiguous, a RAG-based LLM pulls the relevant BNF section and returns a mapped option with a confidence score attached. If confidence is high, that result goes straight into the calculation. If it's not, it lands with a pharmacist to check, and whatever they correct feeds back into the mapping table for next time. Pharmacy2U's Head of Data Science has talked publicly about this same principle: get the data foundation right before reaching for a model, and don't let a model's confidence stand in for a human check when the stakes are clinical.</p>
+                    </div>
+
+                    <div class="keyline"></div>
+
+                    <div class="project-info fade-slide-up">
+                        <h2 id="ux-strategy">5. UX Strategy &amp; Framework</h2>
+                        <p class="project-description fade-slide-up">The UX decisions were policy decisions as much as design ones. Reminders were classified as service communications rather than marketing, maximising coverage without consent friction, provided a patient-led pause or removal was always available. Language was deliberately "Add/Remove," never "Opt-in/Opt-out." Every edit, whether a paused reminder or a shortened countdown, was logged with actor, timestamp, and reason, and two consecutive shortenings on the same item triggered an automatic pharmacist review rather than a silent acceptance.</p>
+                    </div>
+
+                    <div class="keyline"></div>
+
+                    <div class="project-info fade-slide-up">
+                        <h2 id="concept-testing">6. Concept Testing</h2>
+                        <p class="project-description fade-slide-up">We tested three prototypes in parallel, each isolating a different failure mode rather than iterating the same screen. One tested the baseline add/manage flow. One stress-tested search depth and what happens when nothing matches, with a plain "no matching medicines found, contact your GP if needed" state, which was directly relevant to how the LLM fallback needed to fail gracefully rather than guess. The third tested an overdue-medicine flow: a "still needing this medication?" decision point that, if declined, required a reason sent to the patient's GP before the item went inactive.</p>
+                    </div>
+
+                    <div class="keyline"></div>
+
+                    <div class="project-info fade-slide-up">
+                        <h2 id="mvp">7. MVP Walkthrough</h2>
+                        <p class="project-description fade-slide-up">The vast majority of patients used this through the app rather than the browser, so it was built React-first. What shipped: a per-medicine list sortable by name or by urgency, with "runs out first" as fast to reach as alphabetical. Clicking into a medicine opens individual controls, a reminder toggle, a live-calculated date ("we'll send a reminder 7 days before you're due to run out"), a start-date picker, and a stepper to correct days remaining directly, the fix patients had been asking for since discovery.</p>
+                        <p class="project-description fade-slide-up">Account-level settings hold a full reminders calendar with built-in consolidation, so items due within three days of each other are combined rather than sent separately, plus a default weekly fallback for anything not individually configured, and independent push/email/SMS toggles. Every medicine carries a visible history: added, last ordered, last delivered, next due, the same audit trail built for pharmacists, made legible to the patient who owns it. And for NHS repeat dispensing, release isn't automatic: patients answer a short clinical safety questionnaire before the next batch goes out, with the option to drop items they no longer need.</p>
+                    </div>
+
+                    <div class="keyline"></div>
+
+                    <div class="project-info fade-slide-up">
+                        <h2 id="post-mvp">8. Post-MVP</h2>
+                        <p class="project-description fade-slide-up">Two things came next: syncing reminder dates into Google Calendar, native iOS/Android calendars, and other calendars patients already use, rather than relying solely on push, email, and SMS; and using real adoption data from the MVP to refine the default reminder cadence for medicines that hadn't been individually configured.</p>
+                    </div>
+
+                    <div class="keyline"></div>
+
+                    <div class="project-info fade-slide-up">
+                        <h2 id="design-system">9. Design System</h2>
+                        <p class="project-description fade-slide-up">Built alongside delivery rather than before it, the design system grew out of the same components this project kept reaching for. Based on shadcn, it was tidied, documented, and linked so the wider team could work from one source in both Figma Make and V0, meaning a component built for Smart Reminders could be picked up and reused on the next project without redrawing it from scratch.</p>
+                    </div>
+
+                </div><!-- /case-content -->
+            </div><!-- /case-layout -->
+
             <div class="keyline"></div>
 
             <div class="project-info fade-slide-up">
-                <h2>The challenge</h2>
-                <p class="project-description fade-slide-up">Patients miss doses, forget to reorder, or just disengage from managing repeat prescriptions. The problem wasn't awareness, it was friction. The challenge was designing an intervention that felt timely enough to act on, not just another notification to dismiss.</p>
+                <h2 id="final-outcome"><a name="final-outcome"></a>Outcome</h2>
+                <p class="project-description fade-slide-up">A reminder that finally matches how medicine actually gets used: one system per person, one countdown per medicine, and a human in the loop wherever the model isn't sure.</p>
+            </div>
+
+            <div class="project-container">
+                <img src="images/pharmacy2u/p2u.jpg" alt="Pharmacy2U AI Smart Reminders" class="project-image fade-slide-up">
             </div>
 
             <div class="keyline"></div>
 
-            <div class="project-info fade-slide-up">
-                <h2>Concept and research</h2>
-                <p class="project-description fade-slide-up">I worked on this from concept, starting with research into how patients actually manage prescriptions day-to-day. We spoke to patients across different medication types and mapped the end-to-end journey to understand where people were dropping off and what a proactive nudge needed to feel like to be trusted.</p>
-            </div>
-
-            <div class="keyline"></div>
-
-            <div class="project-info fade-slide-up">
-                <h2>Design and testing</h2>
-                <p class="project-description fade-slide-up">I designed the patient-facing experience around the predictive model: the reminder surface, confirmation flow, and edge case states. I ran multiple rounds of user testing, refining the interaction and copy each time. Small details mattered a lot here. We tested different tones and entry points until we landed on something that felt trustworthy and easy to act on.</p>
-            </div>
-
-            <div class="keyline"></div>
-
-            <div class="project-info fade-slide-up">
-                <h2>Full case study coming soon</h2>
-                <p class="project-description">Full write-up in progress.</p>
-            </div>
-
-            <div class="next-project-link" style="padding-bottom: 80px;">
+            <div class="next-project-link">
                 <a href="project-intick.html">Intick: Reimagining How Traders Access Liquidity →</a>
             </div>
 
         </main>
+
+        <footer></footer>
     </div>
+
+    <!-- Lightbox -->
+    <div id="case-lightbox" style="display:none;" onclick="closeLightbox()">
+        <button id="case-lightbox-close" onclick="event.stopPropagation(); closeLightbox()">&#x2715;</button>
+        <img id="case-lightbox-img" src="" alt="" onclick="event.stopPropagation()">
+    </div>
+
+    <script>
+function openLightbox(src) {
+  const lb = document.getElementById('case-lightbox');
+  lb.style.top = window.scrollY + 'px';
+  document.getElementById('case-lightbox-img').src = src;
+  lb.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('case-lightbox').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+document.addEventListener('click', function(e) {
+  if (e.target.closest('#case-lightbox')) return;
+  const expandBtn = e.target.closest('.carousel-expand');
+  if (expandBtn) {
+    e.stopPropagation();
+    const container = expandBtn.closest('.carousel-container');
+    const activeImg = container && container.querySelector('.carousel-slide.active img');
+    if (activeImg) openLightbox(activeImg.src);
+    return;
+  }
+  if (e.target.tagName === 'IMG' && e.target.id !== 'case-lightbox-img' && e.target.closest('.carousel-container')) {
+    openLightbox(e.target.src);
+    return;
+  }
+});
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.carousel-container').forEach(container => {
+    const btn = document.createElement('button');
+    btn.className = 'carousel-expand';
+    btn.setAttribute('aria-label', 'Enlarge');
+    btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" width="15" height="15"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"/></svg><span class="enlarge-label">Enlarge</span>';
+    container.appendChild(btn);
+  });
+  document.querySelectorAll('.carousel-container img').forEach(img => {
+    img.style.cursor = 'zoom-in';
+  });
+});
+(function() {
+  const links = document.querySelectorAll('.toc-link');
+  const sections = [...links].map(l => document.querySelector(l.getAttribute('href')));
+  function update() {
+    let active = 0;
+    sections.forEach((sec, i) => { if (sec && sec.getBoundingClientRect().top <= 120) active = i; });
+    links.forEach((l, i) => l.classList.toggle('active', i === active));
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+    </script>
+
+    <script>
+  window.addEventListener('load', function () {
+    document.body.classList.add('loaded');
+  });
+</script>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const elements = document.querySelectorAll('.fade-slide-up');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
+        if(entry.isIntersecting) {
           entry.target.classList.add('active');
           observer.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1 });
     elements.forEach(el => observer.observe(el));
+  });
+</script>
+
+<script>
+  window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+  });
+  document.addEventListener('DOMContentLoaded', () => {
+    const links = document.querySelectorAll('a');
+    links.forEach(link => {
+      const href = link.getAttribute('href');
+      const isInternal = link.hostname === window.location.hostname;
+      const isAnchor = href && href.startsWith('#');
+      const isMailto = href && href.startsWith('mailto:');
+      if (isInternal && !link.target && !isAnchor && !isMailto) {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          requestAnimationFrame(() => {
+            document.body.classList.remove('loaded');
+            setTimeout(() => {
+              window.location.href = href;
+            }, 600);
+          });
+        });
+      }
+    });
   });
 </script>
 
