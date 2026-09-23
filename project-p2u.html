@@ -104,14 +104,14 @@
                     <div class="keyline"></div>
 
                     <div class="project-info fade-slide-up">
-                        <h2 id="current-state">Current State</h2>
+                        <h2 id="current-state">Current state</h2>
                         <p class="project-description fade-slide-up">The system we inherited: one reminder, one cadence, for an entire account. Patients had to opt in manually, choose a single interval like a 30-day cycle for every medicine they took, and re-order each one individually by searching for it. A fixed cadence had no way of knowing that two different medicines run out at different rates. Ordering too early risked GP rejection, mitigated only by a warning checkbox: <em>"your GP may reject it."</em> The system had no concept of a sensible request window, so it left both problems, timing and risk, entirely to the patient.</p>
                     </div>
 
                     <div class="keyline"></div>
 
                     <div class="project-info fade-slide-up">
-                        <h2 id="metrics">Metrics &amp; Impact</h2>
+                        <h2 id="metrics">Metrics &amp; impact</h2>
                         <p class="project-description fade-slide-up"><em>Note: figures below are illustrative, replace with real numbers before publishing.</em></p>
                         <p class="project-description fade-slide-up">Smart Reminders moved four numbers: per-medicine reminder adoption reached 68% of eligible repeat patients, 82% of dose mappings were resolved automatically at high confidence, reminder-related Contact Centre contacts fell 35%, and GP-rejected "too early" requests dropped 40% after the lead time moved from 10 working days to 7 working days.</p>
                     </div>
@@ -127,21 +127,21 @@
                     <div class="keyline"></div>
 
                     <div class="project-info fade-slide-up">
-                        <h2 id="ux-strategy">UX Strategy &amp; Framework</h2>
+                        <h2 id="ux-strategy">UX strategy &amp; framework</h2>
                         <p class="project-description fade-slide-up">The UX decisions were policy decisions as much as design ones. Reminders were treated as service communications rather than direct marketing, subject to the relevant privacy and communications rules, reducing unnecessary marketing-consent friction while keeping a patient-led pause or removal available. Language was deliberately "Add/Remove," never "Opt-in/Opt-out." Every edit, whether a paused reminder or a shortened countdown, was logged with actor, timestamp, and reason, and two consecutive shortenings on the same item triggered an automatic pharmacist review rather than a silent acceptance.</p>
                     </div>
 
                     <div class="keyline"></div>
 
                     <div class="project-info fade-slide-up">
-                        <h2 id="concept-testing">Concept Testing</h2>
+                        <h2 id="concept-testing">Concept testing</h2>
                         <p class="project-description fade-slide-up">We tested three prototypes in parallel, each isolating a different failure mode rather than iterating the same screen. One tested the baseline add/manage flow. One stress-tested search depth and what happens when nothing matches, with a plain "no matching medicines found, contact your GP if needed" state, which was directly relevant to how the LLM fallback needed to fail gracefully rather than guess. The third tested an overdue-medicine flow: a "still needing this medication?" decision point that, if declined, required a reason sent to the patient's GP before the item went inactive. All three prototypes were run as UserZoom unmoderated sessions. The add/manage flow scored well on task completion and felt familiar to most participants. The search and empty-state prototype surfaced one consistent issue: participants expected a free-text search before a filtered list, which fed directly into the navigation structure. The overdue-medicine flow performed strongly on clarity, with most participants saying the decision point felt appropriate given the clinical context.</p>
                     </div>
 
                     <div class="keyline"></div>
 
                     <div class="project-info fade-slide-up">
-                        <h2 id="mvp">MVP Walkthrough</h2>
+                        <h2 id="mvp">MVP walkthrough</h2>
                         <p class="project-description fade-slide-up">The vast majority of patients used this through the app rather than the browser, so it was built React-first. What shipped: a per-medicine list sortable by name or by urgency, with "runs out first" as fast to reach as alphabetical. Clicking into a medicine opens individual controls, a reminder toggle, a live-calculated date ("we'll send a reminder 7 days before you're due to run out"), a start-date picker, and a stepper to correct days remaining directly, the fix patients had been asking for since discovery.</p>
                         <p class="project-description fade-slide-up">Account-level settings hold a full reminders calendar with built-in consolidation, so items due within three days of each other are combined rather than sent separately, plus a default weekly fallback for anything not individually configured, and independent push/email/SMS toggles. Every medicine carries a visible history: added, last ordered, last delivered, next due, the same audit trail built for pharmacists, made legible to the patient who owns it. And for NHS repeat dispensing, release isn't automatic: patients answer a short clinical safety questionnaire before the next batch goes out, with the option to drop items they no longer need.</p>
                     </div>
@@ -156,7 +156,7 @@
                     <div class="keyline"></div>
 
                     <div class="project-info fade-slide-up">
-                        <h2 id="design-system">Design System</h2>
+                        <h2 id="design-system">Design system</h2>
                         <p class="project-description fade-slide-up">Built alongside delivery rather than before it, the design system grew out of the same components this project kept reaching for. Based on shadcn, it was tidied, documented, and linked so the wider team could work from one source in both Figma Make and V0, meaning a component built for Smart Reminders could be picked up and reused on the next project without redrawing it from scratch.</p>
                     </div>
 
