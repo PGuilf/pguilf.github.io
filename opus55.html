@@ -14,34 +14,6 @@
   <title>Opus 5.5 for animation: is it worth the hype? — Patrick Guilfoyle</title>
   <link rel="stylesheet" href="styles.css?v=20260608">
   <link rel="icon" href="images/favicon/favicon.png" type="image/svg+xml">
-  <style>
-    .animation-grid {
-      display: flex;
-      flex-direction: row;
-      gap: 16px;
-      margin-top: 8px;
-    }
-    .animation-item {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .animation-item video {
-      width: 100%;
-      border-radius: 8px;
-      display: block;
-    }
-    .animation-caption {
-      font-size: 11px;
-      color: #888;
-      text-align: left;
-    }
-    @media (max-width: 600px) {
-      .animation-grid { flex-direction: column; }
-    }
-    html.dark .animation-caption { color: #777; }
-  </style>
 </head>
 <body style="background: radial-gradient(circle at center, rgb(255, 255, 250) 0%, rgb(255, 245, 240) 100%); color: black;">
 
@@ -71,26 +43,9 @@
 
         <div class="project-info">
 
-          <div class="text-container">
-            <p class="project-descriptions">
-              I started with a sketch of a few things that were top of mind: a review pill, a "Review submitted" badge and a "Top tour" badge. Rough, but enough to know what each one should do. Then into Figma, really quick. I used the agent to finesse the details, which saved a lot of pixel nudging.
-            </p>
-          </div>
-
-          <div class="animation-grid">
-            <div class="animation-item">
-              <video autoplay muted loop playsinline preload="auto" src="images/ai/badge-pop.mp4"></video>
-              <span class="animation-caption">Review submitted: badge lands with a soft shadow, then the star pops with gold sparkles</span>
-            </div>
-            <div class="animation-item">
-              <video autoplay muted loop playsinline preload="auto" src="images/ai/badge-spin.mp4"></video>
-              <span class="animation-caption">Top tour badge: the centre presses in, then turns slowly while the text stays still</span>
-            </div>
-            <div class="animation-item">
-              <video autoplay muted loop playsinline preload="auto" src="images/ai/reviewer.mp4"></video>
-              <span class="animation-caption">Top reviewer: card floats up, type follows, illustration rises and settles</span>
-            </div>
-          </div>
+          <p class="project-descriptionl2">
+            I started with a sketch of a few things that were top of mind: a review pill, a "Review submitted" badge and a "Top tour" badge. Rough, but enough to know what each one should do. Then into Figma, really quick. I used the agent to finesse the details, which saved a lot of pixel nudging.
+          </p>
 
           <div class="text-container">
             <p class="project-descriptions">
@@ -99,6 +54,27 @@
           </div>
 
         </div>
+      </div>
+
+      <div class="project-container">
+        <video autoplay muted loop playsinline preload="auto" class="project-image fade-slide-up" style="width: 100%;">
+          <source src="images/ai/badge-pop.mp4" type="video/mp4">
+        </video>
+        <figcaption style="font-size: 11px; text-align: left; padding-top: 2px;">Review submitted: badge lands with a soft shadow, then the star pops with gold sparkles</figcaption>
+      </div>
+
+      <div class="project-container">
+        <video autoplay muted loop playsinline preload="auto" class="project-image fade-slide-up" style="width: 100%;">
+          <source src="images/ai/badge-spin.mp4" type="video/mp4">
+        </video>
+        <figcaption style="font-size: 11px; text-align: left; padding-top: 2px;">Top tour badge: the centre presses in, then turns slowly while the text stays still</figcaption>
+      </div>
+
+      <div class="project-container">
+        <video autoplay muted loop playsinline preload="auto" class="project-image fade-slide-up" style="width: 100%;">
+          <source src="images/ai/reviewer.mp4" type="video/mp4">
+        </video>
+        <figcaption style="font-size: 11px; text-align: left; padding-top: 2px;">Top reviewer: card floats up, type follows, illustration rises and settles</figcaption>
       </div>
 
     </main>
@@ -125,6 +101,33 @@
         });
       }, { threshold: 0.1 });
       elements.forEach(el => observer.observe(el));
+    });
+  </script>
+
+  <script>
+    window.addEventListener('load', () => {
+      document.body.classList.add('loaded');
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const links = document.querySelectorAll('a');
+      links.forEach(link => {
+        const href = link.getAttribute('href');
+        const isInternal = link.hostname === window.location.hostname;
+        const isAnchor = href && href.startsWith('#');
+        const isMailto = href && href.startsWith('mailto:');
+        if (isInternal && !link.target && !isAnchor && !isMailto) {
+          link.addEventListener('click', function (e) {
+            e.preventDefault();
+            requestAnimationFrame(() => {
+              document.body.classList.remove('loaded');
+              setTimeout(() => {
+                window.location.href = href;
+              }, 600);
+            });
+          });
+        }
+      });
     });
   </script>
 
