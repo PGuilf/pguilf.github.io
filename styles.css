@@ -325,8 +325,8 @@ h3, .project-descriptionl, .project-description1 {
 @media (min-width: 769px) {
   .project-descriptionl2 {
     max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
