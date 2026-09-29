@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C2YMSH68Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-C2YMSH68Z1');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trying out Jev: travel video editing using FFmpeg — Patrick Guilfoyle</title>
+  <link rel="stylesheet" href="styles.css?v=20260608">
+  <link rel="icon" href="images/favicon/favicon.png" type="image/svg+xml">
+</head>
+<body style="background: radial-gradient(circle at center, rgb(255, 255, 250) 0%, rgb(255, 245, 240) 100%); color: black;">
+
+  <div class="custom-cursor"></div>
+
+  <div id="project-content">
+    <header style="background-color: rgba(255, 255, 250, 0.92);">
+      <div class="header-content">
+        <h4 class="project-title">Trying out Jev: travel video editing using FFmpeg</h4>
+        <h2 class="right-title">
+          <a href="journal.html" class="close-link">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width:14px;height:14px;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+            Close
+          </a>
+        </h2>
+      </div>
+    </header>
+
+    <main class="project-page">
+      <div class="project-container">
+
+        <img src="images/ai/videoediting.png" alt="Trying out Jev: travel video editing using FFmpeg" class="project-image">
+
+        <div class="project-info">
+
+          <p class="project-descriptionl2">
+            Coming soon.
+          </p>
+
+        </div>
+      </div>
+
+    </main>
+
+    <footer></footer>
+  </div>
+
+  <script src="scripts.js?v=20260608"></script>
+  <script>
+    window.addEventListener('load', function () {
+      document.body.classList.add('loaded');
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const elements = document.querySelectorAll('.fade-slide-up');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      elements.forEach(el => observer.observe(el));
+    });
+  </script>
+
+  <script>
+    window.addEventListener('load', () => {
+      document.body.classList.add('loaded');
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const links = document.querySelectorAll('a');
+      links.forEach(link => {
+        const href = link.getAttribute('href');
+        const isInternal = link.hostname === window.location.hostname;
+        const isAnchor = href && href.startsWith('#');
+        const isMailto = href && href.startsWith('mailto:');
+        if (isInternal && !link.target && !isAnchor && !isMailto) {
+          link.addEventListener('click', function (e) {
+            e.preventDefault();
+            requestAnimationFrame(() => {
+              document.body.classList.remove('loaded');
+              setTimeout(() => {
+                window.location.href = href;
+              }, 600);
+            });
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
