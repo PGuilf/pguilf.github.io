@@ -57,29 +57,29 @@
       </div>
 
       <div class="project-container">
-        <video autoplay muted loop playsinline preload="auto" class="project-image fade-slide-up" style="width: 100%;">
-          <source src="images/ai/badge-pop.mp4" type="video/mp4">
+        <video autoplay muted loop playsinline preload="none" class="project-image fade-slide-up lazy-video" style="width: 100%;">
+          <source data-src="images/ai/badge-pop.mp4" type="video/mp4">
         </video>
         <figcaption style="font-size: 11px; text-align: left; padding-top: 2px;">Review submitted: badge lands with a soft shadow, then the star pops with gold sparkles</figcaption>
       </div>
 
       <div class="project-container">
-        <video autoplay muted loop playsinline preload="auto" class="project-image fade-slide-up" style="width: 100%;">
-          <source src="images/ai/badge-spin.mp4" type="video/mp4">
+        <video autoplay muted loop playsinline preload="none" class="project-image fade-slide-up lazy-video" style="width: 100%;">
+          <source data-src="images/ai/badge-spin.mp4" type="video/mp4">
         </video>
         <figcaption style="font-size: 11px; text-align: left; padding-top: 2px;">Top tour badge: the centre presses in, then turns slowly while the text stays still</figcaption>
       </div>
 
       <div class="project-container">
-        <video autoplay muted loop playsinline preload="auto" class="project-image fade-slide-up" style="width: 100%;">
-          <source src="images/ai/reviewer.mp4" type="video/mp4">
+        <video autoplay muted loop playsinline preload="none" class="project-image fade-slide-up lazy-video" style="width: 100%;">
+          <source data-src="images/ai/reviewer.mp4" type="video/mp4">
         </video>
         <figcaption style="font-size: 11px; text-align: left; padding-top: 2px;">Top reviewer: card floats up, type follows, illustration rises and settles</figcaption>
       </div>
 
       <div class="project-container">
-        <video autoplay muted loop playsinline preload="auto" class="project-image fade-slide-up" style="width: 100%;">
-          <source src="images/ai/messages.mp4" type="video/mp4">
+        <video autoplay muted loop playsinline preload="none" class="project-image fade-slide-up lazy-video" style="width: 100%;">
+          <source data-src="images/ai/messages.mp4" type="video/mp4">
         </video>
         <figcaption style="font-size: 11px; text-align: left; padding-top: 2px;">Refining the timing and feel through plain-language prompts — no keyframes, no code.</figcaption>
       </div>
@@ -108,6 +108,23 @@
         });
       }, { threshold: 0.1 });
       elements.forEach(el => observer.observe(el));
+
+      // Lazy-load videos when they scroll into view
+      const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const video = entry.target;
+            video.querySelectorAll('source[data-src]').forEach(source => {
+              source.src = source.dataset.src;
+              source.removeAttribute('data-src');
+            });
+            video.load();
+            video.play();
+            videoObserver.unobserve(video);
+          }
+        });
+      }, { rootMargin: '200px' });
+      document.querySelectorAll('.lazy-video').forEach(v => videoObserver.observe(v));
     });
   </script>
 
