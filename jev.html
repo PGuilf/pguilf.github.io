@@ -14,6 +14,32 @@
   <title>Trying out Jev: travel video editing using FFmpeg — Patrick Guilfoyle</title>
   <link rel="stylesheet" href="styles.css?v=20260608">
   <link rel="icon" href="images/favicon/favicon.png" type="image/svg+xml">
+  <style>
+    .video-row {
+      display: flex;
+      flex-direction: row;
+      gap: 12px;
+    }
+    .video-row video {
+      flex: 1;
+      min-width: 0;
+      border-radius: 8px;
+      display: block;
+      width: 100%;
+    }
+    @media (max-width: 600px) {
+      .video-row { flex-direction: column; }
+    }
+    .output-video-wrap {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .output-video-wrap video {
+      width: 100%;
+      border-radius: 8px;
+      display: block;
+    }
+  </style>
 </head>
 <body style="background: radial-gradient(circle at center, rgb(255, 255, 250) 0%, rgb(255, 245, 240) 100%); color: black;">
 
@@ -42,9 +68,51 @@
         <div class="project-info">
 
           <p class="project-descriptionl2">
-            Coming soon.
+            I've made a few one-minute travel videos by hand, influenced by <a href="https://www.instagram.com/samyoukilis/?hl=en" target="_blank" rel="noopener noreferrer">samyoukilis</a> on Instagram. The process is always the same: cut each clip down to about a second, then splice them together. It takes ages. So I wanted to see if AI could do the boring bit, using Jev.
           </p>
 
+          <div class="text-container">
+            <p class="project-descriptions">
+              Jev is a new model from TypeSafe AI. It's not a chatbot and it doesn't write anything back. You give it a narrow question with fixed answers and it picks one, with a probability attached. That's why it's meant to be quick: the company claims 40 to 200 times faster than the big LLMs. Fast decisions felt like a good fit for 120 clips.
+            </p>
+          </div>
+
+          <div class="text-container">
+            <p class="project-descriptions">
+              Working in Claude in the terminal, with FFmpeg doing the cutting, I set a few rules: drop anything repetitive, keep it in order so it reads like a journey, and find the best second of each shot. The first round came out, but the cuts were off. It wasn't finding the middle of the clip. The second try got the timing right but cut out so much it was only a small clip in the end. One more go, then I gave up.
+            </p>
+          </div>
+
+          <div class="text-container">
+            <p class="project-descriptions">
+              So what I thought would be a quick test of Jev turned into something else. The decisions were fast. The editing wasn't. Small video edits with AI need more time than I gave it. I'll be back.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="project-container">
+        <div class="video-row">
+          <video autoplay muted loop playsinline preload="none" class="lazy-video">
+            <source data-src="images/ai/jev-ref-1.mp4" type="video/mp4">
+          </video>
+          <video autoplay muted loop playsinline preload="none" class="lazy-video">
+            <source data-src="images/ai/jev-ref-2.mp4" type="video/mp4">
+          </video>
+          <video autoplay muted loop playsinline preload="none" class="lazy-video">
+            <source data-src="images/ai/jev-ref-3.mp4" type="video/mp4">
+          </video>
+        </div>
+        <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;">Travel videos edited manually</figcaption>
+      </div>
+
+      <div class="project-container">
+        <div class="output-video-wrap">
+          <video controls preload="metadata" class="fade-slide-up">
+            <source src="images/ai/jev-output.mp4" type="video/mp4">
+          </video>
+          <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;">Output video using Jev</figcaption>
         </div>
       </div>
 
@@ -72,6 +140,22 @@
         });
       }, { threshold: 0.1 });
       elements.forEach(el => observer.observe(el));
+
+      const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const video = entry.target;
+            video.querySelectorAll('source[data-src]').forEach(source => {
+              source.src = source.dataset.src;
+              source.removeAttribute('data-src');
+            });
+            video.load();
+            video.play();
+            videoObserver.unobserve(video);
+          }
+        });
+      }, { rootMargin: '200px' });
+      document.querySelectorAll('.lazy-video').forEach(v => videoObserver.observe(v));
     });
   </script>
 
