@@ -1172,7 +1172,23 @@ async function askAI(q) {
   const area = document.getElementById('answerArea');
   const text = document.getElementById('answerText');
   area.classList.add('visible');
-  text.innerHTML = 'Chat is snoozing right now. For any questions please email <a href="mailto:patrick.guilf@gmail.com">patrick.guilf@gmail.com</a>';
+  text.textContent = 'Thinking…';
+
+  try {
+    const res = await fetch('https://pguilf-groq-worker.patrickguilfoyle.workers.dev', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        system: `You are Patrick Guilfoyle's AI assistant on his portfolio site. Answer questions about Patrick briefly and helpfully using only the context below. If asked something not covered, suggest emailing patrick.guilf@gmail.com.\n\n${CONTEXT}`,
+        messages: [{ role: 'user', content: q }],
+      }),
+    });
+
+    const data = await res.json();
+    text.textContent = data.content?.[0]?.text ?? 'Something went wrong — please email patrick.guilf@gmail.com';
+  } catch {
+    text.innerHTML = 'Something went wrong. For any questions please email <a href="mailto:patrick.guilf@gmail.com">patrick.guilf@gmail.com</a>';
+  }
 }
 
 document.getElementById('searchSend').addEventListener('click', () => {
