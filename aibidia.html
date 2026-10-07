@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C2YMSH68Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-C2YMSH68Z1');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aibidia: visual examples — Patrick Guilfoyle</title>
+  <link rel="stylesheet" href="styles.css?v=20260608">
+  <link rel="icon" href="images/favicon/favicon.png" type="image/svg+xml">
+  <style>
+    .media-row {
+      display: flex;
+      flex-direction: row;
+      gap: 12px;
+    }
+    .media-row video,
+    .media-row img {
+      flex: 1;
+      min-width: 0;
+      border-radius: 8px;
+      display: block;
+      width: 100%;
+    }
+    @media (max-width: 600px) {
+      .media-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body style="background: radial-gradient(circle at center, rgb(250, 252, 255) 0%, rgb(235, 242, 255) 100%); color: black;">
+
+  <div class="custom-cursor"></div>
+
+  <div id="project-content">
+    <header style="background-color: rgba(250, 252, 255, 0.92);">
+      <div class="header-content">
+        <h4 class="project-title">Aibidia: visual examples</h4>
+        <h2 class="right-title">
+          <a href="journal.html" class="close-link">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width:14px;height:14px;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+            Close
+          </a>
+        </h2>
+      </div>
+    </header>
+
+    <main class="project-page">
+
+      <!-- Intro -->
+      <div class="project-container">
+        <div class="project-info">
+          <p class="project-descriptionl2">
+            A collection of visual examples and references from the Aibidia project.
+          </p>
+        </div>
+      </div>
+
+      <!-- Example section 1 — replace src with your media -->
+      <div class="project-container fade-slide-up">
+        <div class="media-row">
+          <video autoplay muted loop playsinline preload="none" class="lazy-video">
+            <source data-src="" type="video/mp4">
+          </video>
+          <video autoplay muted loop playsinline preload="none" class="lazy-video">
+            <source data-src="" type="video/mp4">
+          </video>
+        </div>
+        <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;"></figcaption>
+      </div>
+
+      <!-- Example section 2 — single image or video -->
+      <div class="project-container fade-slide-up">
+        <video autoplay muted loop playsinline preload="none" class="lazy-video" style="width:100%; border-radius:8px; display:block;">
+          <source data-src="" type="video/mp4">
+        </video>
+        <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;"></figcaption>
+      </div>
+
+      <!-- Example section 3 — three column -->
+      <div class="project-container fade-slide-up">
+        <div class="media-row">
+          <video autoplay muted loop playsinline preload="none" class="lazy-video">
+            <source data-src="" type="video/mp4">
+          </video>
+          <video autoplay muted loop playsinline preload="none" class="lazy-video">
+            <source data-src="" type="video/mp4">
+          </video>
+          <video autoplay muted loop playsinline preload="none" class="lazy-video">
+            <source data-src="" type="video/mp4">
+          </video>
+        </div>
+        <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;"></figcaption>
+      </div>
+
+    </main>
+
+    <footer></footer>
+  </div>
+
+  <script src="scripts.js?v=20260608"></script>
+  <script>
+    window.addEventListener('load', function () {
+      document.body.classList.add('loaded');
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const elements = document.querySelectorAll('.fade-slide-up');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      elements.forEach(el => observer.observe(el));
+
+      const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const video = entry.target;
+            video.querySelectorAll('source[data-src]').forEach(source => {
+              source.src = source.dataset.src;
+              source.removeAttribute('data-src');
+            });
+            video.load();
+            video.play();
+            videoObserver.unobserve(video);
+          }
+        });
+      }, { rootMargin: '200px' });
+      document.querySelectorAll('.lazy-video').forEach(v => videoObserver.observe(v));
+    });
+  </script>
+
+  <script>
+    window.addEventListener('load', () => {
+      document.body.classList.add('loaded');
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const links = document.querySelectorAll('a');
+      links.forEach(link => {
+        const href = link.getAttribute('href');
+        const isInternal = link.hostname === window.location.hostname;
+        const isAnchor = href && href.startsWith('#');
+        const isMailto = href && href.startsWith('mailto:');
+        if (isInternal && !link.target && !isAnchor && !isMailto) {
+          link.addEventListener('click', function (e) {
+            e.preventDefault();
+            requestAnimationFrame(() => {
+              document.body.classList.remove('loaded');
+              setTimeout(() => {
+                window.location.href = href;
+              }, 600);
+            });
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
