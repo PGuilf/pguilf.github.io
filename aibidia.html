@@ -15,6 +15,12 @@
   <link rel="stylesheet" href="styles.css?v=20260608">
   <link rel="icon" href="images/favicon/favicon.png" type="image/svg+xml">
   <style>
+    body { background: radial-gradient(circle at center, #fafcff 0%, #ebf2ff 100%); }
+    html.dark body { background: radial-gradient(circle at center, #111318 0%, #0d1017 100%) !important; }
+    header { background-color: rgba(250,252,255,0.92) !important; }
+    html.dark header { background-color: rgba(14,16,20,0.92) !important; }
+    .section-label { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-bottom: 12px; }
+    html.dark .section-label { color: #666; }
     .media-row {
       display: flex;
       flex-direction: row;
@@ -32,15 +38,6 @@
     .media-row img { cursor: zoom-in; }
     @media (max-width: 600px) {
       .media-row { flex-direction: column; }
-    }
-    .section-label {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--mid, #888);
-      margin-bottom: 12px;
     }
     .zoomable {
       cursor: zoom-in;
@@ -80,9 +77,41 @@
       opacity: 0.7;
     }
     #lb-close:hover { opacity: 1; }
+    /* Manual-play video wrapper */
+    .video-wrap {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000;
+      cursor: pointer;
+    }
+    .video-wrap video {
+      width: 100%;
+      display: block;
+      border-radius: 8px;
+    }
+    .play-btn {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.28);
+      transition: background 0.2s;
+    }
+    .play-btn svg {
+      width: 52px;
+      height: 52px;
+      fill: rgba(255,255,255,0.9);
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+      transition: transform 0.15s;
+    }
+    .video-wrap:hover .play-btn { background: rgba(0,0,0,0.18); }
+    .video-wrap:hover .play-btn svg { transform: scale(1.08); }
+    .play-btn.hidden { display: none; }
   </style>
 </head>
-<body style="background: radial-gradient(circle at center, rgb(250, 252, 255) 0%, rgb(235, 242, 255) 100%); color: black;">
+<body>
 
   <div class="custom-cursor"></div>
 
@@ -93,7 +122,7 @@
   </div>
 
   <div id="project-content">
-    <header style="background-color: rgba(250, 252, 255, 0.92);">
+    <header>
       <div class="header-content">
         <h4 class="project-title">Aibidia: visual examples</h4>
         <h2 class="right-title">
@@ -112,8 +141,8 @@
       <!-- GYG section -->
       <div class="project-container">
         <div class="project-info">
-          <p class="section-label">GYG</p>
-          <p class="project-descriptionl2">
+          <h2>GYG</h2>
+          <p class="project-descriptions">
             Here's some exploration for moving the review section into a bottom sheet. It brings together a few split A/B tests and was run as an experiment against control.
           </p>
         </div>
@@ -130,9 +159,14 @@
       </div>
 
       <div class="project-container fade-slide-up">
-        <video autoplay muted loop playsinline preload="none" class="lazy-video" style="width:100%; border-radius:8px; display:block;">
-          <source data-src="images/AB/GYGBottomsheet/Designsystem-GYG.mp4" type="video/mp4">
-        </video>
+        <div class="video-wrap">
+          <video preload="none" playsinline style="width:100%;">
+            <source src="images/AB/GYGBottomsheet/Designsystem-GYG.mp4" type="video/mp4">
+          </video>
+          <div class="play-btn" aria-label="Play video">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
         <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;">Design system</figcaption>
       </div>
 
@@ -142,16 +176,26 @@
       </div>
 
       <div class="project-container fade-slide-up">
-        <video autoplay muted loop playsinline preload="none" class="lazy-video" style="width:100%; border-radius:8px; display:block;">
-          <source data-src="images/AB/GYGBottomsheet/Bottomsheet-desktop.mp4" type="video/mp4">
-        </video>
+        <div class="video-wrap">
+          <video preload="none" playsinline style="width:100%;">
+            <source src="images/AB/GYGBottomsheet/Bottomsheet-desktop.mp4" type="video/mp4">
+          </video>
+          <div class="play-btn" aria-label="Play video">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
         <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;">Bottom sheet — desktop</figcaption>
       </div>
 
       <div class="project-container fade-slide-up">
-        <video autoplay muted loop playsinline preload="none" class="lazy-video" style="width:100%; border-radius:8px; display:block;">
-          <source data-src="images/AB/GYGBottomsheet/Bottomsheet-mobile.mp4" type="video/mp4">
-        </video>
+        <div class="video-wrap">
+          <video preload="none" playsinline style="width:100%;">
+            <source src="images/AB/GYGBottomsheet/Bottomsheet-mobile.mp4" type="video/mp4">
+          </video>
+          <div class="play-btn" aria-label="Play video">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
         <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;">Bottom sheet — mobile</figcaption>
       </div>
 
@@ -205,21 +249,20 @@
       }, { threshold: 0.1 });
       elements.forEach(el => observer.observe(el));
 
-      const videoObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const video = entry.target;
-            video.querySelectorAll('source[data-src]').forEach(source => {
-              source.src = source.dataset.src;
-              source.removeAttribute('data-src');
-            });
-            video.load();
+      document.querySelectorAll('.video-wrap').forEach(wrap => {
+        const video = wrap.querySelector('video');
+        const btn = wrap.querySelector('.play-btn');
+        wrap.addEventListener('click', () => {
+          if (video.paused) {
             video.play();
-            videoObserver.unobserve(video);
+            btn.classList.add('hidden');
+          } else {
+            video.pause();
+            btn.classList.remove('hidden');
           }
         });
-      }, { rootMargin: '200px' });
-      document.querySelectorAll('.lazy-video').forEach(v => videoObserver.observe(v));
+        video.addEventListener('ended', () => btn.classList.remove('hidden'));
+      });
     });
   </script>
 
