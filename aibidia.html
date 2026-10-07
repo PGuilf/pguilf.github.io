@@ -19,6 +19,7 @@
       display: flex;
       flex-direction: row;
       gap: 12px;
+      align-items: flex-start;
     }
     .media-row video,
     .media-row img {
@@ -28,14 +29,68 @@
       display: block;
       width: 100%;
     }
+    .media-row img { cursor: zoom-in; }
     @media (max-width: 600px) {
       .media-row { flex-direction: column; }
     }
+    .section-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--mid, #888);
+      margin-bottom: 12px;
+    }
+    .zoomable {
+      cursor: zoom-in;
+      border-radius: 8px;
+      display: block;
+      width: 100%;
+    }
+    /* Lightbox */
+    #lb {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+    }
+    #lb.open { display: flex; }
+    #lb img {
+      max-width: 92vw;
+      max-height: 92vh;
+      border-radius: 8px;
+      object-fit: contain;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.5);
+    }
+    #lb-close {
+      position: fixed;
+      top: 18px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 22px;
+      cursor: pointer;
+      line-height: 1;
+      opacity: 0.7;
+    }
+    #lb-close:hover { opacity: 1; }
   </style>
 </head>
 <body style="background: radial-gradient(circle at center, rgb(250, 252, 255) 0%, rgb(235, 242, 255) 100%); color: black;">
 
   <div class="custom-cursor"></div>
+
+  <!-- Lightbox -->
+  <div id="lb" role="dialog" aria-modal="true" aria-label="Image lightbox">
+    <button id="lb-close" aria-label="Close">&times;</button>
+    <img id="lb-img" src="" alt="">
+  </div>
 
   <div id="project-content">
     <header style="background-color: rgba(250, 252, 255, 0.92);">
@@ -54,50 +109,45 @@
 
     <main class="project-page">
 
-      <!-- Intro -->
+      <!-- GYG section -->
       <div class="project-container">
         <div class="project-info">
+          <p class="section-label">GYG</p>
           <p class="project-descriptionl2">
-            A collection of visual examples and references from the Aibidia project.
+            Here's some exploration for moving the review section into a bottom sheet. It brings together a few split A/B tests and was run as an experiment against control.
           </p>
         </div>
       </div>
 
-      <!-- Example section 1 — replace src with your media -->
+      <!-- Before + Exploration -->
       <div class="project-container fade-slide-up">
         <div class="media-row">
-          <video autoplay muted loop playsinline preload="none" class="lazy-video">
-            <source data-src="" type="video/mp4">
-          </video>
-          <video autoplay muted loop playsinline preload="none" class="lazy-video">
-            <source data-src="" type="video/mp4">
-          </video>
+          <img src="images/AB/GYGBottomsheet/Before.png" alt="Before state" class="zoomable">
+          <img src="images/AB/GYGBottomsheet/Exploration.png" alt="Exploration" class="zoomable">
+          <img src="images/AB/GYGBottomsheet/DesignNotes.png" alt="Design notes" class="zoomable">
         </div>
-        <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;"></figcaption>
+        <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;">Before, exploration and design notes — click to zoom</figcaption>
       </div>
 
-      <!-- Example section 2 — single image or video -->
+      <!-- Desktop video -->
       <div class="project-container fade-slide-up">
         <video autoplay muted loop playsinline preload="none" class="lazy-video" style="width:100%; border-radius:8px; display:block;">
-          <source data-src="" type="video/mp4">
+          <source data-src="images/AB/GYGBottomsheet/Bottomsheet-desktop.mp4" type="video/mp4">
         </video>
-        <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;"></figcaption>
+        <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;">Bottom sheet — desktop</figcaption>
       </div>
 
-      <!-- Example section 3 — three column -->
+      <!-- Mobile + Design system side by side -->
       <div class="project-container fade-slide-up">
         <div class="media-row">
           <video autoplay muted loop playsinline preload="none" class="lazy-video">
-            <source data-src="" type="video/mp4">
+            <source data-src="images/AB/GYGBottomsheet/Bottomsheet-mobile.mp4" type="video/mp4">
           </video>
           <video autoplay muted loop playsinline preload="none" class="lazy-video">
-            <source data-src="" type="video/mp4">
-          </video>
-          <video autoplay muted loop playsinline preload="none" class="lazy-video">
-            <source data-src="" type="video/mp4">
+            <source data-src="images/AB/GYGBottomsheet/Designsystem-GYG.mp4" type="video/mp4">
           </video>
         </div>
-        <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;"></figcaption>
+        <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;">Bottom sheet mobile / design system components</figcaption>
       </div>
 
     </main>
@@ -106,13 +156,38 @@
   </div>
 
   <script src="scripts.js?v=20260608"></script>
+
+  <script>
+    // Lightbox
+    const lb = document.getElementById('lb');
+    const lbImg = document.getElementById('lb-img');
+    const lbClose = document.getElementById('lb-close');
+
+    function openLb(src, alt) {
+      lbImg.src = src;
+      lbImg.alt = alt || '';
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLb() {
+      lb.classList.remove('open');
+      document.body.style.overflow = '';
+      lbImg.src = '';
+    }
+
+    document.querySelectorAll('.zoomable').forEach(img => {
+      img.addEventListener('click', () => openLb(img.src, img.alt));
+    });
+    lbClose.addEventListener('click', closeLb);
+    lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+  </script>
+
   <script>
     window.addEventListener('load', function () {
       document.body.classList.add('loaded');
     });
-  </script>
 
-  <script>
     document.addEventListener('DOMContentLoaded', () => {
       const elements = document.querySelectorAll('.fade-slide-up');
       const observer = new IntersectionObserver((entries) => {
@@ -144,10 +219,6 @@
   </script>
 
   <script>
-    window.addEventListener('load', () => {
-      document.body.classList.add('loaded');
-    });
-
     document.addEventListener('DOMContentLoaded', () => {
       const links = document.querySelectorAll('a');
       links.forEach(link => {
