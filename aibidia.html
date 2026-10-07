@@ -39,44 +39,17 @@
     @media (max-width: 600px) {
       .media-row { flex-direction: column; }
     }
-    .zoomable {
-      cursor: zoom-in;
+    .img-wrap {
+      position: relative;
       border-radius: 8px;
+      overflow: hidden;
+    }
+    .img-wrap img {
       display: block;
       width: 100%;
-    }
-    /* Lightbox */
-    #lb {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.88);
-      z-index: 9999;
-      align-items: center;
-      justify-content: center;
-      cursor: zoom-out;
-    }
-    #lb.open { display: flex; }
-    #lb img {
-      max-width: 92vw;
-      max-height: 92vh;
       border-radius: 8px;
-      object-fit: contain;
-      box-shadow: 0 8px 48px rgba(0,0,0,0.5);
+      cursor: zoom-in;
     }
-    #lb-close {
-      position: fixed;
-      top: 18px;
-      right: 20px;
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 22px;
-      cursor: pointer;
-      line-height: 1;
-      opacity: 0.7;
-    }
-    #lb-close:hover { opacity: 1; }
     /* Manual-play video wrapper */
     .video-wrap {
       position: relative;
@@ -116,9 +89,9 @@
   <div class="custom-cursor"></div>
 
   <!-- Lightbox -->
-  <div id="lb" role="dialog" aria-modal="true" aria-label="Image lightbox">
-    <button id="lb-close" aria-label="Close">&times;</button>
-    <img id="lb-img" src="" alt="">
+  <div id="case-lightbox" style="display:none;" onclick="closeLightbox()">
+    <button id="case-lightbox-close" onclick="event.stopPropagation(); closeLightbox()">&#x2715;</button>
+    <img id="case-lightbox-img" src="" alt="" onclick="event.stopPropagation()">
   </div>
 
   <div id="project-content">
@@ -149,18 +122,24 @@
       </div>
 
       <div class="project-container fade-slide-up">
-        <img src="images/AB/GYGBottomsheet/Before.png" alt="Before state" class="zoomable">
-        <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;">Before — click to zoom</figcaption>
+        <div class="carousel-container img-wrap">
+          <img src="images/AB/GYGBottomsheet/Before.png" alt="Before state">
+        </div>
+        <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;">Before</figcaption>
       </div>
 
       <div class="project-container fade-slide-up">
-        <img src="images/AB/GYGBottomsheet/Exploration.png" alt="Exploration" class="zoomable">
-        <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;">Exploration — click to zoom</figcaption>
+        <div class="carousel-container img-wrap">
+          <img src="images/AB/GYGBottomsheet/Exploration.png" alt="Exploration">
+        </div>
+        <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;">Exploration</figcaption>
       </div>
 
       <div class="project-container fade-slide-up">
-        <img src="images/AB/GYGBottomsheet/DesignNotes.png" alt="Design notes" class="zoomable">
-        <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;">Design notes — click to zoom</figcaption>
+        <div class="carousel-container img-wrap">
+          <img src="images/AB/GYGBottomsheet/DesignNotes.png" alt="Design notes">
+        </div>
+        <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;">Design notes</figcaption>
       </div>
 
       <div class="project-container fade-slide-up">
@@ -207,29 +186,38 @@
   <script src="scripts.js?v=20260608"></script>
 
   <script>
-    // Lightbox
-    const lb = document.getElementById('lb');
-    const lbImg = document.getElementById('lb-img');
-    const lbClose = document.getElementById('lb-close');
-
-    function openLb(src, alt) {
-      lbImg.src = src;
-      lbImg.alt = alt || '';
-      lb.classList.add('open');
+    function openLightbox(src) {
+      const lb = document.getElementById('case-lightbox');
+      lb.style.top = window.scrollY + 'px';
+      document.getElementById('case-lightbox-img').src = src;
+      lb.style.display = 'flex';
       document.body.style.overflow = 'hidden';
     }
-    function closeLb() {
-      lb.classList.remove('open');
+    function closeLightbox() {
+      document.getElementById('case-lightbox').style.display = 'none';
       document.body.style.overflow = '';
-      lbImg.src = '';
     }
-
-    document.querySelectorAll('.zoomable').forEach(img => {
-      img.addEventListener('click', () => openLb(img.src, img.alt));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.carousel-container').forEach(container => {
+        const btn = document.createElement('button');
+        btn.className = 'carousel-expand';
+        btn.setAttribute('aria-label', 'Enlarge');
+        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" width="15" height="15"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"/></svg><span class="enlarge-label">Enlarge</span>';
+        container.appendChild(btn);
+      });
+      document.querySelectorAll('.carousel-container img').forEach(img => {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', () => openLightbox(img.src));
+      });
+      document.querySelectorAll('.carousel-expand').forEach(btn => {
+        btn.addEventListener('click', e => {
+          e.stopPropagation();
+          const img = btn.closest('.carousel-container').querySelector('img');
+          if (img) openLightbox(img.src);
+        });
+      });
     });
-    lbClose.addEventListener('click', closeLb);
-    lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
   </script>
 
   <script>
