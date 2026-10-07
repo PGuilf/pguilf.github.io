@@ -169,12 +169,12 @@ document.addEventListener('DOMContentLoaded', () => {
       showSlide(currentIndex);
     };
 
-    prevBtn.addEventListener('click', () => {
+    if (prevBtn) prevBtn.addEventListener('click', () => {
       prevSlide();
       resetAutoplay();
     });
 
-    nextBtn.addEventListener('click', () => {
+    if (nextBtn) nextBtn.addEventListener('click', () => {
       nextSlide();
       resetAutoplay();
     });
