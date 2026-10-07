@@ -123,22 +123,22 @@
       </div>
 
       <div class="project-container fade-slide-up">
-        <div class="carousel-container img-wrap">
-          <img src="images/AB/GYGBottomsheet/Before.png" alt="Before state">
+        <div class="img-wrap">
+          <img class="zoomable" src="images/AB/GYGBottomsheet/Before.png" alt="Before state">
         </div>
         <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;">Before</figcaption>
       </div>
 
       <div class="project-container fade-slide-up">
-        <div class="carousel-container img-wrap">
-          <img src="images/AB/GYGBottomsheet/Exploration.png" alt="Exploration">
+        <div class="img-wrap">
+          <img class="zoomable" src="images/AB/GYGBottomsheet/Exploration.png" alt="Exploration">
         </div>
         <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;">Exploration</figcaption>
       </div>
 
       <div class="project-container fade-slide-up">
-        <div class="carousel-container img-wrap">
-          <img src="images/AB/GYGBottomsheet/DesignNotes.png" alt="Design notes">
+        <div class="img-wrap">
+          <img class="zoomable" src="images/AB/GYGBottomsheet/DesignNotes.png" alt="Design notes">
         </div>
         <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;">Design notes</figcaption>
       </div>
@@ -220,8 +220,8 @@
       </div>
 
       <div class="project-container fade-slide-up">
-        <div class="carousel-container img-wrap">
-          <img src="images/AB/ReviewCardClaude/Exploration.png" alt="Exploration">
+        <div class="img-wrap">
+          <img class="zoomable" src="images/AB/ReviewCardClaude/Exploration.png" alt="Exploration">
         </div>
         <figcaption style="font-size: 11px; text-align: left; padding-top: 6px;"></figcaption>
       </div>
@@ -258,6 +258,12 @@
       document.body.style.overflow = '';
     }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.zoomable').forEach(img => {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', () => openLightbox(img.src));
+      });
+    });
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.carousel-container').forEach(container => {
         const btn = document.createElement('button');
