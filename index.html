@@ -484,6 +484,9 @@
   .work-coming-soon::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); height: 60%; width: 1px; background: #bbb; }
   body.dark .work-coming-soon { color: #ffffff; }
   body.dark .work-coming-soon::before { background: #555; }
+  .work-img-wrap { position: relative; overflow: hidden; border-radius: 8px; }
+  .work-new-badge { position: absolute; top: 8px; left: 8px; background: rgba(255,255,255,0.55); color: #222; font-size: 9px; font-weight: 500; letter-spacing: 0.02em; padding: 3px 7px; border-radius: 3px; line-height: 1; pointer-events: none; }
+  body.dark .work-new-badge { background: rgba(0,0,0,0.4); color: #e8e4df; }
   .work-tags { display: flex; gap: 5px; flex-wrap: wrap; }
   .tag { font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--mid); border: 1px solid var(--rule); padding: 2px 8px; border-radius: 100px; }
 
@@ -755,7 +758,7 @@
 
     <div class="work-item ux ai reveal">
       <div>
-        <div style="overflow:hidden; border-radius:8px;"><img src="images/gyg/GYG.gif" alt="GetYourGuide" loading="lazy" style="width:100%; display:block; transform:scale(1.07); transform-origin:center;"></div>
+        <div class="work-img-wrap"><img src="images/gyg/GYG.gif" alt="GetYourGuide" loading="lazy" style="width:100%; display:block; transform:scale(1.07); transform-origin:center;"><span class="work-new-badge">New</span></div>
         <div class="work-info">
           <div class="work-title">GetYourGuide: Reimagining reviews</div>
           <p class="work-desc">Leading strategy and design, rebuilding the reviews experience through focused experiments and small bets, using AI to weave review insights and data into the product.</p>
@@ -781,7 +784,7 @@
 
     <div class="work-item ux ai commerce reveal">
       <div>
-        <div style="overflow:hidden; border-radius:8px;"><img src="images/pharmacy2u/p2u.jpg" alt="Pharmacy2U" loading="lazy" style="width:100%; display:block; transform:scale(1.07); transform-origin:center;"></div>
+        <div class="work-img-wrap"><img src="images/pharmacy2u/p2u.jpg" alt="Pharmacy2U" loading="lazy" style="width:100%; display:block; transform:scale(1.07); transform-origin:center;"><span class="work-new-badge">New</span></div>
         <div class="work-info">
           <div class="work-title">Pharmacy2U: AI Smart Reminders</div>
           <p class="work-desc">Using AI to power smart medication reminders for the UK's largest online pharmacy, helping patients stay on top of repeat prescriptions without the friction.</p>
