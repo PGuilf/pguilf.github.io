@@ -381,6 +381,35 @@
       document.body.classList.add('loaded');
     });
 
+    // Scroll-aware header title
+    (function() {
+      const titleEl = document.querySelector('.project-title');
+      const defaultTitle = 'Recent examples';
+      const sections = Array.from(document.querySelectorAll('h2'));
+      if (!titleEl || !sections.length) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            titleEl.textContent = entry.target.textContent;
+          }
+        });
+        // If all sections are above viewport, revert to default
+        const anyVisible = sections.some(s => {
+          const rect = s.getBoundingClientRect();
+          return rect.top < window.innerHeight && rect.bottom > 0;
+        });
+        if (!anyVisible) titleEl.textContent = defaultTitle;
+      }, { rootMargin: '-60px 0px -80% 0px', threshold: 0 });
+
+      sections.forEach(s => observer.observe(s));
+
+      // Revert to default when scrolled back to top
+      window.addEventListener('scroll', () => {
+        if (window.scrollY < 80) titleEl.textContent = defaultTitle;
+      }, { passive: true });
+    })();
+
     document.addEventListener('DOMContentLoaded', () => {
       const elements = document.querySelectorAll('.fade-slide-up');
       const observer = new IntersectionObserver((entries) => {
