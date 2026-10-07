@@ -388,7 +388,7 @@
     (function() {
       const titleEl = document.querySelector('.project-title');
       const defaultTitle = 'Recent examples';
-      const sections = Array.from(document.querySelectorAll('h2'));
+      const sections = Array.from(document.querySelectorAll('h2:not(.right-title)'));
       if (!titleEl || !sections.length) return;
 
       const observer = new IntersectionObserver((entries) => {
