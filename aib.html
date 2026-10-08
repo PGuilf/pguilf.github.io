@@ -79,6 +79,22 @@
     .video-wrap:hover .play-btn { background: rgba(0,0,0,0.18); }
     .video-wrap:hover .play-btn svg { transform: scale(1.08); }
     .play-btn.hidden { display: none; }
+    /* Keep header in a single row on mobile */
+    @media (max-width: 600px) {
+      .header-content {
+        flex-direction: row !important;
+        align-items: center !important;
+      }
+      .right-title {
+        align-self: auto !important;
+        margin-left: auto !important;
+      }
+    }
+    /* Captions: larger and white on this page */
+    figcaption {
+      font-size: 13px !important;
+      color: #fff !important;
+    }
   </style>
 </head>
 <body style="background: radial-gradient(circle at center, rgb(255, 255, 250) 0%, rgb(255, 245, 240) 100%); color: black;">
